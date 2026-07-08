@@ -1,0 +1,2049 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MAIA Prime — Anamnesis Command Center</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cyan: #00BCD4;
+  --cyan-bright: #26C6DA;
+  --cyan-deep: #0097A7;
+  --cyan-dim-d: rgba(0,188,212,0.14);
+  --cyan-dim-l: rgba(0,188,212,0.10);
+  --green: #1DB954;
+  --green-dim-d: rgba(29,185,84,0.14);
+  --green-dim-l: rgba(29,185,84,0.10);
+  --amber: #F59E0B;
+  --amber-dim-d: rgba(245,158,11,0.14);
+  --amber-dim-l: rgba(245,158,11,0.10);
+  --red: #EF4444;
+  --red-dim-d: rgba(239,68,68,0.14);
+  --red-dim-l: rgba(239,68,68,0.10);
+  --purple: #8B5CF6;
+  --purple-dim-d: rgba(139,92,246,0.14);
+  --purple-dim-l: rgba(139,92,246,0.10);
+  --mono: 'DM Mono', monospace;
+  --sans: 'Inter', sans-serif;
+  --display: 'Syne', sans-serif;
+}
+
+[data-theme="dark"] {
+  --bg:      #0d1117;
+  --bg2:     #131d2e;
+  --bg3:     #1a2540;
+  --border:  rgba(0,188,212,0.10);
+  --border2: rgba(0,188,212,0.22);
+  --text:    #d0e4f0;
+  --text2:   #7ba8c0;
+  --text3:   #3d6278;
+  --accent:  var(--cyan-bright);
+  --accent-dim: var(--cyan-dim-d);
+  --green-dim: var(--green-dim-d);
+  --amber-dim: var(--amber-dim-d);
+  --red-dim: var(--red-dim-d);
+  --purple-dim: var(--purple-dim-d);
+  --shadow: none;
+  --glow: 0 0 20px rgba(0,188,212,0.08);
+}
+
+[data-theme="light"] {
+  --bg:      #f0f6f9;
+  --bg2:     #ffffff;
+  --bg3:     #e4eef4;
+  --border:  rgba(0,150,170,0.12);
+  --border2: rgba(0,150,170,0.25);
+  --text:    #0d2535;
+  --text2:   #2e6a87;
+  --text3:   #7aadC0;
+  --accent:  #007a8e;
+  --accent-dim: var(--cyan-dim-l);
+  --green-dim: var(--green-dim-l);
+  --amber-dim: var(--amber-dim-l);
+  --red-dim: var(--red-dim-l);
+  --purple-dim: var(--purple-dim-l);
+  --shadow: 0 1px 4px rgba(0,100,130,0.08);
+  --glow: none;
+  --cyan: #007a8e;
+  --cyan-bright: #0097A7;
+  --green: #15803d;
+  --amber: #b45309;
+  --red: #dc2626;
+  --purple: #6d28d9;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { transition: none; }
+body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 13px; line-height: 1.6; min-height: 100vh; overflow-x: hidden; transition: background 0.25s, color 0.25s; }
+
+/* Animated background grid */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: linear-gradient(rgba(0,188,212,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,188,212,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none; z-index: 0;
+  transition: opacity 0.3s;
+}
+[data-theme="light"] body::before { opacity: 0.4; }
+
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(0,188,212,0.06) 0%, transparent 60%);
+  pointer-events: none; z-index: 0;
+}
+[data-theme="light"] body::after { background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(0,188,212,0.04) 0%, transparent 60%); }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+
+/* ---- LOGO SVG ---- */
+.logo-svg { width: 38px; height: 38px; }
+
+/* ---- HEADER ---- */
+header { padding: 20px 0 0; }
+.header-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; margin-bottom: 20px; }
+.brand { display: flex; align-items: center; gap: 12px; }
+.brand-icon { width: 42px; height: 42px; border-radius: 50%; background: var(--bg3); border: 1px solid var(--border2); display: flex; align-items: center; justify-content: center; box-shadow: var(--glow); overflow: hidden; }
+.brand-title { font-family: var(--display); font-size: 20px; font-weight: 700; letter-spacing: -0.01em; color: var(--accent); }
+.brand-sub { font-size: 11px; color: var(--text2); font-family: var(--mono); margin-top: 1px; }
+.header-right { display: flex; align-items: center; gap: 10px; }
+.stage-badge { font-family: var(--mono); font-size: 10px; padding: 4px 12px; border-radius: 20px; background: var(--accent-dim); border: 1px solid var(--border2); color: var(--accent); letter-spacing: 0.06em; }
+.date-text { font-family: var(--mono); font-size: 10px; color: var(--text3); }
+.theme-btn { width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--border2); background: var(--bg2); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 15px; transition: all 0.2s; color: var(--text2); }
+.theme-btn:hover { border-color: var(--accent); background: var(--accent-dim); }
+
+/* ---- TABS ---- */
+.tab-bar { display: flex; border-bottom: 1px solid var(--border); margin-bottom: 24px; gap: 0; }
+.tab { font-family: var(--mono); font-size: 11px; padding: 10px 18px; cursor: pointer; color: var(--text3); border: none; border-bottom: 2px solid transparent; background: none; transition: all 0.2s; letter-spacing: 0.04em; }
+.tab:hover { color: var(--text2); }
+.tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ---- SECTION ---- */
+.section { margin-bottom: 24px; }
+.sec-hd { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.sec-title { font-family: var(--mono); font-size: 10px; color: var(--text3); letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap; }
+.sec-line { flex: 1; height: 1px; background: var(--border); }
+
+/* ---- CARDS base ---- */
+.card { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; box-shadow: var(--shadow); transition: border-color 0.2s, box-shadow 0.2s; }
+.card:hover { border-color: var(--border2); }
+
+/* ---- METRICS ---- */
+.metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(155px, 1fr)); gap: 10px; }
+.metric-card { padding: 14px 16px; position: relative; overflow: hidden; }
+.metric-card::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; border-radius: 10px 10px 0 0; }
+.m-red::after { background: var(--red); }
+.m-amber::after { background: var(--amber); }
+.m-green::after { background: var(--green); }
+.m-cyan::after { background: var(--cyan); }
+.m-label { font-size: 10px; color: var(--text2); font-family: var(--mono); margin-bottom: 6px; letter-spacing: 0.04em; }
+.m-value { font-family: var(--display); font-size: 26px; font-weight: 700; line-height: 1.1; margin-bottom: 4px; }
+.m-red .m-value { color: var(--red); }
+.m-amber .m-value { color: var(--amber); }
+.m-green .m-value { color: var(--green); }
+.m-cyan .m-value { color: var(--accent); }
+.m-target { font-size: 10px; color: var(--text2); font-family: var(--mono); }
+
+/* ---- SYSTEMS ---- */
+.systems-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; }
+.sys-card { padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.sys-name { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 3px; }
+.sys-url { font-family: var(--mono); font-size: 10px; color: var(--text2); }
+.dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.dot-live { background: var(--green); box-shadow: 0 0 6px rgba(29,185,84,0.5); animation: blink 2s infinite; }
+.dot-warn { background: var(--amber); }
+.dot-off { background: var(--red); }
+@keyframes blink { 0%,100%{opacity:1;}50%{opacity:0.35;} }
+
+/* ---- AGENTS ---- */
+.agents-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(175px, 1fr)); gap: 10px; }
+.agent-card { padding: 16px; }
+.agent-ico { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; font-size: 15px; }
+.agent-name { font-family: var(--display); font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+.agent-role { font-size: 10px; color: var(--text2); font-family: var(--mono); margin-bottom: 8px; }
+.agent-st { display: flex; align-items: center; gap: 6px; font-size: 11px; margin-bottom: 2px; }
+.agent-task { font-size: 10px; color: var(--text2); margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); font-family: var(--mono); line-height: 1.5; }
+
+/* ---- SPRINT ---- */
+.sprint-list { display: flex; flex-direction: column; gap: 8px; }
+.sprint-row { padding: 11px 14px; display: flex; align-items: center; gap: 12px; }
+.s-num { font-family: var(--mono); font-size: 10px; color: var(--text3); min-width: 20px; }
+.s-info { flex: 1; }
+.s-task { font-size: 13px; color: var(--text); }
+.s-agent { font-size: 10px; color: var(--text2); font-family: var(--mono); margin-top: 2px; }
+.pill { font-size: 10px; padding: 2px 10px; border-radius: 20px; font-family: var(--mono); white-space: nowrap; border: 1px solid; }
+.pill-done { background: var(--green-dim); color: var(--green); border-color: rgba(29,185,84,0.2); }
+.pill-pend { background: var(--amber-dim); color: var(--amber); border-color: rgba(245,158,11,0.2); }
+.pill-block { background: var(--red-dim); color: var(--red); border-color: rgba(239,68,68,0.2); }
+.pill-cyan { background: var(--accent-dim); color: var(--accent); border-color: var(--border2); }
+
+/* ---- INVESTOR ---- */
+.inv-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(155px, 1fr)); gap: 10px; }
+.inv-card { padding: 14px; }
+.inv-label { font-size: 10px; color: var(--text2); font-family: var(--mono); margin-bottom: 5px; letter-spacing: 0.04em; }
+.inv-value { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 10px; }
+.pbar { height: 3px; background: var(--bg3); border-radius: 2px; overflow: hidden; }
+.pfill { height: 100%; border-radius: 2px; }
+
+/* ---- PLUGINS ---- */
+.plug-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(155px, 1fr)); gap: 8px; }
+.plug-chip { padding: 8px 12px; display: flex; align-items: center; gap: 8px; }
+.plug-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+.plug-name { font-family: var(--mono); font-size: 11px; color: var(--text2); }
+
+/* ---- TASK ROWS (shared) ---- */
+.task-row { padding: 11px 14px; margin-bottom: 7px; display: flex; align-items: flex-start; gap: 10px; cursor: default; }
+.t-check { width: 17px; height: 17px; border-radius: 4px; border: 1px solid var(--border2); flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; font-size: 10px; transition: all 0.2s; }
+.t-done { background: var(--green); border-color: var(--green); color: #fff; }
+.t-inprog { background: var(--amber-dim); border-color: var(--amber); color: var(--amber); }
+.t-blocked { background: var(--red-dim); border-color: var(--red); color: var(--red); font-weight: 700; }
+.t-body { flex: 1; }
+.t-name { font-size: 13px; color: var(--text); margin-bottom: 2px; }
+.t-name.struck { color: var(--text3); text-decoration: line-through; }
+.t-detail { font-size: 11px; color: var(--text2); font-family: var(--mono); }
+.t-tag { font-size: 9px; padding: 2px 8px; border-radius: 20px; font-family: var(--mono); white-space: nowrap; margin-top: 4px; display: inline-block; }
+
+.roadblocks { margin-top: 14px; }
+.rb-item { background: var(--red-dim); border: 1px solid rgba(239,68,68,0.18); border-radius: 8px; padding: 12px 14px; margin-bottom: 8px; display: flex; gap: 10px; }
+.rb-title { font-size: 13px; color: var(--text); font-weight: 500; margin-bottom: 3px; }
+.rb-desc { font-size: 11px; color: var(--text2); }
+.rb-fix { font-size: 10px; color: var(--amber); font-family: var(--mono); margin-top: 5px; }
+
+/* ---- AGENTS TAB CODE BLOCK ---- */
+.code-block { background: var(--bg3); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; font-family: var(--mono); font-size: 12px; color: var(--accent); line-height: 2.2; }
+
+/* ============ PROJECT MILESTONES — NEW ============ */
+.proj-summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 10px; margin-bottom: 24px; }
+.proj-summary-card { padding: 14px 16px; cursor: pointer; }
+.proj-summary-card:hover { border-color: var(--border2); transform: translateY(-1px); }
+.psc-header { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+.psc-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.psc-name { font-size: 13px; font-weight: 500; color: var(--text); flex: 1; }
+.psc-url { font-family: var(--mono); font-size: 10px; color: var(--text2); margin-bottom: 6px; }
+.psc-next { font-size: 11px; color: var(--text2); margin-bottom: 8px; line-height: 1.4; min-height: 30px; }
+.psc-pct { font-family: var(--mono); font-size: 11px; color: var(--text2); margin-bottom: 4px; text-align: right; }
+
+.proj-block { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; margin-bottom: 14px; overflow: hidden; box-shadow: var(--shadow); transition: border-color 0.2s; }
+.proj-block:hover { border-color: var(--border2); }
+.proj-deferred { opacity: 0.8; }
+.proj-deferred .proj-block-header { background: rgba(239,68,68,0.04); }
+
+.proj-block-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; cursor: pointer; gap: 12px; transition: background 0.15s; }
+.proj-block-header:hover { background: var(--bg3); }
+.pbh-left { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 0; }
+.pbh-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+.pbh-name { font-family: var(--display); font-size: 14px; font-weight: 600; color: var(--text); }
+.pbh-sub { font-family: var(--mono); font-size: 10px; color: var(--text2); margin-top: 2px; }
+.pbh-right { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
+.pbh-pct { font-family: var(--mono); font-size: 11px; font-weight: 500; white-space: nowrap; }
+.pbh-count { font-family: var(--mono); font-size: 9px; color: var(--text3); white-space: nowrap; }
+.proj-pbar-wrap { width: 90px; }
+.pbh-toggle { font-size: 13px; color: var(--text3); transition: transform 0.2s; user-select: none; width: 18px; text-align: center; }
+.pbh-toggle.collapsed { transform: rotate(-90deg); }
+
+.proj-block-body { padding: 0 18px 18px; }
+.proj-section-hd { font-family: var(--mono); font-size: 9px; color: var(--text3); letter-spacing: 0.12em; text-transform: uppercase; padding: 16px 0 8px; border-bottom: 1px solid var(--border); margin-bottom: 10px; }
+.proj-status-row { display: flex; align-items: center; gap: 10px; padding: 8px 0 12px; flex-wrap: wrap; }
+.proj-deferred-banner { background: var(--red-dim); border: 1px solid rgba(239,68,68,0.2); border-radius: 8px; padding: 14px 16px; margin-bottom: 14px; display: flex; gap: 12px; align-items: flex-start; }
+.pdb-title { font-size: 13px; color: var(--text); font-weight: 500; margin-bottom: 4px; }
+.pdb-desc { font-size: 12px; color: var(--text2); line-height: 1.6; }
+code { font-family: var(--mono); background: var(--bg3); padding: 1px 5px; border-radius: 3px; font-size: 11px; }
+
+/* ---- BOTTOM ---- */
+.bottom { padding: 18px 0; border-top: 1px solid var(--border); margin-top: 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+.bottom-text { font-family: var(--mono); font-size: 10px; color: var(--text3); }
+
+@media (max-width: 680px) {
+  .pbh-right { flex-direction: column; align-items: flex-end; gap: 6px; }
+  .proj-pbar-wrap { width: 70px; }
+  .proj-summary-grid { grid-template-columns: 1fr 1fr; }
+  .pbh-name { font-size: 12px; }
+}
+
+/* ============ COMMAND CENTER ============ */
+.cc-intro { background: var(--bg2); border: 1px solid var(--border2); border-radius: 10px; padding: 16px 20px; margin-bottom: 20px; display: flex; align-items: flex-start; gap: 14px; }
+.cc-intro-icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+.cc-intro-title { font-family: var(--display); font-size: 16px; font-weight: 700; color: var(--accent); margin-bottom: 4px; }
+.cc-intro-desc { font-size: 12px; color: var(--text2); line-height: 1.6; }
+
+.cc-phase-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 8px; margin-bottom: 24px; }
+.cc-pbar-item { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; cursor: pointer; transition: border-color 0.15s; }
+.cc-pbar-item:hover { border-color: var(--border2); }
+.cc-pbar-num { font-family: var(--mono); font-size: 9px; color: var(--text3); margin-bottom: 3px; letter-spacing: 0.08em; }
+.cc-pbar-name { font-size: 12px; font-weight: 500; color: var(--text); margin-bottom: 5px; }
+.cc-pbar-badge { font-family: var(--mono); font-size: 9px; padding: 2px 7px; border-radius: 20px; display: inline-block; }
+.cc-pbar-time { font-family: var(--mono); font-size: 9px; color: var(--text3); margin-top: 4px; }
+
+.cc-phase { margin-bottom: 20px; }
+.cc-phase-hdr { display: flex; align-items: center; gap: 0; margin-bottom: 12px; border-left: 3px solid var(--accent); padding-left: 12px; cursor: pointer; }
+.cc-phase-hdr:hover .cc-ph-title { color: var(--accent); }
+.cc-ph-num { font-family: var(--mono); font-size: 10px; color: var(--text3); letter-spacing: 0.1em; margin-right: 10px; }
+.cc-ph-title { font-family: var(--display); font-size: 16px; font-weight: 700; color: var(--text); flex: 1; transition: color 0.15s; }
+.cc-ph-meta { font-family: var(--mono); font-size: 10px; color: var(--text2); margin-left: 10px; }
+.cc-ph-toggle { font-size: 12px; color: var(--text3); margin-left: 10px; transition: transform 0.2s; user-select: none; }
+.cc-ph-toggle.collapsed { transform: rotate(-90deg); }
+
+.cc-phase-body { display: flex; flex-direction: column; gap: 10px; }
+
+.cc-directive { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; transition: border-color 0.15s; }
+.cc-directive:hover { border-color: var(--border2); }
+.cc-directive-top { display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px 10px; }
+.cc-d-num { font-family: var(--mono); font-size: 11px; font-weight: 500; color: var(--text3); min-width: 36px; padding-top: 2px; flex-shrink: 0; }
+.cc-d-body { flex: 1; }
+.cc-d-title { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 3px; }
+.cc-d-why { font-size: 11px; color: var(--text2); line-height: 1.5; margin-bottom: 6px; }
+.cc-d-meta { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.cc-agent-tag { font-family: var(--mono); font-size: 9px; padding: 2px 8px; border-radius: 20px; background: var(--accent-dim); color: var(--accent); border: 1px solid var(--border2); }
+.cc-skill-tag { font-family: var(--mono); font-size: 9px; padding: 2px 8px; border-radius: 20px; background: var(--purple-dim); color: var(--purple); border: 1px solid rgba(139,92,246,0.2); }
+.cc-d-status { flex-shrink: 0; padding-top: 2px; }
+
+.cc-cmd { background: var(--bg3); border-top: 1px solid var(--border); padding: 12px 16px; }
+.cc-cmd-label { font-family: var(--mono); font-size: 9px; color: var(--text3); letter-spacing: 0.1em; margin-bottom: 6px; }
+.cc-cmd-text { font-family: var(--mono); font-size: 11px; color: var(--cyan-bright); line-height: 1.7; white-space: pre-wrap; word-break: break-word; }
+.cc-outcome { font-family: var(--mono); font-size: 10px; color: var(--text2); border-top: 1px solid var(--border); padding: 8px 16px; background: var(--bg2); }
+
+.cc-divider { height: 1px; background: var(--border); margin: 6px 0 14px; }
+
+@media (max-width: 680px) {
+  .cc-phase-bar { grid-template-columns: 1fr 1fr 1fr; }
+  .cc-directive-top { flex-direction: column; gap: 6px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <div class="brand">
+      <div class="brand-icon">
+        <svg width="32" height="32" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="bg-grad" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#00BCD4" stop-opacity="0.15"/>
+              <stop offset="100%" stop-color="#00BCD4" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <circle cx="50" cy="50" r="48" fill="none" stroke="#00BCD4" stroke-width="0.4" opacity="0.3"/>
+          <circle cx="50" cy="50" r="42" fill="none" stroke="#00BCD4" stroke-width="0.4" opacity="0.3"/>
+          <circle cx="50" cy="50" r="36" fill="none" stroke="#00BCD4" stroke-width="0.4" opacity="0.35"/>
+          <circle cx="50" cy="50" r="30" fill="none" stroke="#00BCD4" stroke-width="0.5" opacity="0.4"/>
+          <circle cx="50" cy="50" r="24" fill="none" stroke="#00BCD4" stroke-width="0.5" opacity="0.4"/>
+          <circle cx="50" cy="50" r="18" fill="none" stroke="#00BCD4" stroke-width="0.6" opacity="0.5"/>
+          <g opacity="0.25" stroke="#00BCD4" stroke-width="0.5" fill="none">
+            <line x1="25" y1="25" x2="45" y2="38"/><line x1="45" y1="38" x2="70" y2="28"/>
+            <line x1="70" y1="28" x2="75" y2="48"/><line x1="45" y1="38" x2="55" y2="60"/>
+            <line x1="55" y1="60" x2="75" y2="48"/><line x1="55" y1="60" x2="40" y2="72"/>
+            <line x1="40" y1="72" x2="25" y2="65"/><line x1="25" y1="65" x2="25" y2="25"/>
+            <line x1="25" y1="25" x2="55" y2="20"/><line x1="55" y1="20" x2="70" y2="28"/>
+          </g>
+          <g fill="#00BCD4" opacity="0.35">
+            <circle cx="25" cy="25" r="1.2"/><circle cx="55" cy="20" r="1.2"/>
+            <circle cx="70" cy="28" r="1.2"/><circle cx="75" cy="48" r="1.2"/>
+            <circle cx="55" cy="60" r="1.2"/><circle cx="40" cy="72" r="1.2"/>
+            <circle cx="25" cy="65" r="1.2"/><circle cx="45" cy="38" r="1.5"/>
+          </g>
+          <path d="M38 72 C32 70 28 62 28 54 C28 44 30 38 36 33 C40 28 46 25 52 25 C62 25 70 33 70 44 C70 52 66 58 60 62 C58 64 56 66 56 70 L44 70 C44 67 42 70 38 72Z" fill="none" stroke="#00BCD4" stroke-width="1.2" opacity="0.7"/>
+          <path d="M36 45 C38 42 42 43 43 46" fill="none" stroke="#00BCD4" stroke-width="0.8" opacity="0.7"/>
+          <path d="M43 46 C45 50 50 50 52 46" fill="none" stroke="#00BCD4" stroke-width="0.8" opacity="0.7"/>
+          <path d="M52 46 C55 42 60 43 62 47" fill="none" stroke="#00BCD4" stroke-width="0.8" opacity="0.7"/>
+          <path d="M38 53 C42 50 46 52 48 56" fill="none" stroke="#00BCD4" stroke-width="0.8" opacity="0.6"/>
+          <path d="M48 56 C52 59 58 57 60 53" fill="none" stroke="#00BCD4" stroke-width="0.8" opacity="0.6"/>
+          <line x1="50" y1="64" x2="50" y2="72" stroke="#00BCD4" stroke-width="1" opacity="0.6"/>
+          <line x1="47" y1="66" x2="53" y2="66" stroke="#00BCD4" stroke-width="0.8" opacity="0.5"/>
+          <line x1="47" y1="68" x2="53" y2="68" stroke="#00BCD4" stroke-width="0.8" opacity="0.5"/>
+          <line x1="47" y1="70" x2="53" y2="70" stroke="#00BCD4" stroke-width="0.8" opacity="0.5"/>
+        </svg>
+      </div>
+      <div>
+        <div class="brand-title">Anamnesis</div>
+        <div class="brand-sub">MAIA Prime Command Center · Dr. Wisam Naddaf</div>
+      </div>
+    </div>
+    <div class="header-right">
+      <span class="stage-badge">BETA · PRE-LAUNCH</span>
+      <span class="date-text" id="current-date"></span>
+      <button class="theme-btn" id="theme-btn" onclick="toggleTheme()" title="Toggle theme">🌙</button>
+    </div>
+  </div>
+  <div class="tab-bar">
+    <button class="tab active" onclick="switchTab('commandcenter',this)">Command Center</button>
+    <button class="tab" onclick="switchTab('overview',this)">Overview</button>
+    <button class="tab" onclick="switchTab('milestones',this)">Development Milestones</button>
+    <button class="tab" onclick="switchTab('agents',this)">Agents</button>
+    <button class="tab" onclick="switchTab('automation',this)">Automation</button>
+    <button class="tab" onclick="switchTab('investor',this)">Investor</button>
+  </div>
+</header>
+
+<!-- ===== OVERVIEW ===== -->
+<div id="tab-overview" class="tab-panel">
+
+  <div class="section">
+    <div class="sec-hd"><span class="sec-title">Key metrics</span><div class="sec-line"></div></div>
+    <div class="metrics-grid">
+      <div class="card metric-card m-red"><div class="m-label">EMAIL SUBSCRIBERS</div><div class="m-value">0</div><div class="m-target">Target: 500 / month 1</div></div>
+      <div class="card metric-card m-red"><div class="m-label">MVP USERS</div><div class="m-value">Beta</div><div class="m-target">Target: 100 / month 1</div></div>
+      <div class="card metric-card m-red"><div class="m-label">PAYING SUBSCRIBERS</div><div class="m-value">0</div><div class="m-target">Target: 10 / month 1</div></div>
+      <div class="card metric-card m-red"><div class="m-label">MRR</div><div class="m-value">€0</div><div class="m-target">Target: €420 / month 3</div></div>
+      <div class="card metric-card m-green"><div class="m-label">LANDING CONVERSION</div><div class="m-value">D1.1 ✓</div><div class="m-target">CRO complete 2026-06-13 · measuring</div></div>
+      <div class="card metric-card m-green"><div class="m-label">EMAIL LIST — META STRATEGY</div><div class="m-value">7,100-8,400 ✓</div><div class="m-target">Matched from 16,158 · 44-52% match rate · ID 52617665331538 · fully populated 2026-06-17</div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-hd"><span class="sec-title">System status</span><div class="sec-line"></div></div>
+    <div class="systems-grid">
+      <div class="card sys-card"><div><div class="sys-name">MVP Chatbot</div><div class="sys-url">mvp.anamnesis.health</div></div><div class="dot dot-live"></div></div>
+      <div class="card sys-card"><div><div class="sys-name">Admin Dashboard</div><div class="sys-url">admin.anamnesis.health</div></div><div class="dot dot-live"></div></div>
+      <div class="card sys-card"><div><div class="sys-name">Landing Page</div><div class="sys-url">anamnesis.health</div></div><div class="dot dot-live"></div></div>
+      <div class="card sys-card"><div><div class="sys-name">Main Platform</div><div class="sys-url">Recovery — B1 ESM crash</div></div><div class="dot dot-warn"></div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-hd"><span class="sec-title">MCP stack — 7 connected</span><div class="sec-line"></div></div>
+    <div class="systems-grid">
+      <div class="card sys-card"><div><div class="sys-name">Google Drive</div><div class="sys-url">claude.ai MCP · wisam.w.naddaf@gmail.com</div></div><div class="dot dot-live"></div></div>
+      <div class="card sys-card"><div><div class="sys-name">Figma</div><div class="sys-url">claude.ai MCP · Starter plan · Full seat</div></div><div class="dot dot-live"></div></div>
+      <div class="card sys-card"><div><div class="sys-name">Supabase</div><div class="sys-url">claude.ai MCP · Wisam Naddaf org</div></div><div class="dot dot-live"></div></div>
+      <div class="card sys-card"><div><div class="sys-name">Stripe</div><div class="sys-url">plugin MCP · Anamnesis acct · read-only</div></div><div class="dot dot-live"></div></div>
+      <div class="card sys-card"><div><div class="sys-name">n8n</div><div class="sys-url">claude.ai MCP · anamnesis-maia.app.n8n.cloud</div></div><div class="dot dot-live"></div></div>
+      <div class="card sys-card"><div><div class="sys-name">GitHub</div><div class="sys-url">github-mcp · WisMen org · PAT auth</div></div><div class="dot dot-live"></div></div>
+      <div class="card sys-card"><div><div class="sys-name">Meta Ads</div><div class="sys-url">meta-ads MCP · mcp.facebook.com/ads · authenticated</div></div><div class="dot dot-live"></div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-hd"><span class="sec-title">Active sprint — June 2026</span><div class="sec-line"></div><span style="font-family:var(--mono);font-size:9px;color:var(--text3);margin-left:8px;">5 pending · 1 in progress · 13 done</span></div>
+    <div class="sprint-list">
+      <div class="card sprint-row"><span class="s-num" style="color:var(--green);">✓</span><div class="s-info"><div class="t-name struck">Landing page CRO audit + implementation D1.1 — 2026-06-13</div><div class="s-agent">Growth Agent · subtitle + credibility badge + urgency copy + trust signal + Fonts optimised</div></div><span class="pill pill-done">Done ✓</span></div>
+      <div class="card sprint-row"><span class="s-num" style="color:var(--green);">✓</span><div class="s-info"><div class="t-name struck">D1.2 Manual flow verification — all 5 flows passed — 2026-06-13</div><div class="s-agent">subscribe ✅ investor ✅ unsubscribe ✅ video ✅ mobile ✅ — no code changes</div></div><span class="pill pill-done">Done ✓</span></div>
+      <div class="card sprint-row"><span class="s-num" style="color:var(--green);">✓</span><div class="s-info"><div class="t-name struck">D1.3 Quality gate — all 3 live repos — 2026-06-13</div><div class="s-agent">launching-soon ✅ · mvp ✅ 131 tests · admin ✅ 239.7kb · bundle cleanup −1,418 lines</div></div><span class="pill pill-done">Done ✓</span></div>
+      <div class="card sprint-row"><span class="s-num" style="color:var(--green);">✓</span><div class="s-info"><div class="t-name struck">Privacy policy — GDPR Article 6(1)(f) legitimate interest advertising clause — 2026-06-13</div><div class="s-agent">Compliance Agent · Meta Custom Audience (hashed) + Pixel retargeting + Google Analytics · Art 21 opt-out · 24-month retention · pushed to anamnesis.health</div></div><span class="pill pill-done">Done ✓</span></div>
+      <div class="card sprint-row"><span class="s-num" style="color:var(--green);">✓</span><div class="s-info"><div class="t-name struck">D2.1 Upload 16K contacts to Meta Custom Audience — 2026-06-17</div><div class="s-agent">Marketing Agent · Audience ID 52617665331538 · 16,158 emails · GDPR Art 6(1)(f) · Populating · match rate 24-48h</div></div><span class="pill pill-done">Done ✓</span></div>
+      <div class="card sprint-row"><span class="s-num" style="color:var(--amber);">▶</span><div class="s-info"><div class="s-task">Create 1% Lookalike Audience — CZ + SK targeting</div><div class="s-agent">Marketing Agent · Meta Ads MCP · 200K-500K similar users · EU expansion after validation</div></div><span class="pill pill-pend">Pending</span></div>
+      <div class="card sprint-row"><span class="s-num" style="color:var(--amber);">▶</span><div class="s-info"><div class="s-task">Launch Meta ad campaign — "Medical AI Built by a Real Doctor" — €10-20/day</div><div class="s-agent">Marketing Agent · Meta Ads MCP · Lead Generation objective · physician founder creative</div></div><span class="pill pill-pend">Pending</span></div>
+      <div class="card sprint-row"><span class="s-num" style="color:var(--amber);">▶</span><div class="s-info"><div class="s-task">Build fresh opted-in email list — anamnesis.health signups + LinkedIn outreach</div><div class="s-agent">Growth Agent · 16K archived to Meta · fresh list for direct email campaigns only</div></div><span class="pill pill-cyan">In Progress</span></div>
+      <div class="card sprint-row"><span class="s-num" style="color:var(--amber);">▶</span><div class="s-info"><div class="s-task">Email welcome sequence — 3 segments (Patients · Physicians · Investors)</div><div class="s-agent">Growth Agent · marketing-skills:emails · depends on email list task above</div></div><span class="pill pill-pend">Pending</span></div>
+      <div class="card sprint-row"><span class="s-num" style="color:var(--amber);">▶</span><div class="s-info"><div class="s-task">n8n email capture automation — form submit → SendGrid → subscriber list</div><div class="s-agent">Marketing Agent · n8n MCP · Workflow W1 first priority</div></div><span class="pill pill-pend">Pending</span></div>
+      <div class="card sprint-row"><span class="s-num" style="color:var(--green);">✓</span><div class="s-info"><div class="s-task">Skills + 14 MCPs configured — 98 skills across 13 packs</div><div class="s-agent">All agents · Claude Code · Meta Ads MCP 58 tools · Canva · Playwright · Firecrawl</div></div><span class="pill pill-done">Done ✓</span></div>
+      <div class="card sprint-row"><span class="s-num" style="color:var(--green);">✓</span><div class="s-info"><div class="s-task">All 4 repos — enhanced CLAUDE.md committed and pushed to GitHub</div><div class="s-agent">Technical Agent · WisMen org · safety rules · quality gates · regulatory constraints</div></div><span class="pill pill-done">Done ✓</span></div>
+      <div class="card sprint-row"><span class="s-num" style="color:var(--green);">✓</span><div class="s-info"><div class="s-task">MAIA Prime command center — 6 agents + dashboards built</div><div class="s-agent">All agents · Dev/Anamnesis/ · Growth · Technical · Finance · Medical · Compliance · Marketing</div></div><span class="pill pill-done">Done ✓</span></div>
+      <div class="card sprint-row"><span class="s-num" style="color:var(--green);">✓</span><div class="s-info"><div class="s-task">Dashboard milestones tab rebuilt — per-project phases, collapsible, progress bars</div><div class="s-agent">Technical Agent · 4 projects · CLAUDE.md sources · anamnesis-command-center repo</div></div><span class="pill pill-done">Done ✓</span></div>
+      <div class="card sprint-row"><span class="s-num" style="color:var(--green);">✓</span><div class="s-info"><div class="s-task">Meta Pixel + Google Analytics installed on anamnesis.health</div><div class="s-agent">Marketing Agent · retargeting building passively · traffic + conversion tracking live</div></div><span class="pill pill-done">Done ✓</span></div>
+      <div class="card sprint-row"><span class="s-num" style="color:var(--green);">✓</span><div class="s-info"><div class="s-task">16K email list moved to RAW/ folder — gitignored across all repos</div><div class="s-agent">Technical Agent · never committed to Git · sensitive data protocol followed</div></div><span class="pill pill-done">Done ✓</span></div>
+      <div class="card sprint-row"><span class="s-num" style="color:var(--green);">✓</span><div class="s-info"><div class="t-name struck">D1.4 Privacy policy — GDPR Article 6(1)(f) legitimate interest advertising clause — 2026-06-13</div><div class="s-agent">Compliance Agent · Meta Custom Audience (hashed) + Meta Pixel retargeting + Google Analytics · Article 21 opt-out · 24-month retention · pushed to anamnesis.health</div></div><span class="pill pill-done">Done ✓</span></div>
+      <div class="card sprint-row"><span class="s-num" style="color:var(--green);">✓</span><div class="s-info"><div class="t-name struck">D1.5 SEO gap-fill + skill refinement — 2026-06-13</div><div class="s-agent">Growth Agent · ai-seo + schema skills applied · E-E-A-T founder block · areaServed CZ/SK/EU · llms.txt created · HIPAA keyword removed · potentialAction removed · offers.availability added · creator added · TS ✅ Build ✅</div></div><span class="pill pill-done">Done ✓</span></div>
+      <div class="card sprint-row"><span class="s-num" style="color:var(--green);">✓</span><div class="s-info"><div class="t-name struck">D1.6 Copy update — subtitle + credibility bar messaging — 2026-06-14</div><div class="s-agent">Technical Agent · home.tsx · subtitle: "Inspired by a Clinical Practicing Physician" · credibility bar: organize, understand, prepare health info before seeking care · TS ✅ Build ✅ pushed to main</div></div><span class="pill pill-done">Done ✓</span></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-hd"><span class="sec-title">Installed plugins — 14 active</span><div class="sec-line"></div></div>
+    <div class="plug-grid">
+      <div class="card plug-chip"><div class="plug-dot"></div><span class="plug-name">marketing-skills</span></div>
+      <div class="card plug-chip"><div class="plug-dot"></div><span class="plug-name">marketing-cro</span></div>
+      <div class="card plug-chip"><div class="plug-dot"></div><span class="plug-name">product-innovation</span></div>
+      <div class="card plug-chip"><div class="plug-dot"></div><span class="plug-name">coderabbit</span></div>
+      <div class="card plug-chip"><div class="plug-dot"></div><span class="plug-name">aikido</span></div>
+      <div class="card plug-chip"><div class="plug-dot"></div><span class="plug-name">security-guidance</span></div>
+      <div class="card plug-chip"><div class="plug-dot"></div><span class="plug-name">feature-dev</span></div>
+      <div class="card plug-chip"><div class="plug-dot"></div><span class="plug-name">claude-md-mgmt</span></div>
+      <div class="card plug-chip"><div class="plug-dot"></div><span class="plug-name">typescript-lsp</span></div>
+      <div class="card plug-chip"><div class="plug-dot"></div><span class="plug-name">code-craftsmanship</span></div>
+      <div class="card plug-chip"><div class="plug-dot"></div><span class="plug-name">github</span></div>
+      <div class="card plug-chip"><div class="plug-dot"></div><span class="plug-name">stripe</span></div>
+      <div class="card plug-chip"><div class="plug-dot"></div><span class="plug-name">supabase</span></div>
+      <div class="card plug-chip"><div class="plug-dot"></div><span class="plug-name">meta-ads-mcp ✅</span></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== MILESTONES ===== -->
+<div id="tab-milestones" class="tab-panel">
+
+  <!-- CROSS-PROJECT SUMMARY -->
+  <div class="section">
+    <div class="sec-hd"><span class="sec-title">All Projects — At a Glance</span><div class="sec-line"></div></div>
+    <div class="proj-summary-grid">
+
+      <div class="card proj-summary-card" onclick="scrollToProj('proj-ls')">
+        <div class="psc-header">
+          <div class="psc-dot dot-live"></div>
+          <div class="psc-name">Launching Soon</div>
+          <span class="pill pill-done">Live</span>
+        </div>
+        <div class="psc-url">anamnesis.health</div>
+        <div class="psc-next">D1.1 ✓ D1.2 ✓ D1.3 ✓ D1.4 ✓ D1.5 ✓ · Next: Meta Ads campaign launch</div>
+        <div class="psc-pct">100% complete</div>
+        <div class="pbar"><div class="pfill" style="width:100%;background:var(--green);"></div></div>
+      </div>
+
+      <div class="card proj-summary-card" onclick="scrollToProj('proj-mvp')">
+        <div class="psc-header">
+          <div class="psc-dot dot-live"></div>
+          <div class="psc-name">MVP Chatbot</div>
+          <span class="pill pill-done">Live</span>
+        </div>
+        <div class="psc-url">mvp.anamnesis.health</div>
+        <div class="psc-next">Next: 100 beta users · testimonials</div>
+        <div class="psc-pct">67% complete</div>
+        <div class="pbar"><div class="pfill" style="width:67%;background:var(--green);"></div></div>
+      </div>
+
+      <div class="card proj-summary-card" onclick="scrollToProj('proj-admin')">
+        <div class="psc-header">
+          <div class="psc-dot dot-live"></div>
+          <div class="psc-name">Admin Dashboard</div>
+          <span class="pill pill-done">Live</span>
+        </div>
+        <div class="psc-url">admin.anamnesis.health</div>
+        <div class="psc-next">Next: real-time monitoring · analytics</div>
+        <div class="psc-pct">77% complete</div>
+        <div class="pbar"><div class="pfill" style="width:77%;background:var(--green);"></div></div>
+      </div>
+
+      <div class="card proj-summary-card" onclick="scrollToProj('proj-main')">
+        <div class="psc-header">
+          <div class="psc-dot dot-warn"></div>
+          <div class="psc-name">Main Platform</div>
+          <span class="pill pill-block">Deferred</span>
+        </div>
+        <div class="psc-url">Post-launch · B1–B10 blockers</div>
+        <div class="psc-next">Deferred: auth recovery after public launch</div>
+        <div class="psc-pct">0% — blocked</div>
+        <div class="pbar"><div class="pfill" style="width:0%;background:var(--red);"></div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── PROJECT 1: LAUNCHING SOON ── -->
+  <div class="proj-block" id="proj-ls">
+    <div class="proj-block-header" onclick="toggleProj('proj-ls')">
+      <div class="pbh-left">
+        <div class="pbh-dot dot-live"></div>
+        <div>
+          <div class="pbh-name">Project 1 — Launching Soon · anamnesis.health</div>
+          <div class="pbh-sub">Marketing & lead capture · React 18 + Express · SendGrid · Neon PostgreSQL · Replit Autoscale</div>
+        </div>
+      </div>
+      <div class="pbh-right">
+        <div>
+          <div class="pbh-pct" style="color:var(--green);">100%</div>
+          <div class="pbh-count">12 / 12 tasks done</div>
+        </div>
+        <div class="proj-pbar-wrap"><div class="pbar"><div class="pfill" style="width:100%;background:var(--green);"></div></div></div>
+        <div class="pbh-toggle" id="proj-ls-toggle">▾</div>
+      </div>
+    </div>
+    <div class="proj-block-body" id="proj-ls-body">
+
+      <div class="proj-section-hd">Current Status</div>
+      <div class="proj-status-row">
+        <span class="pill pill-done">Live</span>
+        <span style="font-size:12px;color:var(--text);">Production at anamnesis.health · WisMen/anamnesis-launching-soon · Replit Autoscale</span>
+      </div>
+
+      <div class="proj-section-hd">Core Features — Completed</div>
+      <div class="card task-row"><div class="t-check t-done">✓</div><div class="t-body"><div class="t-name struck">Email subscription form</div><div class="t-detail">POST /api/subscribe · Neon PostgreSQL · SendGrid welcome email + admin notification</div></div><span class="t-tag" style="background:var(--green-dim);color:var(--green);border:1px solid rgba(29,185,84,0.2);">Done</span></div>
+      <div class="card task-row"><div class="t-check t-done">✓</div><div class="t-body"><div class="t-name struck">Investor inquiry form</div><div class="t-detail">POST /api/investor-inquiry · firstName, lastName, company, investmentRange enum</div></div><span class="t-tag" style="background:var(--green-dim);color:var(--green);border:1px solid rgba(29,185,84,0.2);">Done</span></div>
+      <div class="card task-row"><div class="t-check t-done">✓</div><div class="t-body"><div class="t-name struck">GDPR unsubscribe endpoint</div><div class="t-detail">DELETE /api/subscribe/:email · Unsubscribe.tsx page · must never break</div></div><span class="t-tag" style="background:var(--green-dim);color:var(--green);border:1px solid rgba(29,185,84,0.2);">Done</span></div>
+      <div class="card task-row"><div class="t-check t-done">✓</div><div class="t-body"><div class="t-name struck">Background video — Object Storage</div><div class="t-detail">60s clip primary · 20s fallback · large files gitignored · LoadingIntro splash</div></div><span class="t-tag" style="background:var(--green-dim);color:var(--green);border:1px solid rgba(29,185,84,0.2);">Done</span></div>
+      <div class="card task-row"><div class="t-check t-done">✓</div><div class="t-body"><div class="t-name struck">Security middleware — Helmet, rate limiting, CORS</div><div class="t-detail">All production safety headers active</div></div><span class="t-tag" style="background:var(--green-dim);color:var(--green);border:1px solid rgba(29,185,84,0.2);">Done</span></div>
+      <div class="card task-row"><div class="t-check t-done">✓</div><div class="t-body"><div class="t-name struck">Meta Pixel + Google Analytics installed</div><div class="t-detail">Retargeting audience building passively · traffic + conversion tracking live</div></div><span class="t-tag" style="background:var(--green-dim);color:var(--green);border:1px solid rgba(29,185,84,0.2);">Done</span></div>
+
+      <div class="proj-section-hd">Marketing & Conversion — Completed</div>
+      <div class="card task-row"><div class="t-check t-done">✓</div><div class="t-body"><div class="t-name struck">CRO audit + implementation D1.1 — 2026-06-13</div><div class="t-detail">Subtitle · GP credibility badge · urgency copy · HIPAA/GDPR badge to hero · Fonts optimised</div></div><span class="t-tag" style="background:var(--green-dim);color:var(--green);border:1px solid rgba(29,185,84,0.2);">Done</span></div>
+      <div class="card task-row"><div class="t-check t-done">✓</div><div class="t-body"><div class="t-name struck">Social proof section — testimonials + media logos</div><div class="t-detail">Trust signals above fold · beta user quotes</div></div><span class="t-tag" style="background:var(--green-dim);color:var(--green);border:1px solid rgba(29,185,84,0.2);">Done</span></div>
+      <div class="card task-row"><div class="t-check t-done">✓</div><div class="t-body"><div class="t-name struck">SEO optimisation — D1.5 · meta tags, OG, structured data — 2026-06-13</div><div class="t-detail">ai-seo skill · E-E-A-T schema · areaServed CZ/SK/EU · llms.txt · HIPAA removed · potentialAction removed · TS ✅ Build ✅</div></div><span class="t-tag" style="background:var(--green-dim);color:var(--green);border:1px solid rgba(29,185,84,0.2);">Done</span></div>
+
+      <div class="proj-section-hd">Code Quality & Pre-launch Checks</div>
+      <div class="card task-row"><div class="t-check t-done">✓</div><div class="t-body"><div class="t-name struck">D1.3 Quality gate — all 3 live repos — 2026-06-13</div><div class="t-detail">ESLint 0 errors · builds clean · mvp 131 tests passing · admin −1,418 lines bundle cleanup</div></div><span class="t-tag" style="background:var(--green-dim);color:var(--green);border:1px solid rgba(29,185,84,0.2);">Done</span></div>
+      <div class="card task-row"><div class="t-check t-done">✓</div><div class="t-body"><div class="t-name struck">Privacy policy — D1.4 · GDPR Article 6(1)(f) legitimate interest advertising clause — 2026-06-13</div><div class="t-detail">Compliance Agent · Meta Custom Audience (hashed) + Meta Pixel retargeting + Google Analytics · Art 21 opt-out · 24-month retention · pushed to anamnesis.health</div></div><span class="t-tag" style="background:var(--green-dim);color:var(--green);border:1px solid rgba(29,185,84,0.2);">Done</span></div>
+      <div class="card task-row"><div class="t-check t-done">✓</div><div class="t-body"><div class="t-name struck">D1.2 Manual flow verification — all 5 flows passed — 2026-06-13</div><div class="t-detail">subscribe ✅ investor ✅ unsubscribe ✅ video ✅ mobile ✅ — no fixes needed</div></div><span class="t-tag" style="background:var(--green-dim);color:var(--green);border:1px solid rgba(29,185,84,0.2);">Done</span></div>
+
+    </div>
+  </div>
+
+  <!-- ── PROJECT 2: MVP CHATBOT ── -->
+  <div class="proj-block" id="proj-mvp">
+    <div class="proj-block-header" onclick="toggleProj('proj-mvp')">
+      <div class="pbh-left">
+        <div class="pbh-dot dot-live"></div>
+        <div>
+          <div class="pbh-name">Project 2 — MVP Chatbot · mvp.anamnesis.health</div>
+          <div class="pbh-sub">Clinical AI · Stripe billing · Supabase auth · 131 regression tests · safety pipeline · Replit</div>
+        </div>
+      </div>
+      <div class="pbh-right">
+        <div>
+          <div class="pbh-pct" style="color:var(--green);">67%</div>
+          <div class="pbh-count">10 / 15 tasks done</div>
+        </div>
+        <div class="proj-pbar-wrap"><div class="pbar"><div class="pfill" style="width:67%;background:var(--green);"></div></div></div>
+        <div class="pbh-toggle" id="proj-mvp-toggle">▾</div>
+      </div>
+    </div>
+    <div class="proj-block-body" id="proj-mvp-body">
+
+      <div class="proj-section-hd">Current Status</div>
+      <div class="proj-status-row">
+        <span class="pill pill-done">Live</span>
+        <span style="font-size:12px;color:var(--text);">Production at mvp.anamnesis.health · WisMen/anamnesis-mvp · Monorepo ESM-only · React 18 + Express 4</span>
+      </div>
+
+      <div class="proj-section-hd">Development Phases — Completed</div>
+      <div class="card task-row"><div class="t-check t-done">✓</div><div class="t-body"><div class="t-name struck">Core AI chat — DeepSeek API (streaming)</div><div class="t-detail">ChatPage.jsx · streaming responses · session state · Anthropic fallback</div></div><span class="t-tag" style="background:var(--green-dim);color:var(--green);border:1px solid rgba(29,185,84,0.2);">Done</span></div>
+      <div class="card task-row"><div class="t-check t-done">✓</div><div class="t-body"><div class="t-name struck">Authentication — Supabase + Passport.js</div><div class="t-detail">Google · Microsoft · Apple · email strategies · PostgreSQL session store</div></div><span class="t-tag" style="background:var(--green-dim);color:var(--green);border:1px solid rgba(29,185,84,0.2);">Done</span></div>
+      <div class="card task-row"><div class="t-check t-done">✓</div><div class="t-body"><div class="t-name struck">Stripe billing — full subscription system</div><div class="t-detail">Free · Starter €14.99 · Standard €34.99 · Pro €64.99 · Expert €99.99 · Apple Pay · invoices</div></div><span class="t-tag" style="background:var(--green-dim);color:var(--green);border:1px solid rgba(29,185,84,0.2);">Done</span></div>
+      <div class="card task-row"><div class="t-check t-done">✓</div><div class="t-body"><div class="t-name struck">Credit system — server/billing/credit-service.js</div><div class="t-detail">Per-query credits · balance tracking · plan enforcement · webhook verification</div></div><span class="t-tag" style="background:var(--green-dim);color:var(--green);border:1px solid rgba(29,185,84,0.2);">Done</span></div>
+      <div class="card task-row"><div class="t-check t-done">✓</div><div class="t-body"><div class="t-name struck">Response caching — hash-based lookup</div><div class="t-detail">server/utils/responseCache.js · deterministic AI responses · build artifact caching</div></div><span class="t-tag" style="background:var(--green-dim);color:var(--green);border:1px solid rgba(29,185,84,0.2);">Done</span></div>
+      <div class="card task-row"><div class="t-check t-done">✓</div><div class="t-body"><div class="t-name struck">Admin integration middleware</div><div class="t-detail">adminAuthMiddleware.js · protected admin endpoints</div></div><span class="t-tag" style="background:var(--green-dim);color:var(--green);border:1px solid rgba(29,185,84,0.2);">Done</span></div>
+
+      <div class="proj-section-hd">Safety Pipeline Status</div>
+      <div class="card task-row"><div class="t-check t-done">✓</div><div class="t-body"><div class="t-name struck">Urgency engine — classifyUrgencyRules.js</div><div class="t-detail">Safety-critical zone · any change requires explicit reasoning + new tests</div></div><span class="t-tag" style="background:var(--green-dim);color:var(--green);border:1px solid rgba(29,185,84,0.2);">Done</span></div>
+      <div class="card task-row"><div class="t-check t-done">✓</div><div class="t-body"><div class="t-name struck">Negation handling — normalizeNegation.js</div><div class="t-detail">Prevents false urgency from negated symptom descriptions</div></div><span class="t-tag" style="background:var(--green-dim);color:var(--green);border:1px solid rgba(29,185,84,0.2);">Done</span></div>
+      <div class="card task-row"><div class="t-check t-done">✓</div><div class="t-body"><div class="t-name struck">Emergency escalation always fires for genuine first-person symptoms</div><div class="t-detail">Never weakened · safety backstop · regulatory non-negotiable · FDA non-device</div></div><span class="t-tag" style="background:var(--green-dim);color:var(--green);border:1px solid rgba(29,185,84,0.2);">Done</span></div>
+      <div class="card task-row"><div class="t-check t-done">✓</div><div class="t-body"><div class="t-name struck">Context-bleed bug fixed — commit cd1ac75b · May 24 2026</div><div class="t-detail">conversationHistory + conciseResponse injected into expand call · verified</div></div><span class="t-tag" style="background:var(--green-dim);color:var(--green);border:1px solid rgba(29,185,84,0.2);">Fixed</span></div>
+
+      <div class="proj-section-hd">Quality Gate Status — Regression Tests</div>
+      <div class="card task-row"><div class="t-check t-done">✓</div><div class="t-body"><div class="t-name struck">urgency-regression.test.js — 33 / 33 passing</div><div class="t-detail">npx jest server/safety/tests/urgency-regression.test.js</div></div><span class="t-tag" style="background:var(--green-dim);color:var(--green);border:1px solid rgba(29,185,84,0.2);">33 ✓</span></div>
+      <div class="card task-row"><div class="t-check t-done">✓</div><div class="t-body"><div class="t-name struck">negation-urgency.test.js — 38 / 38 passing</div><div class="t-detail">npx jest server/safety/tests/negation-urgency.test.js</div></div><span class="t-tag" style="background:var(--green-dim);color:var(--green);border:1px solid rgba(29,185,84,0.2);">38 ✓</span></div>
+      <div class="card task-row"><div class="t-check t-done">✓</div><div class="t-body"><div class="t-name struck">assistant-urgency-cap.test.js — 9 / 9 passing</div><div class="t-detail">npx jest server/safety/tests/assistant-urgency-cap.test.js</div></div><span class="t-tag" style="background:var(--green-dim);color:var(--green);border:1px solid rgba(29,185,84,0.2);">9 ✓</span></div>
+      <div class="card task-row"><div class="t-check t-done">✓</div><div class="t-body"><div class="t-name struck">markdownPreprocessor.test.js — 51 / 51 passing</div><div class="t-detail">npx vitest client/src/__tests__/markdownPreprocessor.test.js</div></div><span class="t-tag" style="background:var(--green-dim);color:var(--green);border:1px solid rgba(29,185,84,0.2);">51 ✓</span></div>
+
+      <div class="proj-section-hd">Pre-launch Hardening — Pending</div>
+      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">Onboard first 100 beta users</div><div class="t-detail">Registered + at least 1 session · track DAU/MAU ratio</div></div><span class="pill pill-pend">Pending</span></div>
+      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">Collect 10 beta user testimonials</div><div class="t-detail">Via WhatsApp beta group · written or video format · for investor pitch</div></div><span class="pill pill-pend">Pending</span></div>
+      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">Rate limiting review — pre-launch hardening</div><div class="t-detail">Technical Agent · middleware stack audit · DDoS resilience</div></div><span class="pill pill-pend">Pending</span></div>
+      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">Performance audit — ChatPage streaming latency</div><div class="t-detail">DeepSeek API response times · caching hit rate · build size</div></div><span class="pill pill-pend">Pending</span></div>
+      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">Trademark resolution — descriptiveness objection</div><div class="t-detail">Legal counsel handling · contingency brand name if needed</div></div><span class="pill pill-pend">Pending</span></div>
+
+    </div>
+  </div>
+
+  <!-- ── PROJECT 3: ADMIN DASHBOARD ── -->
+  <div class="proj-block" id="proj-admin">
+    <div class="proj-block-header" onclick="toggleProj('proj-admin')">
+      <div class="pbh-left">
+        <div class="pbh-dot dot-live"></div>
+        <div>
+          <div class="pbh-name">Project 3 — Admin Dashboard · admin.anamnesis.health</div>
+          <div class="pbh-sub">4-tier RBAC · MFA · CSRF · audit logging · MVP proxy · Vitest suite · Replit</div>
+        </div>
+      </div>
+      <div class="pbh-right">
+        <div>
+          <div class="pbh-pct" style="color:var(--green);">77%</div>
+          <div class="pbh-count">10 / 13 tasks done</div>
+        </div>
+        <div class="proj-pbar-wrap"><div class="pbar"><div class="pfill" style="width:77%;background:var(--green);"></div></div></div>
+        <div class="pbh-toggle" id="proj-admin-toggle">▾</div>
+      </div>
+    </div>
+    <div class="proj-block-body" id="proj-admin-body">
+
+      <div class="proj-section-hd">Current Status</div>
+      <div class="proj-status-row">
+        <span class="pill pill-done">Live</span>
+        <span style="font-size:12px;color:var(--text);">Production at admin.anamnesis.health · WisMen/anamnesis-admin · React 18 + Express · internal tool</span>
+      </div>
+
+      <div class="proj-section-hd">Completed Features</div>
+      <div class="card task-row"><div class="t-check t-done">✓</div><div class="t-body"><div class="t-name struck">4-tier RBAC — super-admin → admin → moderator → user</div><div class="t-detail">server/rbac.js · requireRole() middleware · strictly enforced — never bypassed</div></div><span class="t-tag" style="background:var(--green-dim);color:var(--green);border:1px solid rgba(29,185,84,0.2);">Done</span></div>
+      <div class="card task-row"><div class="t-check t-done">✓</div><div class="t-body"><div class="t-name struck">Authentication — Passport.js LocalStrategy + bcrypt</div><div class="t-detail">httpOnly/secure/sameSite session cookies · PostgreSQL session store</div></div><span class="t-tag" style="background:var(--green-dim);color:var(--green);border:1px solid rgba(29,185,84,0.2);">Done</span></div>
+      <div class="card task-row"><div class="t-check t-done">✓</div><div class="t-body"><div class="t-name struck">CSRF protection — session-based tokens</div><div class="t-detail">X-CSRF-Token header verified on every mutation · middleware/csrf.js</div></div><span class="t-tag" style="background:var(--green-dim);color:var(--green);border:1px solid rgba(29,185,84,0.2);">Done</span></div>
+      <div class="card task-row"><div class="t-check t-done">✓</div><div class="t-body"><div class="t-name struck">MFA — TOTP enrollment + Email OTP</div><div class="t-detail">AES-256-GCM encrypted secrets · utils/mfaCrypto.js · server/routes/mfa.js</div></div><span class="t-tag" style="background:var(--green-dim);color:var(--green);border:1px solid rgba(29,185,84,0.2);">Done</span></div>
+      <div class="card task-row"><div class="t-check t-done">✓</div><div class="t-body"><div class="t-name struck">Audit logging — all admin mutations captured</div><div class="t-detail">middleware/auditLogger.js · compliance trail · never bypassed</div></div><span class="t-tag" style="background:var(--green-dim);color:var(--green);border:1px solid rgba(29,185,84,0.2);">Done</span></div>
+      <div class="card task-row"><div class="t-check t-done">✓</div><div class="t-body"><div class="t-name struck">MVP proxy layer — utils/mvpAdminProxy.js</div><div class="t-detail">Proxies into live MVP — SAFETY-CRITICAL — treated as production deployment</div></div><span class="t-tag" style="background:var(--green-dim);color:var(--green);border:1px solid rgba(29,185,84,0.2);">Done</span></div>
+      <div class="card task-row"><div class="t-check t-done">✓</div><div class="t-body"><div class="t-name struck">User + role management interface</div><div class="t-detail">React 18 SPA · shadcn/ui + Radix · Wouter routing · Anamnesis Neural Theme (cyan)</div></div><span class="t-tag" style="background:var(--green-dim);color:var(--green);border:1px solid rgba(29,185,84,0.2);">Done</span></div>
+      <div class="card task-row"><div class="t-check t-done">✓</div><div class="t-body"><div class="t-name struck">AI session monitoring — 3 WebSocket hooks</div><div class="t-detail">useWebSocket · useMVPAdminWebSocket · useAIMonitoringWebSocket</div></div><span class="t-tag" style="background:var(--green-dim);color:var(--green);border:1px solid rgba(29,185,84,0.2);">Done</span></div>
+      <div class="card task-row"><div class="t-check t-done">✓</div><div class="t-body"><div class="t-name struck">Feature toggles — runtime flag management</div><div class="t-detail">Enable/disable features without deployment</div></div><span class="t-tag" style="background:var(--green-dim);color:var(--green);border:1px solid rgba(29,185,84,0.2);">Done</span></div>
+      <div class="card task-row"><div class="t-check t-done">✓</div><div class="t-body"><div class="t-name struck">Vitest test suite — unit + integration</div><div class="t-detail">tests/unit/rbac.test.ts · tests/integration/ · supertest against app factory</div></div><span class="t-tag" style="background:var(--green-dim);color:var(--green);border:1px solid rgba(29,185,84,0.2);">Done</span></div>
+
+      <div class="proj-section-hd">Integration with MVP — Pending</div>
+      <div class="card task-row"><div class="t-check t-inprog">→</div><div class="t-body"><div class="t-name">Real-time monitoring dashboard — alert thresholds</div><div class="t-detail">WebSocket health monitoring · active alert display · oncall view</div></div><span class="pill pill-cyan">In Progress</span></div>
+      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">Admin analytics — user metrics, DAU/MAU, subscription breakdown</div><div class="t-detail">Conversion funnel · revenue metrics · for investor view</div></div><span class="pill pill-pend">Pending</span></div>
+      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">Integration health check — admin ↔ MVP proxy end-to-end</div><div class="t-detail">Verify mvpAdminProxy.js · confirm no regressions after any MVP change</div></div><span class="pill pill-pend">Pending</span></div>
+
+    </div>
+  </div>
+
+  <!-- ── PROJECT 4: MAIN PLATFORM (DEFERRED) ── -->
+  <div class="proj-block proj-deferred" id="proj-main">
+    <div class="proj-block-header" onclick="toggleProj('proj-main')">
+      <div class="pbh-left">
+        <div class="pbh-dot dot-warn"></div>
+        <div>
+          <div class="pbh-name">Project 4 — Main Platform · Anamnesis-MedicalAIAssistant</div>
+          <div class="pbh-sub">Full vision product · RECOVERY MODE · deferred until post-public-launch · VS Code · WisMen/Anamnesis-MedicalAIAssistant</div>
+        </div>
+      </div>
+      <div class="pbh-right">
+        <div>
+          <div class="pbh-pct" style="color:var(--text3);">0% deferred</div>
+          <div class="pbh-count">0 / 10 blockers resolved</div>
+        </div>
+        <div class="proj-pbar-wrap"><div class="pbar"><div class="pfill" style="width:0%;background:var(--red);"></div></div></div>
+        <div class="pbh-toggle" id="proj-main-toggle">▾</div>
+      </div>
+    </div>
+    <div class="proj-block-body" id="proj-main-body">
+
+      <div class="proj-deferred-banner">
+        <div style="font-size:18px;flex-shrink:0;">⚠️</div>
+        <div>
+          <div class="pdb-title">RECOVERY MODE — Deferred Until After Public Launch</div>
+          <div class="pdb-desc">Server crashes on startup due to a CommonJS <code>require()</code> inside an ESM module. Strategy: ship the MVP publicly first (users + revenue), then execute the 10-phase auth recovery. Git tag <code>pre-auth-stabilization</code> marks the safe recovery point. Do NOT start recovery work while the launch sprint is active.</div>
+        </div>
+      </div>
+
+      <div class="proj-section-hd">Current Status</div>
+      <div class="proj-status-row">
+        <span class="pill pill-block">Blocked</span>
+        <span style="font-size:12px;color:var(--text);">server/routes.ts:1103 → app.ts → auth.ts:44 — require('memorystore') in ESM → fatal crash on startup</span>
+      </div>
+
+      <div class="proj-section-hd">Auth Recovery Blockers — B1–B10 (all unresolved)</div>
+      <div class="card task-row"><div class="t-check t-blocked">!</div><div class="t-body"><div class="t-name">B1 [P0 · FATAL] — require() in ESM — server never starts</div><div class="t-detail">auth.ts:44 · Fix: delete <code>export { app }</code> from routes.ts:1103 · tag pre-phase-1 first · ONE LINE FIX</div></div><span class="t-tag" style="background:var(--red-dim);color:var(--red);border:1px solid rgba(239,68,68,0.2);">P0 Fatal</span></div>
+      <div class="card task-row"><div class="t-check t-blocked">!</div><div class="t-body"><div class="t-name">B2 [P0 · FATAL] — Split-port, no proxy — all API calls fail</div><div class="t-detail">package.json:7, vite.config.ts · Vite dev proxy to Express on port 3000</div></div><span class="t-tag" style="background:var(--red-dim);color:var(--red);border:1px solid rgba(239,68,68,0.2);">P0 Fatal</span></div>
+      <div class="card task-row"><div class="t-check t-blocked">!</div><div class="t-body"><div class="t-name">B3 [P0 · FATAL] — Passport deserializer hardcoded 'demo'</div><div class="t-detail">routes.ts:682 · session lost after login · real user ID lookup required</div></div><span class="t-tag" style="background:var(--red-dim);color:var(--red);border:1px solid rgba(239,68,68,0.2);">P0 Fatal</span></div>
+      <div class="card task-row"><div class="t-check t-blocked">!</div><div class="t-body"><div class="t-name">B4 [P0 · FATAL] — /api/auth/me checks wrong field → always 401</div><div class="t-detail">routes.ts:885 · req.session.user → req.user</div></div><span class="t-tag" style="background:var(--red-dim);color:var(--red);border:1px solid rgba(239,68,68,0.2);">P0 Fatal</span></div>
+      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">B5 [P1] — Login response shape mismatch</div><div class="t-detail">routes.ts:801 vs use-auth.js:27 · user data nested incorrectly</div></div><span class="t-tag" style="background:var(--amber-dim-d);color:var(--amber);border:1px solid rgba(245,158,11,0.2);">P1</span></div>
+      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">B6 [P1] — Registration stores plaintext password</div><div class="t-detail">routes.ts:855 · add bcrypt hashing · login always fails without this</div></div><span class="t-tag" style="background:var(--amber-dim-d);color:var(--amber);border:1px solid rgba(245,158,11,0.2);">P1</span></div>
+      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">B7 [P1] — Triple session middleware — sessions invisible</div><div class="t-detail">index.ts:46, auth.ts:307, app.ts:41 · single express-session in index.ts only</div></div><span class="t-tag" style="background:var(--amber-dim-d);color:var(--amber);border:1px solid rgba(245,158,11,0.2);">P1</span></div>
+      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">B8 [P2] — Auth catch-all before handlers → all auth endpoints 404</div><div class="t-detail">routes.ts:698 · move catch-all after specific route handlers</div></div><span class="t-tag" style="background:var(--accent-dim);color:var(--accent);border:1px solid var(--border2);">P2</span></div>
+      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">B9 [P2] — Duplicate HTTP server · WebSocket unreachable</div><div class="t-detail">routes.ts:989 vs index.ts:33 · single createServer · attach WebSocket correctly</div></div><span class="t-tag" style="background:var(--accent-dim);color:var(--accent);border:1px solid var(--border2);">P2</span></div>
+      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">B10 [P2] — Invalid React hook call · may corrupt auth state</div><div class="t-detail">Browser console warning · auth-page.jsx investigation required</div></div><span class="t-tag" style="background:var(--accent-dim);color:var(--accent);border:1px solid var(--border2);">P2</span></div>
+
+      <div class="proj-section-hd">Recovery Gate Sequence — Post-Launch</div>
+      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">Gate A0 — Server starts (B1 + B2)</div><div class="t-detail">Server boots · API reachable · tag pre-phase-1 before touching anything</div></div></div>
+      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">Gate A1 — Auth endpoints reachable (B3 + B4 + B5)</div><div class="t-detail">/api/auth/me returns user · no more 401 loop</div></div></div>
+      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">Gate A2 — Register → Login → /api/auth/me cycle (B6 + B7 + B8)</div><div class="t-detail">Full auth flow end-to-end · passwords hashed · sessions visible</div></div></div>
+      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">Gate A3 — Browser login → dashboard (B9)</div><div class="t-detail">Full browser flow · WebSocket attached · protected routes work</div></div></div>
+      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">Gate A4 + A5 — Auth state + full regression (B10)</div><div class="t-detail">Session persistence · npm run type-check + lint + build all green</div></div></div>
+
+      <div class="proj-section-hd">Integration Strategy — After Recovery</div>
+      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">Stage 1–2: Auth stabilisation + VS Code dev environment</div><div class="t-detail">Dev DB isolated · never touching production MVP · staging Replit separate</div></div></div>
+      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">Stage 3–4: Adopt MVP auth + expand MVP database schema</div><div class="t-detail">MVP auth replaces broken auth · schema expanded for health records, appointments</div></div></div>
+      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">Stage 5–8: Port main platform pages into MVP one by one</div><div class="t-detail">Patient dashboard · health records · lab analysis · mood tracker · telemedicine · specialist connectivity</div></div></div>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== AGENTS TAB ===== -->
+<div id="tab-agents" class="tab-panel">
+  <div class="section">
+    <div class="sec-hd"><span class="sec-title">Wave 1 — 6 active agents</span><div class="sec-line"></div></div>
+    <div class="agents-grid">
+      <div class="card agent-card">
+        <div class="agent-ico" style="background:var(--accent-dim);">📣</div>
+        <div class="agent-name" style="color:var(--accent);">Growth</div>
+        <div class="agent-role">Marketing & Acquisition</div>
+        <div class="agent-st"><div class="dot dot-warn"></div><span style="color:var(--amber);font-size:11px;">Pending activation</span></div>
+        <div class="agent-task">Landing page CRO · email campaign · SEO · social media · MAIA avatar</div>
+      </div>
+      <div class="card agent-card">
+        <div class="agent-ico" style="background:var(--accent-dim);">⚡</div>
+        <div class="agent-name" style="color:var(--accent);">Technical</div>
+        <div class="agent-role">Engineering & QA</div>
+        <div class="agent-st"><div class="dot dot-live"></div><span style="color:var(--green);font-size:11px;">Active</span></div>
+        <div class="agent-task">All 4 repos · quality gates · main platform recovery B1–B10</div>
+      </div>
+      <div class="card agent-card">
+        <div class="agent-ico" style="background:var(--amber-dim-d);">📊</div>
+        <div class="agent-name" style="color:var(--amber);">Finance</div>
+        <div class="agent-role">CFO & Investor Metrics</div>
+        <div class="agent-st"><div class="dot dot-warn"></div><span style="color:var(--amber);font-size:11px;">Pending</span></div>
+        <div class="agent-task">Financial model · burn rate · LTV:CAC · investor metrics dashboard</div>
+      </div>
+      <div class="card agent-card">
+        <div class="agent-ico" style="background:var(--red-dim-d);">🩺</div>
+        <div class="agent-name" style="color:var(--red);">Medical</div>
+        <div class="agent-role">Clinical Safety & Oversight</div>
+        <div class="agent-st"><div class="dot dot-warn"></div><span style="color:var(--amber);font-size:11px;">Pending</span></div>
+        <div class="agent-task">Safety audit · clinical language · FDA non-device compliance</div>
+      </div>
+      <div class="card agent-card">
+        <div class="agent-ico" style="background:var(--purple-dim-d);">🛡️</div>
+        <div class="agent-name" style="color:var(--purple);">Compliance</div>
+        <div class="agent-role">GDPR · HIPAA · EU AI Act · FDA</div>
+        <div class="agent-st"><div class="dot dot-warn"></div><span style="color:var(--amber);font-size:11px;">Pending</span></div>
+        <div class="agent-task">EU AI Act · FDA pathway planning · trademark resolution</div>
+      </div>
+      <div class="card agent-card">
+        <div class="agent-ico" style="background:var(--green-dim-d);">📣</div>
+        <div class="agent-name" style="color:var(--green);">Marketing</div>
+        <div class="agent-role">Meta Ads MCP · CRO · Email · Content</div>
+        <div class="agent-st"><div class="dot dot-live"></div><span style="color:var(--green);font-size:11px;">MCP Connected</span></div>
+        <div class="agent-task">✓ 16K audience uploaded · D2.2 Lookalike CZ/SK next · Launch €10/day campaign · n8n email capture</div>
+      </div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="sec-hd"><span class="sec-title">Activation commands — Claude Code from Dev/Anamnesis/</span><div class="sec-line"></div></div>
+    <div class="code-block">
+      Read MAIA-PRIME.md then activate GROWTH agent for: [task]<br>
+      Read MAIA-PRIME.md then activate TECHNICAL agent for: [task]<br>
+      Read MAIA-PRIME.md then activate FINANCE agent for: [task]<br>
+      Read MAIA-PRIME.md then activate MEDICAL agent for: [task]<br>
+      Read MAIA-PRIME.md then activate COMPLIANCE agent for: [task]<br>
+      Read agents/MARKETING.md then execute: [task]
+    </div>
+  </div>
+</div>
+
+<!-- ===== AUTOMATION TAB ===== -->
+<div id="tab-automation" class="tab-panel">
+
+  <div class="section">
+    <div class="sec-hd"><span class="sec-title">n8n automation — status</span><div class="sec-line"></div></div>
+    <div class="systems-grid">
+      <div class="card sys-card"><div><div class="sys-name">n8n MCP Server</div><div class="sys-url">Connected via Claude Code</div></div><div class="dot dot-live"></div></div>
+      <div class="card sys-card"><div><div class="sys-name">Workflows built</div><div class="sys-url">0 of 5 live</div></div><div class="dot dot-warn"></div></div>
+      <div class="card sys-card"><div><div class="sys-name">Triggers active</div><div class="sys-url">None yet</div></div><div class="dot dot-off"></div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-hd"><span class="sec-title">Planned workflows — 5 pending</span><div class="sec-line"></div></div>
+    <div class="sprint-list">
+      <div class="card sprint-row"><span class="s-num">W1</span><div class="s-info"><div class="s-task">email-capture</div><div class="s-agent">Trigger: anamnesis.health form submit → SendGrid welcome email → add to subscriber list</div></div><span class="pill pill-pend">Pending</span></div>
+      <div class="card sprint-row"><span class="s-num">W2</span><div class="s-info"><div class="s-task">investor-pipeline</div><div class="s-agent">Trigger: LinkedIn connection → tag as investor → notify Dr. Naddaf → log to CRM</div></div><span class="pill pill-pend">Pending</span></div>
+      <div class="card sprint-row"><span class="s-num">W3</span><div class="s-info"><div class="s-task">user-onboarding</div><div class="s-agent">Trigger: MVP signup → 3-email welcome sequence → day-3 check-in → day-7 upgrade nudge</div></div><span class="pill pill-pend">Pending</span></div>
+      <div class="card sprint-row"><span class="s-num">W4</span><div class="s-info"><div class="s-task">health-monitoring</div><div class="s-agent">Trigger: scheduled ping → check mvp + admin + landing uptime → alert if down</div></div><span class="pill pill-pend">Pending</span></div>
+      <div class="card sprint-row"><span class="s-num">W5</span><div class="s-info"><div class="s-task">stripe-alerts</div><div class="s-agent">Trigger: Stripe webhook → new subscription / failed payment → notify Dr. Naddaf instantly</div></div><span class="pill pill-pend">Pending</span></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-hd"><span class="sec-title">Activation command</span><div class="sec-line"></div></div>
+    <div class="code-block">
+      Read MAIA-PRIME.md then activate TECHNICAL agent for:<br>
+      Build the n8n workflow: [workflow-name] using n8n MCP
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== INVESTOR TAB ===== -->
+<div id="tab-investor" class="tab-panel">
+  <div class="section">
+    <div class="sec-hd"><span class="sec-title">Angel round readiness</span><div class="sec-line"></div></div>
+    <div class="inv-grid">
+      <div class="card inv-card"><div class="inv-label">FINANCIAL MODEL</div><div class="inv-value">Not started</div><div class="pbar"><div class="pfill" style="width:0%;background:var(--red);"></div></div></div>
+      <div class="card inv-card"><div class="inv-label">PITCH DECK</div><div class="inv-value">Not started</div><div class="pbar"><div class="pfill" style="width:0%;background:var(--red);"></div></div></div>
+      <div class="card inv-card"><div class="inv-label">USER TRACTION</div><div class="inv-value">Pre-launch</div><div class="pbar"><div class="pfill" style="width:5%;background:var(--amber);"></div></div></div>
+      <div class="card inv-card"><div class="inv-label">TESTIMONIALS</div><div class="inv-value">Collecting</div><div class="pbar"><div class="pfill" style="width:10%;background:var(--amber);"></div></div></div>
+      <div class="card inv-card"><div class="inv-label">CAP TABLE</div><div class="inv-value">Not started</div><div class="pbar"><div class="pfill" style="width:0%;background:var(--red);"></div></div></div>
+      <div class="card inv-card"><div class="inv-label">MAIA AVATAR</div><div class="inv-value">Planned</div><div class="pbar"><div class="pfill" style="width:5%;background:var(--purple);"></div></div></div>
+      <div class="card inv-card"><div class="inv-label">ANGEL TARGET</div><div class="inv-value">€250–500K</div><div class="pbar"><div class="pfill" style="width:15%;background:var(--accent);"></div></div></div>
+      <div class="card inv-card"><div class="inv-label">TIMELINE</div><div class="inv-value">3–6 months</div><div class="pbar"><div class="pfill" style="width:20%;background:var(--accent);"></div></div></div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="sec-hd"><span class="sec-title">Investor narrative</span><div class="sec-line"></div></div>
+    <div class="card" style="padding:20px;">
+      <p style="font-size:14px;color:var(--text);line-height:1.8;margin-bottom:18px;">"Anamnesis is a GDPR-compliant medical AI platform built by a practicing GP and clinical researcher. We combine an AI health assistant, patient portal, and specialist connectivity into one platform. Our MVP is live with subscription billing validated. We are pre-launch, focused on user acquisition in the EU market, with a clear pathway to FDA device classification and US expansion."</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;">
+        <div style="background:var(--bg3);border-radius:8px;padding:12px;"><div style="font-family:var(--mono);font-size:9px;color:var(--text3);margin-bottom:4px;letter-spacing:0.06em;">STAGE</div><div style="font-size:12px;font-weight:500;">Pre-launch / Beta</div></div>
+        <div style="background:var(--bg3);border-radius:8px;padding:12px;"><div style="font-family:var(--mono);font-size:9px;color:var(--text3);margin-bottom:4px;letter-spacing:0.06em;">MARKET</div><div style="font-size:12px;font-weight:500;">EU → US</div></div>
+        <div style="background:var(--bg3);border-radius:8px;padding:12px;"><div style="font-family:var(--mono);font-size:9px;color:var(--text3);margin-bottom:4px;letter-spacing:0.06em;">ASK</div><div style="font-size:12px;font-weight:500;color:var(--purple);">€250–500K</div></div>
+        <div style="background:var(--bg3);border-radius:8px;padding:12px;"><div style="font-family:var(--mono);font-size:9px;color:var(--text3);margin-bottom:4px;letter-spacing:0.06em;">RUNWAY</div><div style="font-size:12px;font-weight:500;">18 months</div></div>
+        <div style="background:var(--bg3);border-radius:8px;padding:12px;"><div style="font-family:var(--mono);font-size:9px;color:var(--text3);margin-bottom:4px;letter-spacing:0.06em;">MOAT</div><div style="font-size:12px;font-weight:500;">FDA pathway</div></div>
+        <div style="background:var(--bg3);border-radius:8px;padding:12px;"><div style="font-family:var(--mono);font-size:9px;color:var(--text3);margin-bottom:4px;letter-spacing:0.06em;">GEOGRAPHY</div><div style="font-size:12px;font-weight:500;">CZ → EU → US</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== COMMAND CENTER ===== -->
+<div id="tab-commandcenter" class="tab-panel active">
+
+  <div class="cc-intro">
+    <div class="cc-intro-icon">🎯</div>
+    <div>
+      <div class="cc-intro-title">MAIA Prime — Command Directives</div>
+      <div class="cc-intro-desc">Step-by-step prioritized actions for every workstream. Execute in order. Each directive includes the exact text to paste into Claude Code — copy it, paste it, go. Phases run in priority order; within a phase, directives are numbered by urgency. Click a phase header to collapse/expand.</div>
+    </div>
+  </div>
+
+  <!-- Phase overview bar -->
+  <div class="cc-phase-bar">
+    <div class="cc-pbar-item" onclick="scrollToCC('cc-p1')">
+      <div class="cc-pbar-num">PHASE 1</div>
+      <div class="cc-pbar-name">Launching Soon</div>
+      <span class="cc-pbar-badge" style="background:var(--green-dim);color:var(--green);border:1px solid rgba(29,185,84,0.2);">COMPLETED</span>
+      <div class="cc-pbar-time">Done</div>
+    </div>
+    <div class="cc-pbar-item" onclick="scrollToCC('cc-p2')">
+      <div class="cc-pbar-num">PHASE 2</div>
+      <div class="cc-pbar-name">Marketing</div>
+      <span class="cc-pbar-badge" style="background:var(--red-dim);color:var(--red);border:1px solid rgba(239,68,68,0.2);">CRITICAL</span>
+      <div class="cc-pbar-time">This Week</div>
+    </div>
+    <div class="cc-pbar-item" onclick="scrollToCC('cc-p3')">
+      <div class="cc-pbar-num">PHASE 3</div>
+      <div class="cc-pbar-name">MVP Hardening</div>
+      <span class="cc-pbar-badge" style="background:var(--amber-dim);color:var(--amber);border:1px solid rgba(245,158,11,0.2);">HIGH</span>
+      <div class="cc-pbar-time">Month 1</div>
+    </div>
+    <div class="cc-pbar-item" onclick="scrollToCC('cc-p4')">
+      <div class="cc-pbar-num">PHASE 4</div>
+      <div class="cc-pbar-name">MVP 2.0</div>
+      <span class="cc-pbar-badge" style="background:var(--accent-dim);color:var(--accent);border:1px solid var(--border2);">MEDIUM</span>
+      <div class="cc-pbar-time">Month 2</div>
+    </div>
+    <div class="cc-pbar-item" onclick="scrollToCC('cc-p5')">
+      <div class="cc-pbar-num">PHASE 5</div>
+      <div class="cc-pbar-name">Admin Platform</div>
+      <span class="cc-pbar-badge" style="background:var(--accent-dim);color:var(--accent);border:1px solid var(--border2);">MEDIUM</span>
+      <div class="cc-pbar-time">Month 2</div>
+    </div>
+    <div class="cc-pbar-item" onclick="scrollToCC('cc-p6')">
+      <div class="cc-pbar-num">PHASE 6</div>
+      <div class="cc-pbar-name">Full Platform</div>
+      <span class="cc-pbar-badge" style="background:var(--bg3);color:var(--text3);border:1px solid var(--border);">DEFERRED</span>
+      <div class="cc-pbar-time">Post-Angel</div>
+    </div>
+  </div>
+
+  <!-- ═══════ PHASE 1 — LAUNCHING SOON ═══════ -->
+  <div class="cc-phase" id="cc-p1">
+    <div class="cc-phase-hdr" onclick="toggleCC('cc-p1')" style="border-left-color:var(--green);">
+      <span class="cc-ph-num">PHASE 1</span>
+      <span class="cc-ph-title">Launching Soon — anamnesis.health</span>
+      <span class="cc-ph-meta">5 directives · Done · COMPLETED</span>
+      <span class="cc-ph-toggle" id="cc-p1-toggle">▾</span>
+    </div>
+    <div class="cc-phase-body" id="cc-p1-body">
+
+      <div class="cc-directive">
+        <div class="cc-directive-top">
+          <div class="cc-d-num">D1.1</div>
+          <div class="cc-d-body">
+            <div class="cc-d-title">CRO Audit — above-fold, email capture, social proof, mobile</div>
+            <div class="cc-d-why">The landing page is live but not optimised for conversion. Every visitor who lands without subscribing is a wasted impression. Fix the hook, the form, and the trust signals before spending on ads.</div>
+            <div class="cc-d-meta"><span class="cc-agent-tag">Growth Agent</span><span class="cc-skill-tag">marketing-cro:cro-methodology</span><span class="cc-skill-tag">marketing-skills:cro</span></div>
+          </div>
+          <div class="cc-d-status"><span class="pill pill-done">Done ✓ 2026-06-13</span></div>
+        </div>
+        <div class="cc-cmd">
+          <div class="cc-cmd-label">PASTE INTO CLAUDE CODE</div>
+          <div class="cc-cmd-text">Before executing, invoke these skills in sequence using the Skill tool: marketing-cro:cro-methodology · marketing-skills:cro — then proceed.
+Read MAIA-PRIME.md then read agents/GROWTH.md and execute:
+CRO audit of anamnesis.health. Read the launching-soon CLAUDE.md first.
+Audit: (1) above-fold headline and sub-headline — does it clearly communicate "Medical AI by a real doctor"? (2) Email capture form — is it prominent, friction-free, with a compelling CTA? (3) Social proof — are there testimonials or credibility signals? (4) Mobile layout — test responsiveness. (5) Page load speed indicators. Use the marketing-cro skill. Return a prioritised list of specific changes with expected conversion impact.</div>
+        </div>
+        <div class="cc-outcome">Expected output: Ranked list of specific copy/design changes · estimated conversion lift per change · implementation instructions</div>
+      </div>
+
+      <div class="cc-directive">
+        <div class="cc-directive-top">
+          <div class="cc-d-num">D1.2</div>
+          <div class="cc-d-body">
+            <div class="cc-d-title">Manual flow verification — all 5 critical flows</div>
+            <div class="cc-d-why">Required protocol before any paid traffic is sent. If subscribe, investor, or unsubscribe breaks, you lose leads and violate GDPR. Run this after every change to the launching-soon repo.</div>
+            <div class="cc-d-meta"><span class="cc-agent-tag">Technical Agent</span></div>
+          </div>
+          <div class="cc-d-status"><span class="pill pill-done">Done ✓ 2026-06-13</span></div>
+        </div>
+        <div class="cc-cmd">
+          <div class="cc-cmd-label">PASTE INTO CLAUDE CODE — run from anamnesis-launching-soon/</div>
+          <div class="cc-cmd-text">Read anamnesis-launching-soon/CLAUDE.md then verify all 5 manual flows:
+(1) Email subscription form submits and triggers welcome email
+(2) Investor inquiry form submits and triggers admin notification
+(3) GDPR unsubscribe at /unsubscribe works end-to-end
+(4) Background video loads (Object Storage primary, local fallback)
+(5) Mobile layout is intact on 375px viewport
+Report format: subscribe ✅/❌ | investor form ✅/❌ | unsubscribe ✅/❌ | video ✅/❌ | mobile ✅/❌</div>
+        </div>
+        <div class="cc-outcome">Expected output: 5-item checklist · any failures identified with root cause</div>
+      </div>
+
+      <div class="cc-directive">
+        <div class="cc-directive-top">
+          <div class="cc-d-num">D1.3</div>
+          <div class="cc-d-body">
+            <div class="cc-d-title">Quality gate — all 3 live repos (TS + ESLint + build)</div>
+            <div class="cc-d-why">Zero errors required across all three live codebases before marketing sends traffic. A broken build on any live repo is a production incident waiting to happen.</div>
+            <div class="cc-d-meta"><span class="cc-agent-tag">Technical Agent</span></div>
+          </div>
+          <div class="cc-d-status"><span class="pill pill-done">Done ✓ 2026-06-13</span></div>
+        </div>
+        <div class="cc-cmd">
+          <div class="cc-cmd-label">PASTE INTO CLAUDE CODE</div>
+          <div class="cc-cmd-text">Read agents/TECHNICAL.md and execute:
+Run quality gates on all 3 live repos in sequence:
+Repo 1: anamnesis-launching-soon → npm run check + npx eslint . + npm run build
+Repo 2: anamnesis-mvp → npx tsc --noEmit + npx eslint . --max-warnings 0 + npm run build
+Repo 3: anamnesis-admin → npm run check + npx eslint . + npm run build
+Report: each repo on one line — TS ✅/❌ | ESLint ✅/❌ | Build ✅/❌
+Fix any failures before proceeding. Zero errors, zero warnings required.</div>
+        </div>
+        <div class="cc-outcome">Expected output: 3-repo quality gate report · all green before any marketing spend</div>
+      </div>
+
+      <div class="cc-directive">
+        <div class="cc-directive-top">
+          <div class="cc-d-num">D1.4</div>
+          <div class="cc-d-body">
+            <div class="cc-d-title">Privacy policy — GDPR legitimate interest advertising clause</div>
+            <div class="cc-d-why">Required before launching any Meta campaign. Without this clause, using the 16K contact list for Meta Custom Audience may not have the right legal basis documented. Compliance Agent must approve before campaign goes live.</div>
+            <div class="cc-d-meta"><span class="cc-agent-tag">Compliance Agent</span></div>
+          </div>
+          <div class="cc-d-status"><span class="pill pill-done">Done ✓</span></div>
+        </div>
+        <div class="cc-cmd">
+          <div class="cc-cmd-label">PASTE INTO CLAUDE CODE</div>
+          <div class="cc-cmd-text">Read agents/COMPLIANCE.md and execute:
+Review and update the privacy policy on anamnesis.health to add a GDPR Article 6(1)(f) legitimate interest clause covering:
+(1) Use of contact data for Meta Custom Audience targeting (hashed, no raw data sent)
+(2) Pixel-based retargeting via Meta Pixel already installed
+(3) Google Analytics data collection
+Include the right to object (Article 21), how to exercise it, and the retention period.
+Ensure language is plain enough for a non-legal audience. Do not use "triage" language anywhere near health content.</div>
+        </div>
+        <div class="cc-outcome">Expected output: Updated privacy policy section · ready to paste into anamnesis.health</div>
+      </div>
+
+      <div class="cc-directive">
+        <div class="cc-directive-top">
+          <div class="cc-d-num">D1.5</div>
+          <div class="cc-d-body">
+            <div class="cc-d-title">SEO foundation — meta tags, OG, structured data, sitemap</div>
+            <div class="cc-d-why">Organic search is free user acquisition. Five minutes of SEO metadata work now means the page is indexable and shareable before traffic arrives. OG tags are required for LinkedIn and Meta ad link previews to look professional.</div>
+            <div class="cc-d-meta"><span class="cc-agent-tag">Growth Agent</span><span class="cc-skill-tag">marketing-skills:ai-seo</span><span class="cc-skill-tag">marketing-skills:schema</span></div>
+          </div>
+          <div class="cc-d-status"><span class="pill pill-done">Done ✓</span></div>
+        </div>
+        <div class="cc-cmd">
+          <div class="cc-cmd-label">PASTE INTO CLAUDE CODE</div>
+          <div class="cc-cmd-text">Before executing, invoke these skills in sequence using the Skill tool: marketing-skills:ai-seo · marketing-skills:schema — then proceed.
+Read agents/GROWTH.md then read anamnesis-launching-soon/CLAUDE.md and execute:
+Add SEO foundation to anamnesis.health:
+(1) Title tag: "Anamnesis — Medical AI Assistant Built by a Real Doctor"
+(2) Meta description (155 chars max) targeting: medical AI Europe, AI health assistant, clinical AI Czech Republic
+(3) Open Graph tags — title, description, image, URL, type=website
+(4) Twitter Card meta tags
+(5) JSON-LD structured data: MedicalOrganization + WebApplication schema
+(6) robots.txt if missing
+(7) sitemap.xml if missing
+Run quality gate after. Do not break existing functionality.</div>
+        </div>
+        <div class="cc-outcome">Expected output: Updated index.html with full meta suite · verified build · Google-indexable</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════ PHASE 2 — MARKETING ═══════ -->
+  <div class="cc-phase" id="cc-p2">
+    <div class="cc-phase-hdr" onclick="toggleCC('cc-p2')" style="border-left-color:var(--amber);">
+      <span class="cc-ph-num">PHASE 2</span>
+      <span class="cc-ph-title">Marketing Activation</span>
+      <span class="cc-ph-meta">6 directives · This Week → Month 1 · CRITICAL</span>
+      <span class="cc-ph-toggle" id="cc-p2-toggle">▾</span>
+    </div>
+    <div class="cc-phase-body" id="cc-p2-body">
+
+      <div class="cc-directive">
+        <div class="cc-directive-top">
+          <div class="cc-d-num">D2.1</div>
+          <div class="cc-d-body">
+            <div class="cc-d-title">Upload 16K contacts to Meta Custom Audience</div>
+            <div class="cc-d-why">16K contacts are sitting in RAW/ doing nothing. Meta hashes them client-side so no raw data leaves your machine. This is the fastest path to a warm audience — people who already know Anamnesis — without spending on cold traffic first.</div>
+            <div class="cc-d-meta"><span class="cc-agent-tag">Marketing Agent</span><span class="cc-skill-tag">Meta Ads MCP · 58 tools</span></div>
+          </div>
+          <div class="cc-d-status"><span class="pill pill-done">Done ✓ — 2026-06-17</span></div>
+        </div>
+        <div class="cc-cmd">
+          <div class="cc-cmd-label">COMPLETED — Audience ID: 52617665331538</div>
+          <div class="cc-cmd-text">16,158 emails uploaded to Meta Custom Audience "Anamnesis 16K — June 2026" · Account 1492688825681717 · GDPR Art 6(1)(f) basis confirmed · Status: Populating · Match rate visible in 24-48h (check 2026-06-19)</div>
+        </div>
+        <div class="cc-outcome">✓ Audience ID 52617665331538 · 7,100-8,400 matched (44-52%) · fully populated 2026-06-17 · D2.3 minimum-user gate cleared · D2.2 audience pre-flight will pass · next: D2.2 Wave 1 campaign</div>
+      </div>
+
+      <div class="cc-directive">
+        <div class="cc-directive-top">
+          <div class="cc-d-num">D2.2</div>
+          <div class="cc-d-body">
+            <div class="cc-d-title">Launch Meta brand awareness campaign — Video Views, Dynamic Creative, €15/day</div>
+            <div class="cc-d-why">Wave 1 — teaser brand exposure, not conversion. Custom Audience fully populated: 7,100-8,400 matched profiles (44-52% match rate, confirmed 2026-06-17). Objective: VIDEO VIEWS (ThruPlay) — attention, brand exposure, message testing, video consumption, engagement, and pixel-building for future retargeting. NOT immediate signups. Dynamic Creative enabled: 3 messaging angles × 3 languages (CS/RU/EN) = 9 variants. Both teaser videos uploaded to Meta (IDs: 1035677178993842 · 1035677158993844). Meta auto-tests delivery toward the best-performing angle/language/video combination. No founder name or face. Russian-speaking expat segment (CZ/SK) is a strategic priority. Winning variant data drives V2/V3 video creative strategy. Budget capped at €15/day — do not increase.</div>
+            <div class="cc-d-meta"><span class="cc-agent-tag">Marketing Agent</span><span class="cc-skill-tag">marketing-skills:ads</span><span class="cc-skill-tag">marketing-skills:ad-creative</span></div>
+          </div>
+          <div class="cc-d-status"><span class="pill pill-done">AUDITED · PAUSED 2026-07-06</span></div>
+        </div>
+        <div class="cc-cmd">
+          <div class="cc-cmd-label">AUDIT RESULTS — 2026-07-06</div>
+          <div class="cc-cmd-text">Campaign: 52629318370938 "Anamnesis CZ Custom Audience Only — Relaunch Jun 2026" · Run: 2026-06-24 → 2026-07-06 · €189.09 total spend · 28,799 impressions · 6,334 unique reach · freq 4.55 · VERDICT B: 38 link clicks total, 0/9 variants reached 300-click threshold · WINNING AD: guide-RU V1 (ID 52629318861138) — algorithm winner: 427 ThruPlays, freq 3.05, creative_id 1554859849529088 · Audience 76-89% exhausted (6,334 / 7,100-8,300 reached) · CPM rising +2.81% BAD trend · Campaign PAUSED 2026-07-06 · Full audit: marketing-ops/D2.2-wave1-audit-2026-07-06.md
+
+RELAUNCH NOTE: Budget was intentionally raised to €20/day mid-campaign for reach expansion. 6 days exceeded original €15 spec — this was deliberate. No overspend vs the €20 set budget.
+
+AUTO-TRANSLATE OBSERVATION: guide-RU V1 was displayed to CZ/SK users with Meta auto-translation to EN/CS — audiences watched anyway (freq 3.05, 427 ThruPlays). The guide angle creative content resonates across languages. This informs D2.3 language strategy.
+
+Original build command preserved below for reference:
+Before executing, invoke marketing-skills:ads and marketing-skills:ad-creative in sequence using the Skill tool. Then read agents/MARKETING.md and execute:
+
+PRE-FLIGHT — read-only. Report all 4 items before writing anything. Do not proceed past a hard blocker.
+1. Dynamic Creative + VIDEO_VIEWS support — confirm via Meta Ads MCP whether Dynamic Creative with multiple video assets is supported under VIDEO_VIEWS objective through ads_create_ad_set / ads_create_creative / ads_create_ad. If not supported, STOP and report — do not fall back without explicit go-ahead.
+2. Audience match status — confirm Custom Audience "Anamnesis 16K" (ID: 52617665331538) shows a matched user count. Expected: 7,100-8,400 (confirmed 2026-06-17). Verify current status only.
+3. Currency — confirm ad account 1492688825681717 is EUR.
+4. Landing page — confirm anamnesis.health loads under 5 seconds and is mobile-friendly. Report result. Do not block unless load time exceeds 5 seconds.
+
+Create (PAUSED — do not activate) a Meta VIDEO VIEWS campaign:
+- Campaign name: "Anamnesis Launch CZ — June 2026"
+- Objective: VIDEO_VIEWS — ThruPlay optimisation (15+ seconds watched). Do NOT use TRAFFIC. Do not revert under any circumstance.
+- Single ad set — Custom Audience "Anamnesis 16K" (ID: 52617665331538)
+- Exclusion: none
+- Frequency cap: maximum 3 impressions per person per 7 days — required, do not omit.
+  Note: €15/day + 3/7-day cap on a ~7-10K matched audience = natural saturation in 3-4 weeks. Expected and intentional — saturation signals time to move to D2.3. Do not increase budget to fight saturation.
+- Budget: €15/day hard cap. Do not change. Do not suggest increasing.
+- Bid strategy: Lowest Cost (automatic). No manual bids or cost caps.
+- Dynamic Creative: ENABLED at ad set level
+- Video assets — both confirmed uploaded to Meta:
+    Video 1 ID: 1035677178993842  (9:16 full screen — mobile-first)
+    Video 2 ID: 1035677158993844  (16:9 centred in 9:16 frame)
+  Use BOTH if Dynamic Creative supports multiple video assets. If only one asset is supported, use Video 1 (1035677178993842) and report Video 2 as excluded.
+- Destination URL: https://anamnesis.health/ with UTM parameters per variant:
+    utm_source=meta&utm_medium=paid&utm_campaign=anamnesis-launch-czsk-jun2026&utm_content={{angle}}-{{lang}}
+    Angle codes: cred · guide · access
+    Language codes: cs · ru · en
+    Examples: utm_content=cred-cs / utm_content=guide-ru / utm_content=access-en
+  Confirm GA4 receives utm_content by testing one URL before finalising.
+- CTA button: "Early Access" — if not a supported Meta CTA option, use "Learn More" as fallback and report the substitution.
+- Headline (use both within Dynamic Creative if supported):
+    Option A: ANAMNESIS
+    Option B: Inspired by Clinical Practice
+  Do not use "MAIA — Medical AI Built by a Doctor" or any founder reference.
+- No founder name, face, or personal branding in any variant.
+- Tone: premium · calm · professional · brand-forward · physician-inspired. No superlatives.
+
+Primary text variants — 9 total (3 angles × 3 languages). Approved — do not redraft:
+
+  Angle 1 — cred (Inspired by Clinical Practice):
+    EN: "Inspired by Clinical Practice. Built to help people understand and organize health information."
+    CS: "Inspirováno Klinickou Praxí. Vytvořeno pro lepší porozumění a organizaci zdravotních informací."
+    RU: "Создано с опорой на клиническую практику. Помогает лучше понимать и организовывать информацию о здоровье."
+
+  Angle 2 — guide (Healthcare can be confusing):
+    EN: "Healthcare can be confusing. Anamnesis helps you make sense of it."
+    CS: "Zdravotní péče může být složitá. Anamnesis vám pomůže se v ní lépe orientovat."
+    RU: "Система здравоохранения может быть сложной. Anamnesis помогает лучше в ней ориентироваться."
+
+  Angle 3 — access (Clear health information):
+    EN: "Clear health information. In your language."
+    CS: "Srozumitelné Zdravotní Informace. Ve Vašem Jazyce."
+    RU: "Понятная информация о здоровье. На вашем языке."
+
+FDA 5-point check — verify each variant before uploading. Do not skip:
+  (a) No diagnosis claims
+  (b) No treatment recommendations
+  (c) No replacement-of-doctor implication
+  (d) No clinical decision support implication
+  (e) Tone: premium · calm · professional · brand-forward · physician-inspired. No superlatives.
+  All 9 variants above are pre-approved. Re-confirm before upload. If Meta rejects any variant during upload, STOP and report — do not substitute without explicit go-ahead.
+
+Banned phrases — must not appear in any variant under any circumstances:
+  "Medical AI built by a real doctor" · "Your health questions answered 24/7" · "clinically grounded answers" · "always available" · "always answered" · any wording implying diagnosis · treatment recommendations · clinical decision support · replacement of a physician
+
+Pixel building note: VIDEO_VIEWS objective passively builds Meta Pixel data (video view events + any site visits from link clicks). This feeds the D2.4 retargeting audience. No action required — automatic.
+
+Evaluation protocol — document in campaign notes. Do not execute now:
+- Minimum run: 7 days from activation. Do not pause, adjust, or optimise any variant before day 7.
+- Collect per variant (broken out by angle × language × video):
+    ThruPlay % · video completion rate · engagement rate · CTR · cost per ThruPlay · impressions · link clicks
+- Winning creative = highest combined video completion rate + engagement rate. Not CTR alone.
+- Report format after day 7:
+    Table: all 9 variants × all 6 metrics
+    Identify separately: winning angle (cred / guide / access) · winning language (cs / ru / en) · winning video (ID 1035677178993842 vs 1035677158993844)
+- If no variant reaches meaningful ThruPlay volume after 7 days, extend run by 7 days before drawing conclusions.
+- Preserve all results — winning data drives V2 and V3 video creative strategy. Do not discard.
+
+Campaign, ad set, and ad created PAUSED. Activation requires a separate explicit go-ahead. Not part of this task.
+Use: ads_create_campaign → ads_create_ad_set → ads_create_creative → ads_create_ad</div>
+        </div>
+        <div class="cc-outcome">✓ ACTUAL RESULT (2026-07-06): Campaign 52629318370938 audited · VERDICT B (38 link clicks, 0/9 variants hit 300 threshold) · guide-RU V1 = algorithm winner (427 ThruPlays) · audience 76-89% exhausted · campaign PAUSED · full report: marketing-ops/D2.2-wave1-audit-2026-07-06.md</div>
+      </div>
+
+      <div class="cc-directive">
+        <div class="cc-directive-top">
+          <div class="cc-d-num">D2.3</div>
+          <div class="cc-d-body">
+            <div class="cc-d-title">1% CZ Lookalike TRAFFIC Campaign — guide angle, 3 languages (CS primary / RU control / EN bilingual test)</div>
+            <div class="cc-d-why">Built 2026-07-06. D2.2 audit (VERDICT B) showed guide-RU V1 as the algorithm's clear winner (427 ThruPlays, 60% of all budget, freq 3.05) but the original custom audience is 76-89% exhausted. D2.3 targets a fresh 1% CZ Lookalike (ID 52641516501738) seeded from the 16K custom audience. Objective changed to TRAFFIC / LANDING_PAGE_VIEWS — D2.2 was ThruPlay (awareness), D2.3 is traffic (drives website visits + sign-ups + pixel accumulation). Creative: guide angle only (D2.2 winner), 3 language variants: Czech (primary, native language), Russian (control, same creative as D2.2 winner — auto-translate showed it works for CZ audience), English (bilingual test — CZ has 70%+ English proficiency in working-age population). Budget: €20/day CBO (confirmed). Excludes original custom audience 52617665331538 (already exhausted at freq 4.55). Full build log: marketing-ops/D2.3-campaign-build-2026-07-06.md</div>
+            <div class="cc-d-meta"><span class="cc-agent-tag">Marketing Agent</span><span class="cc-skill-tag">Meta Ads MCP</span><span class="cc-skill-tag">marketing-skills:ads</span></div>
+          </div>
+          <div class="cc-d-status"><span class="pill pill-done">ACTIVE 2026-07-07 · do not touch until 2026-07-24</span></div>
+        </div>
+        <div class="cc-cmd">
+          <div class="cc-cmd-label">BUILT 2026-07-06 — ALL OBJECTS CREATED PAUSED</div>
+          <div class="cc-cmd-text">Lookalike Audience: ID 52641516501738 — "D2.3 — 1% CZ Lookalike — From Anamnesis 16K" — seeded from 52617665331538
+
+Campaign: ID 52641517672538 — "Anamnesis D2.3 — 1% CZ Lookalike — Jul 2026"
+  Objective: OUTCOME_TRAFFIC · €20/day CBO · LOWEST_COST_WITHOUT_CAP · PAUSED
+
+Ad Set: ID 52641518512538 — "D2.3 — 1% CZ Lookalike — Landing Page Views"
+  Optimization: LANDING_PAGE_VIEWS · Billing: IMPRESSIONS
+  Targeting: CZ only · Audience 52641516501738 · Exclude 52617665331538
+  DSA: Anamnesis / Anamnesis · Destination: WEBSITE · PAUSED
+
+Ads (3 total — all PAUSED):
+  guide-CS V1 — ID 52641518611538 · creative 1718483946131289
+    Copy: "Máte otázku ke svému zdraví? MAIA je váš AI průvodce zdravím — navržený praktickým lékařem. Dostupný 24/7, v češtině, GDPR bezpečný. Zkuste zdarma."
+    Headline: "Lékařský AI od skutečného lékaře" · CTA: LEARN_MORE
+    UTM: utm_campaign=d2.3-lookalike-cz&utm_content=guide-cs-v1
+
+  guide-RU V1 (control) — ID 52641518626738 · creative 1554859849529088 (D2.2 winner, reused verbatim)
+
+  guide-EN V1 — ID 52641518629938 · creative 1666498974407118
+    Copy: "Have a health question? MAIA is your AI health guide — built by a practicing doctor. Available 24/7, GDPR-safe, clinically grounded. Try it free."
+    Headline: "Medical AI Built by a Real Doctor" · CTA: LEARN_MORE
+    UTM: utm_campaign=d2.3-lookalike-cz&utm_content=guide-en-v1
+
+TO ACTIVATE: Read MAIA-PRIME.md then read agents/MARKETING.md then activate campaign 52641517672538 — explicit go-ahead required.</div>
+        </div>
+        <div class="cc-outcome">✓ BUILT 2026-07-06 (PAUSED): Lookalike audience 52641516501738 · Campaign 52641517672538 · Ad set 52641518512538 · 3 ads (guide-CS 52641518611538 · guide-RU control 52641518626738 · guide-EN 52641518629938) · all PAUSED · €20/day · LANDING_PAGE_VIEWS · CZ only · awaiting activation go-ahead · full build log: marketing-ops/D2.3-campaign-build-2026-07-06.md</div>
+      </div>
+
+      <div class="cc-directive">
+        <div class="cc-directive-top">
+          <div class="cc-d-num">D2.4</div>
+          <div class="cc-d-body">
+            <div class="cc-d-title">Broad CZ native reach — guide angle, CS primary + EN secondary</div>
+            <div class="cc-d-why">PLANNED — build after D2.3 validates guide angle on cold traffic. Rationale: D2.3 Lookalike is seeded from a Russian-speaking email list and will not reach the broad Czech-speaking native market. D2.4 uses fully broad CZ targeting (no custom audience, Advantage+ let Meta find the right people) to reach native Czech speakers who are outside the D2.2/D2.3 audience pools. Same guide angle creative (already validated), CS as primary language, EN as secondary. Exclude both existing audiences (52617665331538 and 52641516501738) to prevent overlap. Budget: €20/day. Do not build until D2.3 has run for 7+ days and confirms the guide angle performs on cold traffic.</div>
+            <div class="cc-d-meta"><span class="cc-agent-tag">Marketing Agent</span><span class="cc-skill-tag">Meta Ads MCP</span><span class="cc-skill-tag">marketing-skills:ads</span></div>
+          </div>
+          <div class="cc-d-status"><span class="pill pill-pend">Planned · build after D2.3 validates</span></div>
+        </div>
+        <div class="cc-cmd">
+          <div class="cc-cmd-label">PASTE INTO CLAUDE CODE — when ready</div>
+          <div class="cc-cmd-text">Read MAIA-PRIME.md then read agents/MARKETING.md then execute D2.4:
+
+TRIGGER CHECK — confirm D2.3 has run 7+ days and guide angle shows positive landing page view signal.
+
+Build (PAUSED — activation is a separate go-ahead):
+- Campaign: "Anamnesis D2.4 — CZ Broad Native Reach — [Month] 2026"
+- Objective: OUTCOME_TRAFFIC · LANDING_PAGE_VIEWS · €20/day CBO
+- Ad set: CZ only · broad (no custom audience, no interests) · Advantage+ · age 18+
+- Exclude: Custom Audience 52617665331538 + Lookalike 52641516501738
+- DSA: Anamnesis / Anamnesis
+- Ads (2): guide-CS V1 (creative 1718483946131289) · guide-EN V1 (creative 1666498974407118)
+- No RU variant — Russian-speaking CZ segment is covered by D2.3
+- UTM: utm_campaign=d2.4-broad-cz&utm_content=guide-cs-v1 / guide-en-v1</div>
+        </div>
+        <div class="cc-outcome">Expected output: Campaign + ad set + 2 ads all PAUSED · broad CZ targeting confirmed · D2.3 and D2.4 running in parallel targeting different CZ audience segments · awaiting activation go-ahead</div>
+      </div>
+
+      <div class="cc-directive">
+        <div class="cc-directive-top">
+          <div class="cc-d-num">D2.5</div>
+          <div class="cc-d-body">
+            <div class="cc-d-title">Pixel retargeting campaign — website visitors, last 30 days</div>
+            <div class="cc-d-why">DELAYED — requires 500+ page visits accumulated from D2.3 + D2.4 combined before a retargeting audience is meaningful. Pixel 1269353078681016 is active on anamnesis.health and accumulating passively. Check visitor count before building. Was originally D2.4 — renumbered to allow D2.4 broad CZ reach to run first.</div>
+            <div class="cc-d-meta"><span class="cc-agent-tag">Marketing Agent</span><span class="cc-skill-tag">marketing-skills:ads</span><span class="cc-skill-tag">marketing-skills:ad-creative</span></div>
+          </div>
+          <div class="cc-d-status"><span class="pill pill-pend">Delayed · needs 500+ page visits</span></div>
+        </div>
+        <div class="cc-cmd">
+          <div class="cc-cmd-label">PASTE INTO CLAUDE CODE — when pixel pool is ready</div>
+          <div class="cc-cmd-text">Read MAIA-PRIME.md then read agents/MARKETING.md then execute D2.5:
+
+PRE-FLIGHT — verify pixel pool before building:
+1. Check Pixel 1269353078681016 — confirm PageView count from D2.3 + D2.4 traffic
+2. If count &lt; 500: STOP. Report count and estimated days to threshold at current traffic rate.
+3. If count ≥ 500: proceed to build retargeting campaign (PAUSED).
+
+Campaign spec (when ready):
+- Objective: OUTCOME_TRAFFIC · LANDING_PAGE_VIEWS
+- Audience: Website Custom Audience — PageView last 30 days · pixel 1269353078681016
+- Exclude: anyone who has already signed up (if trackable)
+- Creative: winning language from D2.3/D2.4 results — retargeting copy (reminder / objection-handling tone, not awareness tone)
+- Budget: €10/day (retargeting pool is small — don't overspend)</div>
+        </div>
+        <div class="cc-outcome">Expected output: Pixel count confirmed ≥ 500 · retargeting campaign built PAUSED · creative adapted to retargeting tone · awaiting activation go-ahead</div>
+      </div>
+
+      <div class="cc-directive">
+        <div class="cc-directive-top">
+          <div class="cc-d-num">D2.6</div>
+          <div class="cc-d-body">
+            <div class="cc-d-title">Build n8n email capture automation — form → SendGrid → list</div>
+            <div class="cc-d-why">Right now every email subscriber is manually managed. When the Meta campaign drives traffic, you need automated welcome emails firing instantly. Day 1 engagement determines retention.</div>
+            <div class="cc-d-meta"><span class="cc-agent-tag">Marketing Agent</span><span class="cc-skill-tag">n8n MCP · 25 tools</span></div>
+          </div>
+          <div class="cc-d-status"><span class="pill pill-pend">Pending · was D2.5</span></div>
+        </div>
+        <div class="cc-cmd">
+          <div class="cc-cmd-label">PASTE INTO CLAUDE CODE</div>
+          <div class="cc-cmd-text">Read agents/MARKETING.md and execute:
+Build n8n Workflow W1 (email-capture) using the n8n MCP.
+Trigger: Webhook — fires when anamnesis.health /api/subscribe is called
+Steps:
+(1) Receive subscriber email + timestamp
+(2) Send welcome email via SendGrid: subject "Welcome to Anamnesis — Medical AI by a Real Doctor", warm tone, what to expect, link to mvp.anamnesis.health
+(3) Add to subscriber list/tag in SendGrid (tag: "anamnesis-landing-2026")
+(4) Send admin notification to wisam.w.naddaf@gmail.com with subscriber count
+Use get_sdk_reference first, then search_nodes, then create_workflow_from_code.</div>
+        </div>
+        <div class="cc-outcome">Expected output: Working n8n workflow · webhook URL to configure in anamnesis-launching-soon · welcome email template</div>
+      </div>
+
+      <div class="cc-directive">
+        <div class="cc-directive-top">
+          <div class="cc-d-num">D2.7</div>
+          <div class="cc-d-body">
+            <div class="cc-d-title">Email welcome sequence — 3 segments (Patients · Physicians · Investors)</div>
+            <div class="cc-d-why">Generic broadcasts perform 40% worse than segmented emails. A patient, a physician, and an investor have completely different reasons to care about Anamnesis. Each gets a 3-email sequence tailored to their perspective.</div>
+            <div class="cc-d-meta"><span class="cc-agent-tag">Growth Agent</span><span class="cc-skill-tag">marketing-skills:emails</span><span class="cc-skill-tag">marketing-skills:copywriting</span></div>
+          </div>
+          <div class="cc-d-status"><span class="pill pill-pend">Pending · after list grows to 50+ · was D2.6</span></div>
+        </div>
+        <div class="cc-cmd">
+          <div class="cc-cmd-label">PASTE INTO CLAUDE CODE</div>
+          <div class="cc-cmd-text">Before executing, invoke these skills in sequence using the Skill tool: marketing-skills:emails · marketing-skills:copywriting — then proceed.
+Read agents/GROWTH.md and execute:
+Write a 3-email welcome sequence for each of 3 audience segments.
+Segment A — Patients: Email 1: what MAIA can do for them (symptom checking, health questions, always available). Email 2: how it's different from Google (medical AI, not search). Email 3: free trial CTA — link to mvp.anamnesis.health.
+Segment B — Physicians: Email 1: built by a fellow doctor, clinical accuracy focus. Email 2: how MAIA handles sensitive queries (safety assessment, not triage). Email 3: beta access + feedback request.
+Segment C — Investors: Email 1: the market opportunity (EU medical AI, GDPR-compliant). Email 2: traction metrics + MVP live. Email 3: investor inquiry CTA — link to anamnesis.health investor form.
+Use marketing-skills:copywriting and marketing-skills:emails skills. Keep emails under 200 words each. Plain text format.</div>
+        </div>
+        <div class="cc-outcome">Expected output: 9 email drafts (3 per segment) · subject lines + body · ready to load into SendGrid</div>
+      </div>
+
+      <div class="cc-directive">
+        <div class="cc-directive-top">
+          <div class="cc-d-num">D2.8</div>
+          <div class="cc-d-body">
+            <div class="cc-d-title">LinkedIn content plan — 12 founder story posts</div>
+            <div class="cc-d-why">LinkedIn is the highest-ROI free channel for a physician founder. Your credentials as a GP and clinical sub-investigator building medical AI is a genuine story. 12 posts = 3 months of weekly content covering the launch journey.</div>
+            <div class="cc-d-meta"><span class="cc-agent-tag">Growth Agent</span><span class="cc-skill-tag">marketing-skills:social</span><span class="cc-skill-tag">marketing-skills:content-strategy</span></div>
+          </div>
+          <div class="cc-d-status"><span class="pill pill-pend">Pending · was D2.7</span></div>
+        </div>
+        <div class="cc-cmd">
+          <div class="cc-cmd-label">PASTE INTO CLAUDE CODE</div>
+          <div class="cc-cmd-text">Before executing, invoke these skills in sequence using the Skill tool: marketing-skills:social · marketing-skills:content-strategy — then proceed.
+Read agents/GROWTH.md and execute:
+Create a 12-post LinkedIn content plan for Dr. Wisam Naddaf (GP, clinical sub-investigator, AI founder).
+Post themes (one per post, weekly):
+1. Why I built MAIA — the patient who made me think "there has to be a better way"
+2. What medical AI is and what it isn't (FDA non-device framing)
+3. The day I decided to code my own medical AI (non-programmer founder story)
+4. GDPR and medical AI — why it matters for patients in Europe
+5. What "clinical sub-investigator" means and why it shapes how I build AI
+6. MVP launch — the first 100 users
+7. Building alone — what being a solo founder in MedTech actually looks like
+8. The 5 things I get wrong when I talk to patients (and how AI helps)
+9. Why Czech and Slovak patients deserve better health AI
+10. The angel round — what I'm building toward
+11. MAIA avatar — the face of the platform
+12. One year from now — the full vision
+Write each post: 150-250 words, conversational, authentic, first person. No corporate speak. Include a CTA in posts 3, 6, 9, 12.</div>
+        </div>
+        <div class="cc-outcome">Expected output: 12 ready-to-post LinkedIn drafts · posting calendar · hashtag recommendations</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════ PHASE 3 — MVP HARDENING ═══════ -->
+  <div class="cc-phase" id="cc-p3">
+    <div class="cc-phase-hdr" onclick="toggleCC('cc-p3')" style="border-left-color:var(--green);">
+      <span class="cc-ph-num">PHASE 3</span>
+      <span class="cc-ph-title">MVP Hardening — mvp.anamnesis.health</span>
+      <span class="cc-ph-meta">5 directives · Month 1 · HIGH</span>
+      <span class="cc-ph-toggle" id="cc-p3-toggle">▾</span>
+    </div>
+    <div class="cc-phase-body" id="cc-p3-body">
+
+      <div class="cc-directive">
+        <div class="cc-directive-top">
+          <div class="cc-d-num">D3.1</div>
+          <div class="cc-d-body">
+            <div class="cc-d-title">Full regression suite — 131 tests + quality gate</div>
+            <div class="cc-d-why">Before any new users arrive, confirm the safety pipeline hasn't regressed. The 4 test suites cover urgency detection, negation handling, emergency escalation, and markdown rendering. All 131 must pass.</div>
+            <div class="cc-d-meta"><span class="cc-agent-tag">Technical Agent</span></div>
+          </div>
+          <div class="cc-d-status"><span class="pill pill-pend">Pending</span></div>
+        </div>
+        <div class="cc-cmd">
+          <div class="cc-cmd-label">PASTE INTO CLAUDE CODE — run from anamnesis-mvp/</div>
+          <div class="cc-cmd-text">Read anamnesis-mvp/CLAUDE.md then run all regression suites:
+npx jest server/safety/tests/urgency-regression.test.js
+npx jest server/safety/tests/negation-urgency.test.js
+npx jest server/safety/tests/assistant-urgency-cap.test.js
+npx vitest client/src/__tests__/markdownPreprocessor.test.js
+Then run quality gate: npx tsc --noEmit && npx eslint . --max-warnings 0 && npm run build
+Report: Tests: urgency ✅/❌ N/33 | negation ✅/❌ N/38 | cap ✅/❌ N/9 | markdown ✅/❌ N/51 | TS ✅/❌ | ESLint ✅/❌ | Build ✅/❌
+If any test fails, identify root cause and fix before proceeding. Never adjust tests to make them pass.</div>
+        </div>
+        <div class="cc-outcome">Expected output: 131/131 tests passing · 0 TS errors · 0 ESLint warnings · clean build</div>
+      </div>
+
+      <div class="cc-directive">
+        <div class="cc-directive-top">
+          <div class="cc-d-num">D3.2</div>
+          <div class="cc-d-body">
+            <div class="cc-d-title">Beta user onboarding flow — optimise for first-session retention</div>
+            <div class="cc-d-why">Getting users to register is step one. Getting them to complete their first meaningful conversation is what builds habit. The first 5 minutes inside the product determines if they return. Target: 100 registered beta users with at least 1 session each.</div>
+            <div class="cc-d-meta"><span class="cc-agent-tag">Growth Agent</span><span class="cc-skill-tag">marketing-skills:onboarding</span><span class="cc-skill-tag">product-innovation:continuous-discovery</span></div>
+          </div>
+          <div class="cc-d-status"><span class="pill pill-pend">Pending</span></div>
+        </div>
+        <div class="cc-cmd">
+          <div class="cc-cmd-label">PASTE INTO CLAUDE CODE</div>
+          <div class="cc-cmd-text">Before executing, invoke these skills in sequence using the Skill tool: marketing-skills:onboarding · product-innovation:continuous-discovery — then proceed.
+Read agents/GROWTH.md then read anamnesis-mvp/CLAUDE.md and execute:
+Audit and improve the new user onboarding experience in the MVP.
+Audit: (1) What does a new user see on first login? (2) Is there a welcome message from MAIA? (3) Is the first prompt guided or blank? (4) Is the free tier limit communicated clearly?
+Improvements to implement:
+(1) Add a first-session welcome message from MAIA introducing herself and suggesting 3 starter questions
+(2) Add an empty state prompt: "Ask me about a symptom, a medication, or your health"
+(3) Add a subtle credit counter visible after first message
+Run quality gate after. All 131 tests must still pass.</div>
+        </div>
+        <div class="cc-outcome">Expected output: Improved first-session experience · welcome message · guided prompts · tests still passing</div>
+      </div>
+
+      <div class="cc-directive">
+        <div class="cc-directive-top">
+          <div class="cc-d-num">D3.3</div>
+          <div class="cc-d-body">
+            <div class="cc-d-title">Collect 10 beta user testimonials</div>
+            <div class="cc-d-why">Testimonials unlock social proof on the landing page, credibility in the investor pitch, and trust in Meta ad creatives. 10 testimonials from real beta users is enough to cover all 3 use cases. Physicians are gold — their endorsement carries disproportionate weight.</div>
+            <div class="cc-d-meta"><span class="cc-agent-tag">Growth Agent</span><span class="cc-skill-tag">marketing-skills:customer-research</span></div>
+          </div>
+          <div class="cc-d-status"><span class="pill pill-pend">Pending</span></div>
+        </div>
+        <div class="cc-cmd">
+          <div class="cc-cmd-label">PASTE INTO CLAUDE CODE</div>
+          <div class="cc-cmd-text">Before executing, invoke this skill using the Skill tool: marketing-skills:customer-research — then proceed.
+Read agents/GROWTH.md and execute:
+Create a testimonial collection campaign for Anamnesis beta users.
+Deliverables:
+(1) WhatsApp message template to send to beta group — friendly, short, asks for a 2-sentence written testimonial or a 30-second voice note
+(2) LinkedIn DM template for physician beta users specifically — positions their endorsement as peer recommendation
+(3) 5 specific questions to guide testimonials: "What health question did you ask MAIA?", "How did the answer compare to Googling?", "Would you recommend it to a patient?", "What surprised you?", "One word to describe MAIA"
+(4) A simple consent statement they agree to by replying (for use in marketing)
+Goal: 10 testimonials — minimum 3 from physicians or healthcare workers.</div>
+        </div>
+        <div class="cc-outcome">Expected output: WhatsApp + LinkedIn message templates · 5 guiding questions · consent statement · tracking sheet</div>
+      </div>
+
+      <div class="cc-directive">
+        <div class="cc-directive-top">
+          <div class="cc-d-num">D3.4</div>
+          <div class="cc-d-body">
+            <div class="cc-d-title">Rate limiting and security hardening — pre-scale audit</div>
+            <div class="cc-d-why">Before Meta sends hundreds of new users per day, the MVP needs to be hardened against abuse. Rate limiting, session security, and the middleware stack should be reviewed by a fresh set of eyes before public launch.</div>
+            <div class="cc-d-meta"><span class="cc-agent-tag">Technical Agent</span><span class="cc-skill-tag">aikido:scan</span></div>
+          </div>
+          <div class="cc-d-status"><span class="pill pill-pend">Pending</span></div>
+        </div>
+        <div class="cc-cmd">
+          <div class="cc-cmd-label">PASTE INTO CLAUDE CODE</div>
+          <div class="cc-cmd-text">Before executing, invoke this skill using the Skill tool: aikido:scan — then proceed.
+Read agents/TECHNICAL.md then read anamnesis-mvp/CLAUDE.md and execute:
+Security and rate limiting audit for pre-launch hardening.
+Review: (1) server/routes.js middleware stack order — confirm it matches CLAUDE.md spec (request ID → security headers → admin auth → session → Passport → email lead gate → credit check → rate limiting) (2) Rate limit values on /api/chat — are they appropriate for public launch? (3) Session cookie settings — httpOnly, secure, sameSite (4) Any console.log() in production paths (5) Any hardcoded credentials or env vars in code
+Then run: aikido scan if available, or manual grep for common vulnerabilities.
+Report findings by severity. Fix critical issues immediately.</div>
+        </div>
+        <div class="cc-outcome">Expected output: Security audit report · middleware stack verified · rate limits confirmed · critical issues fixed</div>
+      </div>
+
+      <div class="cc-directive">
+        <div class="cc-directive-top">
+          <div class="cc-d-num">D3.5</div>
+          <div class="cc-d-body">
+            <div class="cc-d-title">n8n user onboarding automation — Day 1, Day 3, Day 7 sequences</div>
+            <div class="cc-d-why">Automated retention sequences are the difference between 10% and 30% DAU/MAU. Day 1 confirms value. Day 3 re-engages dropoffs. Day 7 introduces the upgrade path. This is the engine that converts free users to paying subscribers.</div>
+            <div class="cc-d-meta"><span class="cc-agent-tag">Marketing Agent</span><span class="cc-skill-tag">n8n MCP</span><span class="cc-skill-tag">marketing-skills:onboarding</span></div>
+          </div>
+          <div class="cc-d-status"><span class="pill pill-pend">Pending · after W1 is live</span></div>
+        </div>
+        <div class="cc-cmd">
+          <div class="cc-cmd-label">PASTE INTO CLAUDE CODE</div>
+          <div class="cc-cmd-text">Before executing, invoke this skill using the Skill tool: marketing-skills:onboarding — then proceed.
+Read agents/MARKETING.md and execute:
+Build n8n Workflow W3 (user-onboarding) using the n8n MCP.
+Trigger: New user registers on mvp.anamnesis.health (webhook from registration endpoint)
+Sequence:
+Day 1 (immediately): Welcome email — "Welcome to MAIA — your medical AI is ready" — includes 3 example questions, link to chat
+Day 3 (if no return session): Re-engagement — "Did you get what you needed?" — include testimonial quote, remind of free credits remaining
+Day 7 (if still on free tier): Upgrade nudge — "You've been using MAIA for a week. Ready for more?" — show Starter plan €14.99, credit comparison, upgrade link
+Personalization: use first name if available. Keep tone warm, not pushy. No clinical claims.</div>
+        </div>
+        <div class="cc-outcome">Expected output: n8n workflow W3 live · 3-email sequence automated · DAU/MAU improvement expected within 2 weeks</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════ PHASE 4 — MVP 2.0 ═══════ -->
+  <div class="cc-phase" id="cc-p4">
+    <div class="cc-phase-hdr" onclick="toggleCC('cc-p4')" style="border-left-color:var(--accent);">
+      <span class="cc-ph-num">PHASE 4</span>
+      <span class="cc-ph-title">MVP 2.0 — Feature Expansion</span>
+      <span class="cc-ph-meta">12 directives · Month 2 · MEDIUM · execute after 100 users reached</span>
+      <span class="cc-ph-toggle" id="cc-p4-toggle">▾</span>
+    </div>
+    <div class="cc-phase-body" id="cc-p4-body">
+
+      <div class="cc-directive">
+        <div class="cc-directive-top">
+          <div class="cc-d-num">D4.1</div>
+          <div class="cc-d-body">
+            <div class="cc-d-title">Session history view — users can browse past conversations</div>
+            <div class="cc-d-why">Users who can revisit previous conversations have 3x higher retention. The chat history also builds the case for upgrading — "I've asked 47 questions this month" is compelling. The MVP database already stores messages in chatMessages table.</div>
+            <div class="cc-d-meta"><span class="cc-agent-tag">Technical Agent</span></div>
+          </div>
+          <div class="cc-d-status"><span class="pill pill-pend">Month 2</span></div>
+        </div>
+        <div class="cc-cmd">
+          <div class="cc-cmd-label">PASTE INTO CLAUDE CODE</div>
+          <div class="cc-cmd-text">Read agents/TECHNICAL.md then read anamnesis-mvp/CLAUDE.md and execute:
+Add a session history sidebar to ChatPage.jsx.
+Requirements: (1) List past conversation sessions grouped by date (2) Click a session to load its messages (3) Sessions stored in existing chatMessages table — add a sessionId field if not present (4) Show session title = first user message truncated to 40 chars (5) "New conversation" button clears context (6) History is user-scoped — never show another user's sessions
+Constraints: No PHI stored. No test suite changes unless new safety-adjacent code is added. Run all 131 tests after. Run full quality gate.</div>
+        </div>
+        <div class="cc-outcome">Expected output: Session history sidebar · click to load · new chat button · tests passing · quality gate green</div>
+      </div>
+
+      <div class="cc-directive">
+        <div class="cc-directive-top">
+          <div class="cc-d-num">D4.2</div>
+          <div class="cc-d-body">
+            <div class="cc-d-title">User profile page — name, health background, preferences</div>
+            <div class="cc-d-why">Personalization increases engagement. When MAIA knows a user is a 45-year-old with hypertension, her responses are more relevant. Profile data also feeds the upgrade conversion — users who invest in their profile are more likely to pay.</div>
+            <div class="cc-d-meta"><span class="cc-agent-tag">Technical Agent</span></div>
+          </div>
+          <div class="cc-d-status"><span class="pill pill-pend">Month 2</span></div>
+        </div>
+        <div class="cc-cmd">
+          <div class="cc-cmd-label">PASTE INTO CLAUDE CODE</div>
+          <div class="cc-cmd-text">Read agents/TECHNICAL.md then read anamnesis-mvp/CLAUDE.md and execute:
+Add a user profile page to the MVP.
+Fields (optional, user-filled): display name, age range, general health context (free text, max 200 chars), preferred language (English/Czech/Slovak), notification preferences.
+Implementation: (1) New /profile route in Wouter (2) Profile card accessible from nav (3) Stored in users table — add columns via Drizzle schema migration (4) Health context prepended to AI system prompt (as general context, not PHI) (5) Medical disclaimer: "This information helps MAIA personalise responses. It is not a medical record."
+Never store diagnosis, medications, or specific health conditions as structured data. Free text only. Run quality gate after.</div>
+        </div>
+        <div class="cc-outcome">Expected output: /profile page · optional fields · health context injected into prompts · quality gate green</div>
+      </div>
+
+      <div class="cc-directive">
+        <div class="cc-directive-top">
+          <div class="cc-d-num">D4.3</div>
+          <div class="cc-d-body">
+            <div class="cc-d-title">MAIA avatar — HeyGen/ElevenLabs video integration</div>
+            <div class="cc-d-why">The MAIA avatar is the face of the platform. A physician-voiced avatar responding to health questions is 10x more trustworthy than text alone. Phase 1 is a pre-recorded HeyGen video avatar — interactive AI avatar comes post-angel. Also essential for the investor pitch video.</div>
+            <div class="cc-d-meta"><span class="cc-agent-tag">Technical Agent</span><span class="cc-skill-tag">marketing-skills:video</span></div>
+          </div>
+          <div class="cc-d-status"><span class="pill pill-pend">Month 2</span></div>
+        </div>
+        <div class="cc-cmd">
+          <div class="cc-cmd-label">PASTE INTO CLAUDE CODE</div>
+          <div class="cc-cmd-text">Before executing, invoke this skill using the Skill tool: marketing-skills:video — then proceed.
+Read agents/TECHNICAL.md and execute:
+Integrate a HeyGen video avatar into the MVP chat interface.
+Phase 1 (static video avatar):
+(1) Research HeyGen API for React integration — fetch the integration docs
+(2) Create a MAIA avatar component that shows a small avatar video in the top corner of ChatPage
+(3) Avatar plays a pre-recorded intro on first login: "Hi, I'm MAIA — your Medical AI Assistant. I'm here to help with health questions, anytime."
+(4) Avatar is subtle — does not obstruct the chat (corner position, collapsible)
+(5) Fallback: static MAIA logo if API unavailable
+The avatar voice should use ElevenLabs — professional, calm, female, medical tone.
+Budget consideration: HeyGen starts ~€29/month. ElevenLabs starter ~€5/month. Confirm pricing before implementation.</div>
+        </div>
+        <div class="cc-outcome">Expected output: MAIA avatar component · intro video on first login · graceful fallback · cost confirmed</div>
+      </div>
+
+      <div class="cc-directive">
+        <div class="cc-directive-top">
+          <div class="cc-d-num">D4.4</div>
+          <div class="cc-d-body">
+            <div class="cc-d-title">Major European Language Interface — i18n Foundation</div>
+            <div class="cc-d-why">A multi-language interface removes the conversion barrier for non-English speakers across the EU. The 5 most widely spoken EU target languages — Czech, Slovak, German, Polish, French — cover the primary expansion markets. MAIA's AI responses already handle multilingual queries natively; the UI interface strings are the remaining localisation gap. This directive builds the i18n foundation so language support can be extended incrementally without a rework. Full EU language suite deployment is MVP 2.5 scope.</div>
+            <div class="cc-d-meta"><span class="cc-agent-tag">Technical Agent</span></div>
+          </div>
+          <div class="cc-d-status"><span class="pill" style="background:var(--purple-dim);color:var(--purple);border:1px solid rgba(139,92,246,0.2);">MVP 2.5</span></div>
+        </div>
+        <div class="cc-cmd">
+          <div class="cc-cmd-label">PASTE INTO CLAUDE CODE</div>
+          <div class="cc-cmd-text">Read agents/TECHNICAL.md then read anamnesis-mvp/CLAUDE.md and execute:
+Add a multi-language i18n foundation to the MVP — UI strings only, covering the 6 most common European languages.
+Languages: English (default), Czech (cs), Slovak (sk), German (de), Polish (pl), French (fr).
+Implementation: (1) Create /client/src/i18n/ folder with en.json, cs.json, sk.json, de.json, pl.json, fr.json (2) Language selector in nav — globe icon dropdown (3) Persist selection in localStorage key 'maia-ui-language' (4) Cover the 30 most visible UI strings: nav labels, buttons, empty state text, subscription plan names, error messages (5) AI responses are already multilingual — do not change AI prompt logic (6) Do not machine-translate medical disclaimers — provide English source + human review note for each disclaimer string.
+Run quality gate + all 131 tests after.</div>
+        </div>
+        <div class="cc-outcome">Expected output: i18n folder with 6 language files · language selector in nav · 30 UI strings localised · localStorage persistence · quality gate green</div>
+      </div>
+
+      <div class="cc-directive">
+        <div class="cc-directive-top">
+          <div class="cc-d-num">D4.5</div>
+          <div class="cc-d-body">
+            <div class="cc-d-title">Subscription upgrade conversion flow — smart upsell prompts</div>
+            <div class="cc-d-why">Free users converting to paid is the primary revenue event. Right now, credits run out and users hit a wall. A smart, non-annoying upgrade prompt at the right moment — when they're mid-conversation and engaged — converts significantly better than a paywall.</div>
+            <div class="cc-d-meta"><span class="cc-agent-tag">Technical Agent</span><span class="cc-skill-tag">marketing-skills:paywalls</span><span class="cc-skill-tag">marketing-skills:pricing</span></div>
+          </div>
+          <div class="cc-d-status"><span class="pill pill-pend">Month 2</span></div>
+        </div>
+        <div class="cc-cmd">
+          <div class="cc-cmd-label">PASTE INTO CLAUDE CODE</div>
+          <div class="cc-cmd-text">Before executing, invoke these skills in sequence using the Skill tool: marketing-skills:paywalls · marketing-skills:pricing — then proceed.
+Read agents/TECHNICAL.md then read anamnesis-mvp/CLAUDE.md and execute:
+Improve the subscription upgrade conversion flow.
+Current: Users hit a hard credit wall with no context.
+Improvements: (1) At 20 credits remaining: soft nudge — "You have 20 credits left. Upgrade to Starter for 500 credits (€14.99)" — dismissible, shown once per session (2) At 5 credits remaining: stronger nudge with plan comparison card (3) At 0 credits: full upgrade screen, not a blank error — show all 4 plans, highlight most popular (Standard €34.99), "Resume your conversation after upgrading" (4) Add a credits progress bar visible in the nav (5) "Refer a friend for 50 bonus credits" teaser
+Use Stripe integration already in place for upgrade links. Run quality gate + 131 tests after.</div>
+        </div>
+        <div class="cc-outcome">Expected output: 3-tier upgrade prompts · credits progress bar · referral teaser · Stripe links · tests passing</div>
+      </div>
+
+      <div class="cc-directive">
+        <div class="cc-directive-top">
+          <div class="cc-d-num">D4.6</div>
+          <div class="cc-d-body">
+            <div class="cc-d-title">MVP 2.0 — Mode Selection Foundation (Layer A)</div>
+            <div class="cc-d-why">All structured workflow modes depend on this phase. Without it every user gets the same general health question experience regardless of need. The WorkflowModeSelector component, sessionStorage persistence, and API payload threading must be in place before any workflow-specific AI behaviour can be built. Zero AI behaviour changes — purely wires mode awareness through the system. Fully backward-compatible: existing sessions without workflowMode route identically to current production.</div>
+            <div class="cc-d-meta"><span class="cc-agent-tag">Technical Agent</span><span class="cc-skill-tag">feature-dev:feature-dev</span><span class="cc-skill-tag">code-craftsmanship:clean-code</span></div>
+          </div>
+          <div class="cc-d-status"><span class="pill pill-pend">Month 2 · first</span></div>
+        </div>
+        <div class="cc-cmd">
+          <div class="cc-cmd-label">PASTE INTO CLAUDE CODE</div>
+          <div class="cc-cmd-text">Before executing, invoke these skills in sequence using the Skill tool: feature-dev:feature-dev · code-craftsmanship:clean-code — then proceed.
+Read MAIA-PRIME.md then read agents/TECHNICAL.md then read anamnesis-mvp/CLAUDE.md then read anamnesis-mvp/docs/mvp-2.0/PHASE1_EXECUTION_PLAN.md and execute Phase 1 — Mode Selection Foundation.
+Deliver: (1) Create client/src/components/WorkflowModeSelector.jsx — 6 mode cards: General Health Question (default), Doctor Appointment Preparation, New Symptom, Medication Review, Chronic Condition, Emergency Concern (2) Add workflowMode state + workflowModeLocked boolean to ChatPage.jsx; persist to sessionStorage key 'chatWorkflowMode' — same pattern as chatSessionId at line 258 (3) Add workflowMode to sendMessage() options in llm-api.jsx request payload — conditional spread (4) Accept workflowMode as optional string in routes.js request body; pass through to decideResponseMode() (5) Add workflowMode = null to decideResponseMode.js parameter — Phase 1 accepts but does not act on it yet (6) Include workflowMode in contextHash computation.
+Acceptance: existing sessions without workflowMode behave identically · General Health Question pre-selected · mode locks after first message · suggestion chips hidden for all non-General modes.
+Run all 131 tests + quality gate.</div>
+        </div>
+        <div class="cc-outcome">Expected output: WorkflowModeSelector live · 6 modes selectable · sessionStorage persistence · API payload updated · 131 tests passing · quality gate green</div>
+      </div>
+
+      <div class="cc-directive">
+        <div class="cc-directive-top">
+          <div class="cc-d-num">D4.7</div>
+          <div class="cc-d-body">
+            <div class="cc-d-title">MVP 2.0 — Prompt Routing Foundation (Layer B)</div>
+            <div class="cc-d-why">The mode selector is cosmetic without this routing layer. workflowPrompts.js is a new single-source file for all 6 workflow system prompt preambles — the only place workflow prompts live. Extending decideResponseMode.js to inject the correct preamble is the pivot point that enables every guided workflow mode. Safety override always executes before any workflow preamble is injected — this is architecture-enforced and non-negotiable.</div>
+            <div class="cc-d-meta"><span class="cc-agent-tag">Technical Agent</span><span class="cc-skill-tag">feature-dev:feature-dev</span><span class="cc-skill-tag">code-craftsmanship:clean-code</span></div>
+          </div>
+          <div class="cc-d-status"><span class="pill pill-pend">Month 2 · after D4.6</span></div>
+        </div>
+        <div class="cc-cmd">
+          <div class="cc-cmd-label">PASTE INTO CLAUDE CODE</div>
+          <div class="cc-cmd-text">Before executing, invoke these skills in sequence using the Skill tool: feature-dev:feature-dev · code-craftsmanship:clean-code — then proceed.
+Read MAIA-PRIME.md then read agents/TECHNICAL.md then read anamnesis-mvp/CLAUDE.md then read anamnesis-mvp/docs/mvp-2.0/MVP2_MASTER_ROADMAP.md and execute Phase 2 — Prompt Routing Foundation.
+Deliver: (1) Create server/routing/workflowPrompts.js — WORKFLOW_PROMPTS object with initial system prompt preamble for each mode: general_health_question, doctor_appointment_preparation, new_symptom, medication_review, chronic_condition, emergency_concern — all prompts in this file only, no fragmentation (2) Extend decideResponseMode.js: add workflowMode parameter; if workflowMode is set and non-null, prepend matching preamble from workflowPrompts.js before buildModePromptContract() executes; safety override check remains first (3) Confirm workflowMode is included in contextHash to prevent cross-workflow cache collisions.
+Test: workflowMode: null produces output identical to current production · workflowMode: 'doctor_appointment_preparation' produces a structured first response asking about chief complaint.
+Run all 131 tests + quality gate.</div>
+        </div>
+        <div class="cc-outcome">Expected output: workflowPrompts.js created · routing extended · all 6 preambles defined · 131 tests passing · quality gate green</div>
+      </div>
+
+      <div class="cc-directive">
+        <div class="cc-directive-top">
+          <div class="cc-d-num">D4.8</div>
+          <div class="cc-d-body">
+            <div class="cc-d-title">MVP 2.0 — Doctor Appointment Preparation · Flagship</div>
+            <div class="cc-d-why">The primary MVP 2.0 differentiator. A patient who walks into their GP with an AI-generated Appointment Brief has a better, more efficient consultation — and Anamnesis is the reason. Guided 9-topic structured interview (chief complaint through questions for the doctor) produces a brief the patient can hand directly to their physician. Also the architectural centrepiece — D4.9, D4.10, D4.11 all extend the same summary infrastructure built here.</div>
+            <div class="cc-d-meta"><span class="cc-agent-tag">Technical Agent</span><span class="cc-agent-tag" style="background:var(--red-dim);color:var(--red);border:1px solid rgba(239,68,68,0.2);">Medical Agent</span><span class="cc-skill-tag">feature-dev:feature-dev</span><span class="cc-skill-tag">coderabbit:code-review</span></div>
+          </div>
+          <div class="cc-d-status"><span class="pill pill-pend">Month 2 · after D4.7 · FLAGSHIP</span></div>
+        </div>
+        <div class="cc-cmd">
+          <div class="cc-cmd-label">PASTE INTO CLAUDE CODE</div>
+          <div class="cc-cmd-text">Before executing, invoke these skills in sequence using the Skill tool: feature-dev:feature-dev · coderabbit:code-review — then proceed.
+Read MAIA-PRIME.md then read agents/TECHNICAL.md then read agents/MEDICAL.md then read anamnesis-mvp/CLAUDE.md then read anamnesis-mvp/docs/mvp-2.0/MVP2_MASTER_ROADMAP.md and anamnesis-mvp/docs/mvp-2.0/MVP2_WORKFLOW_SPECIFICATION.md and execute Phase 3 — Doctor Appointment Preparation.
+Deliver: (1) Finalise WORKFLOW_PROMPTS.doctor_appointment_preparation — 9-topic interview: chief complaint, symptom onset and timeline, symptom description, aggravating/relieving factors, associated symptoms, relevant medical history, current medications and allergies, questions for the doctor — AI asks one topic at a time with conversational follow-up (2) Create server/routes/summary.js — POST /api/chat/summary: requireAuth → retrieve session history → call DeepSeek with Appointment Brief spec → store in chat_messages with responseMode 'appointment_summary' → return summary (3) Create server/routing/workflowOutputSpecs.js — OUTPUT_SPECS.appointment_brief: 8 sections: Chief Complaint, Symptom Description, Aggravating/Relieving Factors, Associated Symptoms, Relevant Medical History, Current Medications and Allergies, Questions for the Doctor, Date Prepared (4) Create client/src/components/SummaryDisplay.jsx — renders Appointment Brief with distinct visual treatment, reusable across all guided modes (5) Add Create Summary button to ChatPage.jsx — visible only when workflowMode === 'doctor_appointment_preparation'.
+Safety test: send "severe chest pain radiating to my arm" mid-interview — emergency escalation must fire immediately. Run all 131 tests + quality gate.</div>
+        </div>
+        <div class="cc-outcome">Expected output: Appointment Preparation interview functional · POST /api/chat/summary live · Appointment Brief with all 8 sections · SummaryDisplay reusable · 131 tests passing · quality gate green</div>
+      </div>
+
+      <div class="cc-directive">
+        <div class="cc-directive-top">
+          <div class="cc-d-num">D4.9</div>
+          <div class="cc-d-body">
+            <div class="cc-d-title">MVP 2.0 — New Symptom · OLDCARTS Interview</div>
+            <div class="cc-d-why">New symptoms are the highest-volume use case — the primary reason people search health information. An OLDCARTS-structured conversational intake producing a Symptom Report gives users something tangible for their GP visit. Interview must feel natural, not a rigid questionnaire. Red flag symptoms trigger immediate emergency escalation mid-interview; negation normalisation already handles false positives. Extends D4.8 infrastructure with minimal new code.</div>
+            <div class="cc-d-meta"><span class="cc-agent-tag">Technical Agent</span><span class="cc-agent-tag" style="background:var(--red-dim);color:var(--red);border:1px solid rgba(239,68,68,0.2);">Medical Agent</span><span class="cc-skill-tag">feature-dev:feature-dev</span><span class="cc-skill-tag">coderabbit:code-review</span></div>
+          </div>
+          <div class="cc-d-status"><span class="pill pill-pend">Month 2 · after D4.8</span></div>
+        </div>
+        <div class="cc-cmd">
+          <div class="cc-cmd-label">PASTE INTO CLAUDE CODE</div>
+          <div class="cc-cmd-text">Before executing, invoke these skills in sequence using the Skill tool: feature-dev:feature-dev · coderabbit:code-review — then proceed.
+Read MAIA-PRIME.md then read agents/TECHNICAL.md then read agents/MEDICAL.md then read anamnesis-mvp/CLAUDE.md then read anamnesis-mvp/docs/mvp-2.0/MVP2_MASTER_ROADMAP.md and execute Phase 4 — New Symptom.
+Deliver: (1) Finalise WORKFLOW_PROMPTS.new_symptom — conversational OLDCARTS intake: Onset, Location, Duration, Character, Aggravating factors, Relieving factors, Timing, Severity (1-10), Associated symptoms — OLDCARTS is the AI's internal coverage checklist; questions must be conversational and natural, not a visible form (2) Add OUTPUT_SPECS.symptom_report to workflowOutputSpecs.js — 6 sections: Symptom Overview, OLDCARTS Profile, Associated Symptoms, Informational Assessment, Recommended Next Steps, Important Disclaimer (3) Extend POST /api/chat/summary for workflowMode: 'new_symptom' (4) Extend Create Summary action for new_symptom sessions.
+Safety test: send "severe chest pain radiating to my left arm" mid-interview — emergency escalation must fire. Test negation: "no fever, no chest pain" — confirm normalizeNegation.js prevents false escalation. Run all 131 tests + quality gate.</div>
+        </div>
+        <div class="cc-outcome">Expected output: New Symptom mode functional · OLDCARTS interview conversational · Symptom Report with 6 sections · safety escalation confirmed mid-interview · 131 tests passing · quality gate green</div>
+      </div>
+
+      <div class="cc-directive">
+        <div class="cc-directive-top">
+          <div class="cc-d-num">D4.10</div>
+          <div class="cc-d-body">
+            <div class="cc-d-title">MVP 2.0 — Medication Review</div>
+            <div class="cc-d-why">Medication questions are the most common query category in the existing MVP. Structured review with interaction detection and a Medication Review Summary — covering individual drug profiles, drug-drug interactions, and practical guidance — is immediately valuable to patients and healthcare professionals. Lowest new-code complexity of all guided modes: extends the existing concise_medication infrastructure already in production rather than building from scratch.</div>
+            <div class="cc-d-meta"><span class="cc-agent-tag">Technical Agent</span><span class="cc-agent-tag" style="background:var(--red-dim);color:var(--red);border:1px solid rgba(239,68,68,0.2);">Medical Agent</span><span class="cc-skill-tag">feature-dev:feature-dev</span></div>
+          </div>
+          <div class="cc-d-status"><span class="pill pill-pend">Month 2 · after D4.8</span></div>
+        </div>
+        <div class="cc-cmd">
+          <div class="cc-cmd-label">PASTE INTO CLAUDE CODE</div>
+          <div class="cc-cmd-text">Before executing, invoke this skill using the Skill tool: feature-dev:feature-dev — then proceed.
+Read MAIA-PRIME.md then read agents/TECHNICAL.md then read agents/MEDICAL.md then read anamnesis-mvp/CLAUDE.md then read anamnesis-mvp/docs/mvp-2.0/MVP2_MASTER_ROADMAP.md and execute Phase 5 — Medication Review.
+Deliver: (1) Finalise WORKFLOW_PROMPTS.medication_review — extends existing concise_medication prompt with structured guided review: individual medication profiles (purpose, dosing, side effects, warnings), drug-drug interactions for multi-medication lists, practical guidance (timing, food interactions, missed dose) — preamble is additive, never replaces existing concise_medication safety logic (2) Add OUTPUT_SPECS.medication_review to workflowOutputSpecs.js — 6 sections: Medications Reviewed, Individual Medication Profiles, Interaction Flags, Key Safety Points, Recommendations for Discussion with Prescriber or Pharmacist, Important Disclaimer (3) Extend POST /api/chat/summary for workflowMode: 'medication_review' (4) Extend Create Summary action for medication_review sessions.
+Safety test: review a two-drug combination with a known dangerous interaction — confirm appropriate urgency flag fires. Run all 131 tests + quality gate.</div>
+        </div>
+        <div class="cc-outcome">Expected output: Medication Review mode functional · interaction detection active · Medication Review Summary with 6 sections · dangerous interaction flagged in test · 131 tests passing · quality gate green</div>
+      </div>
+
+      <div class="cc-directive">
+        <div class="cc-directive-top">
+          <div class="cc-d-num">D4.11</div>
+          <div class="cc-d-body">
+            <div class="cc-d-title">MVP 2.0 — Chronic Condition</div>
+            <div class="cc-d-why">Chronic disease management is the highest-frequency recurring use case — patients with diabetes, hypertension, or asthma need ongoing informational support. Adaptive session-based interview covering current status, recent changes, medication adherence, and flare triggers produces a Condition Review Summary for follow-up appointments. No cross-session memory required for MVP — the session opener provides sufficient within-session context. Shares all infrastructure from D4.8.</div>
+            <div class="cc-d-meta"><span class="cc-agent-tag">Technical Agent</span><span class="cc-agent-tag" style="background:var(--red-dim);color:var(--red);border:1px solid rgba(239,68,68,0.2);">Medical Agent</span><span class="cc-skill-tag">feature-dev:feature-dev</span></div>
+          </div>
+          <div class="cc-d-status"><span class="pill pill-pend">Month 2 · after D4.8</span></div>
+        </div>
+        <div class="cc-cmd">
+          <div class="cc-cmd-label">PASTE INTO CLAUDE CODE</div>
+          <div class="cc-cmd-text">Before executing, invoke this skill using the Skill tool: feature-dev:feature-dev — then proceed.
+Read MAIA-PRIME.md then read agents/TECHNICAL.md then read agents/MEDICAL.md then read anamnesis-mvp/CLAUDE.md then read anamnesis-mvp/docs/mvp-2.0/MVP2_MASTER_ROADMAP.md and execute Phase 6 — Chronic Condition.
+Deliver: (1) Finalise WORKFLOW_PROMPTS.chronic_condition — adaptive condition status interview: condition identification, current status vs baseline, recent symptom changes, medication adherence and side effects, flare triggers and patterns, upcoming appointment context — AI adapts questions to the stated condition; not all areas required if irrelevant (2) Add OUTPUT_SPECS.condition_review to workflowOutputSpecs.js — 7 sections: Condition, Current Status, Recent Changes, Medication Status, Identified Triggers and Patterns, Points to Raise with Healthcare Provider, Date of Review (3) Extend POST /api/chat/summary for workflowMode: 'chronic_condition' (4) Extend Create Summary action for chronic_condition sessions.
+Constraint: cross-session memory NOT implemented in MVP — opener prompt must state: "I don't have memory of previous sessions — let's start by reviewing where things stand today." Run all 131 tests + quality gate.</div>
+        </div>
+        <div class="cc-outcome">Expected output: Chronic Condition mode functional · adaptive interview working · Condition Review Summary with 7 sections · no cross-session memory · 131 tests passing · quality gate green</div>
+      </div>
+
+      <div class="cc-directive">
+        <div class="cc-directive-top">
+          <div class="cc-d-num">D4.12</div>
+          <div class="cc-d-body">
+            <div class="cc-d-title">MVP 2.0 — Emergency Concern · Safety Mode Surface</div>
+            <div class="cc-d-why">The entire safety pipeline — urgency classification, emergency detection, escalation protocols, SafetyWarning UI — is already fully production-ready. This directive surfaces it as an explicit user-selectable mode with optimised UX: immediate text input focus, no starter cards, no chips. Zero new safety logic built. Emergency behaviour is identical whether or not this mode is explicitly selected. Must be executed last — after all guided interview modes are stable and all 131 regression tests pass unchanged.</div>
+            <div class="cc-d-meta"><span class="cc-agent-tag">Technical Agent</span><span class="cc-agent-tag" style="background:var(--red-dim);color:var(--red);border:1px solid rgba(239,68,68,0.2);">Medical Agent</span><span class="cc-skill-tag">coderabbit:code-review</span></div>
+          </div>
+          <div class="cc-d-status"><span class="pill pill-pend">Month 2 · last · after D4.6–D4.11</span></div>
+        </div>
+        <div class="cc-cmd">
+          <div class="cc-cmd-label">PASTE INTO CLAUDE CODE</div>
+          <div class="cc-cmd-text">Before executing, invoke this skill using the Skill tool: coderabbit:code-review — then proceed.
+Read MAIA-PRIME.md then read agents/TECHNICAL.md then read agents/MEDICAL.md then read anamnesis-mvp/CLAUDE.md then read anamnesis-mvp/docs/mvp-2.0/MVP2_MASTER_ROADMAP.md and execute Phase 7 — Emergency Concern.
+Deliver: (1) Finalise WORKFLOW_PROMPTS.emergency_concern — minimal preamble only; forces standard response mode; enables immediate safety_meta SSE emission at session start (2) Extend decideResponseMode.js: workflowMode === 'emergency_concern' forces standard mode, bypasses all other routing after safety override check — use explicit === check only (3) Emergency Concern UI in ChatPage.jsx: auto-focus text input on mode selection; no starter cards; no follow-up chips; no Create Summary action.
+CRITICAL — do NOT modify: server/safety/urgency/classifyUrgencyRules.js · server/safety/evaluateSafetyRisk.js · server/safety/urgency/computeFinalUrgency.js · client/src/components/SafetyWarning.jsx — safety pipeline is production-ready and must not be changed.
+Safety regression test: send "I have severe chest pain and can't breathe" in Emergency Concern mode — confirm escalation behaviour is identical to the same query without workflowMode. Run all 131 tests + quality gate. Any regression = stop and report.</div>
+        </div>
+        <div class="cc-outcome">Expected output: Emergency Concern mode live · existing safety behaviour fully unchanged · text input auto-focused · no summary action · 131 tests passing · quality gate green</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════ PHASE 5 — ADMIN PLATFORM ═══════ -->
+  <div class="cc-phase" id="cc-p5">
+    <div class="cc-phase-hdr" onclick="toggleCC('cc-p5')" style="border-left-color:var(--purple);">
+      <span class="cc-ph-num">PHASE 5</span>
+      <span class="cc-ph-title">Admin Platform — admin.anamnesis.health</span>
+      <span class="cc-ph-meta">3 directives · Month 2 · MEDIUM</span>
+      <span class="cc-ph-toggle" id="cc-p5-toggle">▾</span>
+    </div>
+    <div class="cc-phase-body" id="cc-p5-body">
+
+      <div class="cc-directive">
+        <div class="cc-directive-top">
+          <div class="cc-d-num">D5.1</div>
+          <div class="cc-d-body">
+            <div class="cc-d-title">Real-time monitoring dashboard — live system health view</div>
+            <div class="cc-d-why">Dr. Naddaf needs to see the state of all 3 live products from one screen without opening Replit dashboards. When the Meta campaign is running, knowing instantly if the MVP is down is the difference between a recoverable incident and a PR disaster.</div>
+            <div class="cc-d-meta"><span class="cc-agent-tag">Technical Agent</span></div>
+          </div>
+          <div class="cc-d-status"><span class="pill pill-cyan">In Progress</span></div>
+        </div>
+        <div class="cc-cmd">
+          <div class="cc-cmd-label">PASTE INTO CLAUDE CODE</div>
+          <div class="cc-cmd-text">Read agents/TECHNICAL.md then read anamnesis-admin/CLAUDE.md and execute:
+Build a real-time system health monitoring view in the admin dashboard.
+Requirements: (1) Health ping every 60 seconds to mvp.anamnesis.health/health, anamnesis.health/health, admin.anamnesis.health/health (2) Status cards for each — green/amber/red dot, response time ms, last checked timestamp (3) Alert banner if any service returns non-200 for 2+ consecutive pings (4) Uses existing useWebSocket hook (useMVPAdminWebSocket) for real-time updates (5) WebSocket event: "health-status" broadcast from server health check job
+Safety: Any change to mvpAdminProxy.js is a production deployment — treat with elevated caution. Do not modify the proxy layer for this feature.
+Run vitest suite after. Run quality gate.</div>
+        </div>
+        <div class="cc-outcome">Expected output: Live health dashboard · 60s ping · alert on failure · Vitest passing · quality gate green</div>
+      </div>
+
+      <div class="cc-directive">
+        <div class="cc-directive-top">
+          <div class="cc-d-num">D5.2</div>
+          <div class="cc-d-body">
+            <div class="cc-d-title">Admin analytics — DAU/MAU, subscriptions, conversion funnel</div>
+            <div class="cc-d-why">Investor conversations require metrics. "We have X daily active users and Y% convert to paid" needs to be a real-time number you can show, not an estimate. This view is also how you spot which subscription tier is most popular and where users drop off.</div>
+            <div class="cc-d-meta"><span class="cc-agent-tag">Technical Agent</span></div>
+          </div>
+          <div class="cc-d-status"><span class="pill pill-pend">Pending</span></div>
+        </div>
+        <div class="cc-cmd">
+          <div class="cc-cmd-label">PASTE INTO CLAUDE CODE</div>
+          <div class="cc-cmd-text">Read agents/TECHNICAL.md then read anamnesis-admin/CLAUDE.md and execute:
+Build an analytics dashboard page in the admin platform.
+Metrics to display: (1) DAU/MAU ratio — last 30 days, chart (2) Total registered users — by day, cumulative (3) Subscription breakdown — Free / Starter / Standard / Pro / Expert — pie chart (4) Conversion rate — free to any paid tier (5) Revenue — MRR from Stripe via proxy (6) Top 10 most-asked health topics — from MVP chatMessages (sanitized, no user data)
+Data source: MVP database via mvpAdminProxy.js. All queries through the proxy — never direct DB access from admin. RBAC: requires admin or super-admin role. Run vitest after. Quality gate after.</div>
+        </div>
+        <div class="cc-outcome">Expected output: Analytics page with 6 metrics · charts · RBAC protected · investor-ready screenshots possible</div>
+      </div>
+
+      <div class="cc-directive">
+        <div class="cc-directive-top">
+          <div class="cc-d-num">D5.3</div>
+          <div class="cc-d-body">
+            <div class="cc-d-title">Integration health check — admin ↔ MVP proxy end-to-end</div>
+            <div class="cc-d-why">The mvpAdminProxy.js is marked safety-critical for good reason — it touches live production. A broken proxy that silently fails is worse than one that errors loudly. This directive establishes a formal smoke-test for the proxy before any new feature touches it.</div>
+            <div class="cc-d-meta"><span class="cc-agent-tag">Technical Agent</span></div>
+          </div>
+          <div class="cc-d-status"><span class="pill pill-pend">Pending</span></div>
+        </div>
+        <div class="cc-cmd">
+          <div class="cc-cmd-label">PASTE INTO CLAUDE CODE</div>
+          <div class="cc-cmd-text">Read agents/TECHNICAL.md then read anamnesis-admin/CLAUDE.md and execute:
+Write an integration smoke test for the admin ↔ MVP proxy.
+Test file: tests/integration/mvpProxy.test.ts
+Tests: (1) GET request through proxy returns 200 (2) Unauthenticated request is rejected 401 (3) Request with invalid admin token is rejected 403 (4) Proxy correctly forwards Authorization header (5) Proxy error (MVP unreachable) returns 503, not a silent failure
+These tests must be added to the existing vitest suite. Run npx vitest run after. All tests must pass. Run quality gate.
+Note: Tests run against a mock MVP server, not production — use supertest + nock or msw to mock the MVP endpoint.</div>
+        </div>
+        <div class="cc-outcome">Expected output: 5 proxy integration tests · all passing · proxy failure tested explicitly · quality gate green</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════ PHASE 6 — FULL PLATFORM REBUILD ═══════ -->
+  <div class="cc-phase" id="cc-p6">
+    <div class="cc-phase-hdr" onclick="toggleCC('cc-p6')" style="border-left-color:var(--text3);">
+      <span class="cc-ph-num">PHASE 6</span>
+      <span class="cc-ph-title">Full Platform Rebuild — Anamnesis-MedicalAIAssistant</span>
+      <span class="cc-ph-meta">5 directives · Post-angel round · DEFERRED — do not start before Phase 1-3 are complete</span>
+      <span class="cc-ph-toggle" id="cc-p6-toggle">▾</span>
+    </div>
+    <div class="cc-phase-body" id="cc-p6-body">
+
+      <div style="background:var(--red-dim);border:1px solid rgba(239,68,68,0.2);border-radius:8px;padding:14px 16px;margin-bottom:12px;font-size:12px;color:var(--text2);line-height:1.6;">
+        <strong style="color:var(--red);">DEFERRED — do not start until:</strong> (1) Public launch is live, (2) 100+ users on MVP, (3) Marketing is running, (4) Phase 1-3 are complete. The main platform crashes on startup (B1-B10 blockers). Recovery requires focused time without distraction from the launch sprint. Execute these in strict order — never skip a phase.
+      </div>
+
+      <div class="cc-directive">
+        <div class="cc-directive-top">
+          <div class="cc-d-num">D6.1</div>
+          <div class="cc-d-body">
+            <div class="cc-d-title">B1 — Fix ESM crash — one line removal (start here)</div>
+            <div class="cc-d-why">The entire recovery depends on this one line. Removing the re-export severs the crash chain. The server will start. Tag git first — you need a rollback point. This is genuinely a one-line fix.</div>
+            <div class="cc-d-meta"><span class="cc-agent-tag">Technical Agent</span></div>
+          </div>
+          <div class="cc-d-status"><span class="pill pill-block">Blocked</span></div>
+        </div>
+        <div class="cc-cmd">
+          <div class="cc-cmd-label">PASTE INTO CLAUDE CODE — from Anamnesis-MedicalAIAssistant/</div>
+          <div class="cc-cmd-text">Read agents/TECHNICAL.md then read Anamnesis-MedicalAIAssistant/CLAUDE.md and execute:
+Phase 1 auth recovery — fix B1 (ESM crash).
+Step 1: git tag pre-phase-1
+Step 2: Open server/routes.ts line 1103. Delete this exact line:
+  export { app } from './app.js';
+Step 3: Run npm run type-check — should be 0 errors
+Step 4: Run npm run build — must complete cleanly
+Step 5: Run npx tsx server/index.ts — server must start without crashing
+Step 6: Confirm Gate A0: server starts.
+If server does not start after B1, the crash chain has another source — stop and report before proceeding to B2. Do NOT proceed past Gate A0 until confirmed.</div>
+        </div>
+        <div class="cc-outcome">Expected output: Server starts · Gate A0 confirmed · pre-phase-1 tag on GitHub · one line removed</div>
+      </div>
+
+      <div class="cc-directive">
+        <div class="cc-directive-top">
+          <div class="cc-d-num">D6.2</div>
+          <div class="cc-d-body">
+            <div class="cc-d-title">B2-B4 — Port proxy, Passport deserializer, /api/auth/me</div>
+            <div class="cc-d-why">Once the server starts (Gate A0), three more fatal blockers prevent auth from working at all. B2 makes the API reachable. B3 stops sessions from being lost after login. B4 fixes the /auth/me endpoint that always returns 401.</div>
+            <div class="cc-d-meta"><span class="cc-agent-tag">Technical Agent</span></div>
+          </div>
+          <div class="cc-d-status"><span class="pill pill-pend">After D6.1</span></div>
+        </div>
+        <div class="cc-cmd">
+          <div class="cc-cmd-label">PASTE INTO CLAUDE CODE</div>
+          <div class="cc-cmd-text">Read Anamnesis-MedicalAIAssistant/CLAUDE.md and execute Phases 2-4 of the auth recovery:
+Tag: git tag pre-phase-2 before starting.
+B2 — Split port: Add Vite proxy config in vite.config.ts to proxy /api/* to http://localhost:3000. Fix dev script in package.json to run both concurrently on correct ports.
+B3 — Passport deserializer: In routes.ts:682, replace hardcoded 'demo' user with real DB lookup — query users table by id, return null if not found.
+B4 — /api/auth/me: In routes.ts:885, change req.session.user to req.user (Passport populates req.user after successful deserialization).
+Run npm run build after each blocker. Confirm Gate A1: curl http://localhost:3000/api/auth/me returns JSON (even 401 is progress — means the endpoint is reachable).</div>
+        </div>
+        <div class="cc-outcome">Expected output: API reachable · Passport deserializer uses real DB · /api/auth/me reachable · Gate A1 confirmed</div>
+      </div>
+
+      <div class="cc-directive">
+        <div class="cc-directive-top">
+          <div class="cc-d-num">D6.3</div>
+          <div class="cc-d-body">
+            <div class="cc-d-title">B5-B8 — Login shape, bcrypt, sessions, route order</div>
+            <div class="cc-d-why">With the server running and auth endpoints reachable, four more blockers prevent a real user from logging in. B6 is a security issue — plaintext passwords. These must all be fixed before any user can register and log in successfully.</div>
+            <div class="cc-d-meta"><span class="cc-agent-tag">Technical Agent</span></div>
+          </div>
+          <div class="cc-d-status"><span class="pill pill-pend">After D6.2</span></div>
+        </div>
+        <div class="cc-cmd">
+          <div class="cc-cmd-label">PASTE INTO CLAUDE CODE</div>
+          <div class="cc-cmd-text">Read Anamnesis-MedicalAIAssistant/CLAUDE.md and execute Phases 5-8 of auth recovery:
+Tag: git tag pre-phase-5 before starting.
+B5 — Login response: routes.ts:801 — return { user: userData } not { data: { user: userData } } to match use-auth.js:27 expectation.
+B6 — bcrypt: routes.ts:855 registration — wrap password in bcrypt.hash(password, 10) before storing. Add bcrypt import at top.
+B7 — Sessions: Remove duplicate express-session middleware from auth.ts:307 and app.ts:41. Keep only the one in index.ts:46.
+B8 — Route order: routes.ts:698 — move the auth catch-all route after all specific /api/auth/* handlers.
+Run full quality gate after all 4. Attempt register → login flow: POST /api/auth/register then POST /api/auth/login. Confirm Gate A2: login returns user object.</div>
+        </div>
+        <div class="cc-outcome">Expected output: Register → Login cycle works · bcrypt hashing confirmed · single session middleware · Gate A2 confirmed</div>
+      </div>
+
+      <div class="cc-directive">
+        <div class="cc-directive-top">
+          <div class="cc-d-num">D6.4</div>
+          <div class="cc-d-body">
+            <div class="cc-d-title">B9-B10 — WebSocket, React hook, full browser login</div>
+            <div class="cc-d-why">Gates A3-A5 complete the auth recovery. B9 fixes the WebSocket so real-time features work. B10 fixes the React hook warning that may corrupt auth state. After these, the platform is stable enough to start porting main platform pages into the MVP.</div>
+            <div class="cc-d-meta"><span class="cc-agent-tag">Technical Agent</span></div>
+          </div>
+          <div class="cc-d-status"><span class="pill pill-pend">After D6.3</span></div>
+        </div>
+        <div class="cc-cmd">
+          <div class="cc-cmd-label">PASTE INTO CLAUDE CODE</div>
+          <div class="cc-cmd-text">Read Anamnesis-MedicalAIAssistant/CLAUDE.md and execute Phases 9-10 of auth recovery:
+Tag: git tag pre-phase-9 before starting.
+B9 — Duplicate HTTP server: In routes.ts:989, remove the second createServer() call. The HTTP server must only be created in index.ts:33. Attach WebSocket to the index.ts server instance.
+B10 — React hook: Open auth-page.jsx and find the invalid hook call (hook called outside a component or inside a conditional). Fix to comply with React rules of hooks.
+Then run full browser test: open http://localhost:5173, register a new user, log in, verify dashboard loads, verify protected routes work on page refresh.
+Run npm run type-check + npm run lint + npm run build. Confirm Gates A3, A4, A5. Document result in docs/ with date, blockers resolved, gate results.</div>
+        </div>
+        <div class="cc-outcome">Expected output: Full browser auth cycle working · WebSocket attached correctly · Gates A3-A5 confirmed · recovery complete</div>
+      </div>
+
+      <div class="cc-directive">
+        <div class="cc-directive-top">
+          <div class="cc-d-num">D6.5</div>
+          <div class="cc-d-body">
+            <div class="cc-d-title">Integration stages 1-8 — port main platform into MVP</div>
+            <div class="cc-d-why">Once the main platform server is stable, the strategy is not to run two codebases forever — it's to port the main platform's unique features (patient portal, telemedicine, specialist connectivity) into the MVP foundation which has working auth, DB, and billing.</div>
+            <div class="cc-d-meta"><span class="cc-agent-tag">Technical Agent</span></div>
+          </div>
+          <div class="cc-d-status"><span class="pill pill-pend">After D6.4 · Post-Angel</span></div>
+        </div>
+        <div class="cc-cmd">
+          <div class="cc-cmd-label">PASTE INTO CLAUDE CODE — execute one stage at a time</div>
+          <div class="cc-cmd-text">Read agents/TECHNICAL.md then read Anamnesis-MedicalAIAssistant/CLAUDE.md and execute integration Stage [N]:
+Stage 1: VS Code dev environment — isolated dev DB, staging Replit, never touch production MVP
+Stage 2: Adopt MVP auth as single auth layer — replace main platform auth with MVP's working Supabase + Passport setup
+Stage 3: Expand MVP DB schema — add health_records, appointments, lab_results, prescriptions tables via Drizzle migration
+Stage 4: Port patient dashboard — health overview, metrics, recent activity
+Stage 5: Port health records + lab analysis module
+Stage 6: Port mood tracker (enhanced from MVP 2.0 basic version) + health articles
+Stage 7: Port telemedicine + specialist connectivity modules
+Stage 8: Full platform testing on staging → production deployment
+Execute one stage per session. Tag git before each stage. Run full quality gate after each stage.</div>
+        </div>
+        <div class="cc-outcome">Expected output: Unified platform — one codebase, one auth, one DB, all modules live · seed round ready</div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<div class="bottom">
+  <span class="bottom-text">MAIA Prime v1.4 · Anamnesis Medical AI · Dr. Wisam Naddaf · Prague CZ</span>
+  <span class="bottom-text">Update: ask Claude Code to edit dashboards/dashboard.html → commit → push</span>
+</div>
+
+</div>
+<script>
+// Date
+document.getElementById('current-date').textContent = new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}).toUpperCase();
+
+// Tab switching
+function switchTab(name, el) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('tab-' + name).classList.add('active');
+}
+
+// Theme toggle
+const html = document.documentElement;
+const btn = document.getElementById('theme-btn');
+let dark = true;
+function toggleTheme() {
+  dark = !dark;
+  html.setAttribute('data-theme', dark ? 'dark' : 'light');
+  btn.textContent = dark ? '🌙' : '☀️';
+  localStorage.setItem('anamnesis-dash-theme', dark ? 'dark' : 'light');
+}
+const saved = localStorage.getItem('anamnesis-dash-theme');
+if (saved === 'light') { dark = false; html.setAttribute('data-theme','light'); btn.textContent = '☀️'; }
+
+// Command Center phase collapse/expand
+function toggleCC(id) {
+  const body = document.getElementById(id + '-body');
+  const toggle = document.getElementById(id + '-toggle');
+  const isOpen = body.style.display !== 'none';
+  body.style.display = isOpen ? 'none' : 'flex';
+  if (toggle) toggle.classList.toggle('collapsed', isOpen);
+}
+function scrollToCC(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  switchTab('commandcenter', document.querySelector('.tab[onclick*="commandcenter"]'));
+  setTimeout(() => {
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const body = document.getElementById(id + '-body');
+    const toggle = document.getElementById(id + '-toggle');
+    if (body) body.style.display = 'flex';
+    if (toggle) toggle.classList.remove('collapsed');
+  }, 50);
+}
+
+// Project milestone collapse/expand
+function toggleProj(id) {
+  const body = document.getElementById(id + '-body');
+  const toggle = document.getElementById(id + '-toggle');
+  const isOpen = body.style.display !== 'none';
+  body.style.display = isOpen ? 'none' : 'block';
+  if (toggle) toggle.classList.toggle('collapsed', isOpen);
+}
+
+// Scroll to project from summary cards
+function scrollToProj(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  const body = document.getElementById(id + '-body');
+  const toggle = document.getElementById(id + '-toggle');
+  if (body) body.style.display = 'block';
+  if (toggle) toggle.classList.remove('collapsed');
+}
+</script>
+</body>
+</html>
