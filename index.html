@@ -402,7 +402,7 @@ code { font-family: var(--mono); background: var(--bg3); padding: 1px 5px; borde
       <div class="card sys-card"><div><div class="sys-name">MVP Chatbot</div><div class="sys-url">mvp.anamnesis.health</div></div><div class="dot dot-live"></div></div>
       <div class="card sys-card"><div><div class="sys-name">Admin Dashboard</div><div class="sys-url">admin.anamnesis.health</div></div><div class="dot dot-live"></div></div>
       <div class="card sys-card"><div><div class="sys-name">Landing Page</div><div class="sys-url">anamnesis.health</div></div><div class="dot dot-live"></div></div>
-      <div class="card sys-card"><div><div class="sys-name">Main Platform</div><div class="sys-url">Recovery — B1 ESM crash</div></div><div class="dot dot-warn"></div></div>
+      <div class="card sys-card"><div><div class="sys-name">Main Platform</div><div class="sys-url">BUILD-AROUND construction — live</div></div><div class="dot dot-live"></div></div>
     </div>
   </div>
 
@@ -512,14 +512,14 @@ code { font-family: var(--mono); background: var(--bg3); padding: 1px 5px; borde
 
       <div class="card proj-summary-card" onclick="scrollToProj('proj-main')">
         <div class="psc-header">
-          <div class="psc-dot dot-warn"></div>
+          <div class="psc-dot dot-live"></div>
           <div class="psc-name">Main Platform</div>
-          <span class="pill pill-block">Deferred</span>
+          <span class="pill pill-done">Live</span>
         </div>
-        <div class="psc-url">Post-launch · B1–B10 blockers</div>
-        <div class="psc-next">Deferred: auth recovery after public launch</div>
-        <div class="psc-pct">0% — blocked</div>
-        <div class="pbar"><div class="pfill" style="width:0%;background:var(--red);"></div></div>
+        <div class="psc-url">WisMen/anamnesis-platform (private) · BUILD-AROUND</div>
+        <div class="psc-next">Phase 0: dev DB + .env (Dr. Naddaf) → boot verification (M0)</div>
+        <div class="psc-pct">15% — Phase 0 of 5</div>
+        <div class="pbar"><div class="pfill" style="width:15%;background:var(--green);"></div></div>
       </div>
 
     </div>
@@ -677,64 +677,72 @@ code { font-family: var(--mono); background: var(--bg3); padding: 1px 5px; borde
     </div>
   </div>
 
-  <!-- ── PROJECT 4: MAIN PLATFORM (DEFERRED) ── -->
-  <div class="proj-block proj-deferred" id="proj-main">
+  <!-- ── PROJECT 4: MAIN PLATFORM (BUILD-AROUND — LIVE) ── -->
+  <div class="proj-block" id="proj-main">
     <div class="proj-block-header" onclick="toggleProj('proj-main')">
       <div class="pbh-left">
-        <div class="pbh-dot dot-warn"></div>
+        <div class="pbh-dot dot-live"></div>
         <div>
-          <div class="pbh-name">Project 4 — Main Platform · Anamnesis-MedicalAIAssistant</div>
-          <div class="pbh-sub">Full vision product · RECOVERY MODE · deferred until post-public-launch · VS Code · WisMen/Anamnesis-MedicalAIAssistant</div>
+          <div class="pbh-name">Project 4 — Main Platform · anamnesis-platform (BUILD-AROUND)</div>
+          <div class="pbh-sub">Unified platform · MVP = foundation, Repo A = feature donor · VS Code + Claude Code · WisMen/anamnesis-platform (private) · plans in main-platform/</div>
         </div>
       </div>
       <div class="pbh-right">
         <div>
-          <div class="pbh-pct" style="color:var(--text3);">0% deferred</div>
-          <div class="pbh-count">0 / 10 blockers resolved</div>
+          <div class="pbh-pct" style="color:var(--green);">15%</div>
+          <div class="pbh-count">Phase 0 of 5 · M0 in progress</div>
         </div>
-        <div class="proj-pbar-wrap"><div class="pbar"><div class="pfill" style="width:0%;background:var(--red);"></div></div></div>
+        <div class="proj-pbar-wrap"><div class="pbar"><div class="pfill" style="width:15%;background:var(--green);"></div></div></div>
         <div class="pbh-toggle" id="proj-main-toggle">▾</div>
       </div>
     </div>
     <div class="proj-block-body" id="proj-main-body">
 
-      <div class="proj-deferred-banner">
-        <div style="font-size:18px;flex-shrink:0;">⚠️</div>
+      <div class="proj-deferred-banner" style="border-color:rgba(29,185,84,0.3);">
+        <div style="font-size:18px;flex-shrink:0;">🏗️</div>
         <div>
-          <div class="pdb-title">RECOVERY MODE — Deferred Until After Public Launch</div>
-          <div class="pdb-desc">Server crashes on startup due to a CommonJS <code>require()</code> inside an ESM module. Strategy: ship the MVP publicly first (users + revenue), then execute the 10-phase auth recovery. Git tag <code>pre-auth-stabilization</code> marks the safe recovery point. Do NOT start recovery work while the launch sprint is active.</div>
+          <div class="pdb-title" style="color:var(--green);">LIVE — BUILD-AROUND CONSTRUCTION (decided 2026-07-08)</div>
+          <div class="pdb-desc">The old "fix 10 auth blockers" recovery is <strong>cancelled</strong> — Repo A's auth is discarded, blockers B1–B12 die with it. Instead: the live MVP was cloned (full history) into the private repo <code>WisMen/anamnesis-platform</code> (= <code>main-platform/app/</code>) and platform features port INTO it, one small tested step at a time. The live product repo is frozen and never touched. Doctrine, phases &amp; risks: <code>main-platform/CLAUDE.md</code> + <code>MASTER-PLAN.md</code>.</div>
         </div>
       </div>
 
       <div class="proj-section-hd">Current Status</div>
       <div class="proj-status-row">
-        <span class="pill pill-block">Blocked</span>
-        <span style="font-size:12px;color:var(--text);">server/routes.ts:1103 → app.ts → auth.ts:44 — require('memorystore') in ESM → fatal crash on startup</span>
+        <span class="pill pill-done">Live</span>
+        <span style="font-size:12px;color:var(--text);">Construction repo live @ 331dcef0 · VS Code + Claude Code + 678 deps installed · next: dev DB + .env (Dr. Naddaf) → boot verification (M0)</span>
       </div>
 
-      <div class="proj-section-hd">Auth Recovery Blockers — B1–B10 (all unresolved)</div>
-      <div class="card task-row"><div class="t-check t-blocked">!</div><div class="t-body"><div class="t-name">B1 [P0 · FATAL] — require() in ESM — server never starts</div><div class="t-detail">auth.ts:44 · Fix: delete <code>export { app }</code> from routes.ts:1103 · tag pre-phase-1 first · ONE LINE FIX</div></div><span class="t-tag" style="background:var(--red-dim);color:var(--red);border:1px solid rgba(239,68,68,0.2);">P0 Fatal</span></div>
-      <div class="card task-row"><div class="t-check t-blocked">!</div><div class="t-body"><div class="t-name">B2 [P0 · FATAL] — Split-port, no proxy — all API calls fail</div><div class="t-detail">package.json:7, vite.config.ts · Vite dev proxy to Express on port 3000</div></div><span class="t-tag" style="background:var(--red-dim);color:var(--red);border:1px solid rgba(239,68,68,0.2);">P0 Fatal</span></div>
-      <div class="card task-row"><div class="t-check t-blocked">!</div><div class="t-body"><div class="t-name">B3 [P0 · FATAL] — Passport deserializer hardcoded 'demo'</div><div class="t-detail">routes.ts:682 · session lost after login · real user ID lookup required</div></div><span class="t-tag" style="background:var(--red-dim);color:var(--red);border:1px solid rgba(239,68,68,0.2);">P0 Fatal</span></div>
-      <div class="card task-row"><div class="t-check t-blocked">!</div><div class="t-body"><div class="t-name">B4 [P0 · FATAL] — /api/auth/me checks wrong field → always 401</div><div class="t-detail">routes.ts:885 · req.session.user → req.user</div></div><span class="t-tag" style="background:var(--red-dim);color:var(--red);border:1px solid rgba(239,68,68,0.2);">P0 Fatal</span></div>
-      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">B5 [P1] — Login response shape mismatch</div><div class="t-detail">routes.ts:801 vs use-auth.js:27 · user data nested incorrectly</div></div><span class="t-tag" style="background:var(--amber-dim-d);color:var(--amber);border:1px solid rgba(245,158,11,0.2);">P1</span></div>
-      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">B6 [P1] — Registration stores plaintext password</div><div class="t-detail">routes.ts:855 · add bcrypt hashing · login always fails without this</div></div><span class="t-tag" style="background:var(--amber-dim-d);color:var(--amber);border:1px solid rgba(245,158,11,0.2);">P1</span></div>
-      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">B7 [P1] — Triple session middleware — sessions invisible</div><div class="t-detail">index.ts:46, auth.ts:307, app.ts:41 · single express-session in index.ts only</div></div><span class="t-tag" style="background:var(--amber-dim-d);color:var(--amber);border:1px solid rgba(245,158,11,0.2);">P1</span></div>
-      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">B8 [P2] — Auth catch-all before handlers → all auth endpoints 404</div><div class="t-detail">routes.ts:698 · move catch-all after specific route handlers</div></div><span class="t-tag" style="background:var(--accent-dim);color:var(--accent);border:1px solid var(--border2);">P2</span></div>
-      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">B9 [P2] — Duplicate HTTP server · WebSocket unreachable</div><div class="t-detail">routes.ts:989 vs index.ts:33 · single createServer · attach WebSocket correctly</div></div><span class="t-tag" style="background:var(--accent-dim);color:var(--accent);border:1px solid var(--border2);">P2</span></div>
-      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">B10 [P2] — Invalid React hook call · may corrupt auth state</div><div class="t-detail">Browser console warning · auth-page.jsx investigation required</div></div><span class="t-tag" style="background:var(--accent-dim);color:var(--accent);border:1px solid var(--border2);">P2</span></div>
+      <div class="proj-section-hd">Milestones M0–M6 (MASTER-PLAN.md)</div>
+      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">M0 — Local env verified</div><div class="t-detail">app boots locally (Git Bash) · chat works vs dev DB · gate green 33/38/9/51 · GO/NO-GO for everything</div></div><span class="t-tag" style="background:var(--amber-dim-d);color:var(--amber);border:1px solid rgba(245,158,11,0.2);">In progress</span></div>
+      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">M1 — First static port merged · M2 — First API feature · M3 — Auth-wired ports proven</div><div class="t-detail">PHASE-2-FIRST-PORTS.md · help/legal page → dashboard + modular route + context-bleed guard test → Supabase useAuth wiring</div></div></div>
+      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">M4 — Feature waves complete</div><div class="t-detail">PHASE-3-FEATURE-WAVES.md · needs G6 triage (29 donor pages) + G3 email-gate decision first</div></div></div>
+      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">M5 — Regression + safety pass · M6 — Production cutover</div><div class="t-detail">PHASE-4-CONVERGENCE-CUTOVER.md · needs G1 hosting + G2 domain decisions · Repo A archived, never deleted</div></div></div>
 
-      <div class="proj-section-hd">Recovery Gate Sequence — Post-Launch</div>
-      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">Gate A0 — Server starts (B1 + B2)</div><div class="t-detail">Server boots · API reachable · tag pre-phase-1 before touching anything</div></div></div>
-      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">Gate A1 — Auth endpoints reachable (B3 + B4 + B5)</div><div class="t-detail">/api/auth/me returns user · no more 401 loop</div></div></div>
-      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">Gate A2 — Register → Login → /api/auth/me cycle (B6 + B7 + B8)</div><div class="t-detail">Full auth flow end-to-end · passwords hashed · sessions visible</div></div></div>
-      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">Gate A3 — Browser login → dashboard (B9)</div><div class="t-detail">Full browser flow · WebSocket attached · protected routes work</div></div></div>
-      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">Gate A4 + A5 — Auth state + full regression (B10)</div><div class="t-detail">Session persistence · npm run type-check + lint + build all green</div></div></div>
+      <div class="proj-section-hd">Phase 0 — Environment (IN PROGRESS)</div>
+      <div class="card task-row"><div class="t-check t-done">✓</div><div class="t-body"><div class="t-name struck">Infrastructure: construction repo + tooling</div><div class="t-detail">MVP cloned → private WisMen/anamnesis-platform · VS Code 1.126 + Claude Code ext · npm install 678 pkgs · anamnesis.code-workspace (donor + live repo read-only)</div></div><span class="t-tag" style="background:var(--green-dim);color:var(--green);border:1px solid rgba(29,185,84,0.2);">Done</span></div>
+      <div class="card task-row"><div class="t-check t-done">✓</div><div class="t-body"><div class="t-name struck">Replit leftovers removed from construction copy</div><div class="t-detail">.replit · replit.md · anamnesis-source.zip · attached_assets/ · eslint report files — per plan Section B leave-behind list</div></div><span class="t-tag" style="background:var(--green-dim);color:var(--green);border:1px solid rgba(29,185,84,0.2);">Done</span></div>
+      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">⚠️ MANUAL (Dr. Naddaf): dev database + secrets</div><div class="t-detail">Create NEW Neon dev DB · copy Replit Secrets → main-platform/app/.env · DATABASE_URL = dev DB, NEVER production · steps in PHASE-0 §Manual</div></div><span class="t-tag" style="background:var(--amber-dim-d);color:var(--amber);border:1px solid rgba(245,158,11,0.2);">Your turn</span></div>
+      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">Boot verification = Milestone M0</div><div class="t-detail">npm run dev (Git Bash) · real chat vs dev DB · quality gate: tsc 0 · eslint 0 · build · suites 33/38/9/51 · Prompt 0.4 in PHASE-0</div></div></div>
 
-      <div class="proj-section-hd">Integration Strategy — After Recovery</div>
-      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">Stage 1–2: Auth stabilisation + VS Code dev environment</div><div class="t-detail">Dev DB isolated · never touching production MVP · staging Replit separate</div></div></div>
-      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">Stage 3–4: Adopt MVP auth + expand MVP database schema</div><div class="t-detail">MVP auth replaces broken auth · schema expanded for health records, appointments</div></div></div>
-      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">Stage 5–8: Port main platform pages into MVP one by one</div><div class="t-detail">Patient dashboard · health records · lab analysis · mood tracker · telemedicine · specialist connectivity</div></div></div>
+      <div class="proj-section-hd">Phase 1 — Repo Discipline</div>
+      <div class="card task-row"><div class="t-check t-done">✓</div><div class="t-body"><div class="t-name struck">Live repo protected structurally</div><div class="t-detail">Construction-copy model: live anamnesis-mvp frozen · all work in anamnesis-platform · sync protocol in EXECUTION-STRATEGY.md</div></div><span class="t-tag" style="background:var(--green-dim);color:var(--green);border:1px solid rgba(29,185,84,0.2);">Done</span></div>
+      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">Branch protection on anamnesis-platform main (manual, 2 min) · optional donor boot fix</div><div class="t-detail">GitHub settings → require PR · optional: Repo A routes.ts:1103 one-liner on donor-viewing branch, tag pre-phase-1 (viewing only — fix nothing else)</div></div></div>
+
+      <div class="proj-section-hd">Phase 2 — First Ports (prove the recipe)</div>
+      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">2.1 Static page port [safe]</div><div class="t-detail">help-page.jsx or legal-page.jsx → app/client/src/pages + Wouter route · zero backend · gate green</div></div></div>
+      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">2.2 First API feature + guard test [caution]</div><div class="t-detail">dashboard-page.jsx + server/routes/dashboard-metrics.ts (modular pattern) · append-only schema · db:push dev only · ADD context-bleed guard test (R3)</div></div></div>
+      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">2.3 MVP auth wiring [caution]</div><div class="t-detail">Supabase useAuth.js + requireAuth on new routes · ZERO auth code from Repo A ever (R5) · chat middleware order untouched</div></div></div>
+
+      <div class="proj-section-hd">Phase 3 — Feature Waves (needs G6 + G3 decisions)</div>
+      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">Waves 1→5 in dependency order, one branch each</div><div class="t-detail">medical-records → health-metrics/monitoring → appointments/consultations → symptom-diary → telemedicine LAST (WebSocket workstream) · G6 triage checklist of 29 donor pages in PHASE-3</div></div></div>
+      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">HIPAA audit middleware (append, never reorder) · WS audited workstream · AI re-pointing</div><div class="t-detail">Donor analyzeMedicalQuery → MVP chat contract via llm-api.jsx only · ai.ts/ai-local.ts never carried</div></div></div>
+
+      <div class="proj-section-hd">Phase 4 — Convergence &amp; Cutover (needs G1 + G2 decisions)</div>
+      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">4.1 Verification pass</div><div class="t-detail">4 suites + manual chat smoke (concise→expand→continue→language lock→emergency backstop) + Stripe test-mode billing smoke → VERIFICATION-LOG</div></div></div>
+      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">4.2 Production cutover + archive</div><div class="t-detail">Deploy anamnesis-platform per G1/G2 · rollback plan written BEFORE cutover · Repo A + old MVP archived — never deleted</div></div></div>
+
+      <div class="proj-section-hd">Open Decisions — Dr. Naddaf (G1–G7)</div>
+      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">G6 donor triage + G3 email gate → before Phase 3 · G7 database → Phase 2 · G1 hosting + G2 domain → before cutover · G4 OAuth, G5 admin repo → flexible</div><div class="t-detail">Details in main-platform/docs/execution/RISK-REGISTER.md · decisions land in main-platform/docs/decisions/</div></div></div>
 
     </div>
   </div>
@@ -758,7 +766,7 @@ code { font-family: var(--mono); background: var(--bg3); padding: 1px 5px; borde
         <div class="agent-name" style="color:var(--accent);">Technical</div>
         <div class="agent-role">Engineering & QA</div>
         <div class="agent-st"><div class="dot dot-live"></div><span style="color:var(--green);font-size:11px;">Active</span></div>
-        <div class="agent-task">All 4 repos · quality gates · main platform recovery B1–B10</div>
+        <div class="agent-task">All 4 repos · quality gates · main platform BUILD-AROUND construction (anamnesis-platform)</div>
       </div>
       <div class="card agent-card">
         <div class="agent-ico" style="background:var(--amber-dim-d);">📊</div>
@@ -1839,133 +1847,132 @@ Note: Tests run against a mock MVP server, not production — use supertest + no
   <div class="cc-phase" id="cc-p6">
     <div class="cc-phase-hdr" onclick="toggleCC('cc-p6')" style="border-left-color:var(--text3);">
       <span class="cc-ph-num">PHASE 6</span>
-      <span class="cc-ph-title">Full Platform Rebuild — Anamnesis-MedicalAIAssistant</span>
-      <span class="cc-ph-meta">5 directives · Post-angel round · DEFERRED — do not start before Phase 1-3 are complete</span>
+      <span class="cc-ph-title">Unified Platform — BUILD-AROUND Construction (anamnesis-platform)</span>
+      <span class="cc-ph-meta">5 directives · LIVE since 2026-07-08 · auth recovery CANCELLED — MVP is the foundation, Repo A is a donor</span>
       <span class="cc-ph-toggle" id="cc-p6-toggle">▾</span>
     </div>
     <div class="cc-phase-body" id="cc-p6-body">
 
-      <div style="background:var(--red-dim);border:1px solid rgba(239,68,68,0.2);border-radius:8px;padding:14px 16px;margin-bottom:12px;font-size:12px;color:var(--text2);line-height:1.6;">
-        <strong style="color:var(--red);">DEFERRED — do not start until:</strong> (1) Public launch is live, (2) 100+ users on MVP, (3) Marketing is running, (4) Phase 1-3 are complete. The main platform crashes on startup (B1-B10 blockers). Recovery requires focused time without distraction from the launch sprint. Execute these in strict order — never skip a phase.
+      <div style="background:var(--green-dim);border:1px solid rgba(29,185,84,0.25);border-radius:8px;padding:14px 16px;margin-bottom:12px;font-size:12px;color:var(--text2);line-height:1.6;">
+        <strong style="color:var(--green);">LIVE — BUILD-AROUND (2026-07-08):</strong> the old 10-blocker auth recovery is permanently cancelled — Repo A's auth is discarded, B1–B12 die with it. The live MVP was cloned (full history) into the private repo <code>WisMen/anamnesis-platform</code> = <code>main-platform/app/</code>; platform features port INTO it step by step. The live product repo is frozen. Every session starts by reading <code>main-platform/CLAUDE.md</code> (law) and <code>main-platform/STATUS.md</code> (where we are). Execute directives in order — each phase file is self-contained.
       </div>
 
       <div class="cc-directive">
         <div class="cc-directive-top">
           <div class="cc-d-num">D6.1</div>
           <div class="cc-d-body">
-            <div class="cc-d-title">B1 — Fix ESM crash — one line removal (start here)</div>
-            <div class="cc-d-why">The entire recovery depends on this one line. Removing the re-export severs the crash chain. The server will start. Tag git first — you need a rollback point. This is genuinely a one-line fix.</div>
-            <div class="cc-d-meta"><span class="cc-agent-tag">Technical Agent</span></div>
+            <div class="cc-d-title">Complete Phase 0 — dev DB + .env + boot verification (Milestone M0)</div>
+            <div class="cc-d-why">Infrastructure is done (construction repo, VS Code, deps). What remains is the go/no-go gate for everything: the app must boot locally against a NEW dev database and pass the full quality gate. The manual part (secrets) is Dr. Naddaf's — Claude cannot and must not see Replit secret values.</div>
+            <div class="cc-d-meta"><span class="cc-agent-tag">Technical Agent</span><span class="cc-agent-tag" style="color:var(--amber);">Manual first: Neon dev DB + .env (PHASE-0 §Manual)</span></div>
           </div>
-          <div class="cc-d-status"><span class="pill pill-block">Blocked</span></div>
+          <div class="cc-d-status"><span class="pill pill-pend">Active</span></div>
         </div>
         <div class="cc-cmd">
-          <div class="cc-cmd-label">PASTE INTO CLAUDE CODE — from Anamnesis-MedicalAIAssistant/</div>
-          <div class="cc-cmd-text">Read agents/TECHNICAL.md then read Anamnesis-MedicalAIAssistant/CLAUDE.md and execute:
-Phase 1 auth recovery — fix B1 (ESM crash).
-Step 1: git tag pre-phase-1
-Step 2: Open server/routes.ts line 1103. Delete this exact line:
-  export { app } from './app.js';
-Step 3: Run npm run type-check — should be 0 errors
-Step 4: Run npm run build — must complete cleanly
-Step 5: Run npx tsx server/index.ts — server must start without crashing
-Step 6: Confirm Gate A0: server starts.
-If server does not start after B1, the crash chain has another source — stop and report before proceeding to B2. Do NOT proceed past Gate A0 until confirmed.</div>
+          <div class="cc-cmd-label">PASTE INTO CLAUDE CODE — from Dev/Anamnesis/ (after filling app/.env)</div>
+          <div class="cc-cmd-text">Read main-platform/CLAUDE.md first and obey it. Then read
+main-platform/docs/execution/PHASE-0-ENVIRONMENT.md and execute Prompt 0.4
+(boot verification) in main-platform/app/:
+npm install already done. Via Git Bash: npm run dev. Verify DATABASE_URL is the
+dev DB (hostname must differ from production) BEFORE starting — if unsure, STOP.
+I will test chat manually. Then run the quality gate: npx tsc --noEmit,
+npx eslint . --max-warnings 0, npm run build (report dist size), and the 4
+regression suites — report counts vs expected 33/38/9/51.
+Zero file writes. Update main-platform/STATUS.md + MASTER-PLAN status tracker
+when M0 is green (that write needs my go-ahead).</div>
         </div>
-        <div class="cc-outcome">Expected output: Server starts · Gate A0 confirmed · pre-phase-1 tag on GitHub · one line removed</div>
+        <div class="cc-outcome">Expected output: app boots · real chat vs dev DB · gate green 33/38/9/51 · M0 COMPLETE — porting unlocked</div>
       </div>
 
       <div class="cc-directive">
         <div class="cc-directive-top">
           <div class="cc-d-num">D6.2</div>
           <div class="cc-d-body">
-            <div class="cc-d-title">B2-B4 — Port proxy, Passport deserializer, /api/auth/me</div>
-            <div class="cc-d-why">Once the server starts (Gate A0), three more fatal blockers prevent auth from working at all. B2 makes the API reachable. B3 stops sessions from being lost after login. B4 fixes the /auth/me endpoint that always returns 401.</div>
-            <div class="cc-d-meta"><span class="cc-agent-tag">Technical Agent</span></div>
+            <div class="cc-d-title">Phase 1 — branch protection + optional donor boot fix</div>
+            <div class="cc-d-why">The construction-copy model already protects the live product structurally. Two small items remain: PR-only merges on the construction repo (your 2-minute manual step), and — only if you want to SEE donor features running while porting — the single permitted Repo A change (one line, tagged, viewing only).</div>
+            <div class="cc-d-meta"><span class="cc-agent-tag">Technical Agent</span><span class="cc-agent-tag" style="color:var(--amber);">Manual: GitHub → anamnesis-platform → Settings → Branches → require PR on main</span></div>
           </div>
           <div class="cc-d-status"><span class="pill pill-pend">After D6.1</span></div>
         </div>
         <div class="cc-cmd">
-          <div class="cc-cmd-label">PASTE INTO CLAUDE CODE</div>
-          <div class="cc-cmd-text">Read Anamnesis-MedicalAIAssistant/CLAUDE.md and execute Phases 2-4 of the auth recovery:
-Tag: git tag pre-phase-2 before starting.
-B2 — Split port: Add Vite proxy config in vite.config.ts to proxy /api/* to http://localhost:3000. Fix dev script in package.json to run both concurrently on correct ports.
-B3 — Passport deserializer: In routes.ts:682, replace hardcoded 'demo' user with real DB lookup — query users table by id, return null if not found.
-B4 — /api/auth/me: In routes.ts:885, change req.session.user to req.user (Passport populates req.user after successful deserialization).
-Run npm run build after each blocker. Confirm Gate A1: curl http://localhost:3000/api/auth/me returns JSON (even 401 is progress — means the endpoint is reachable).</div>
+          <div class="cc-cmd-label">PASTE INTO CLAUDE CODE — only if you opt in to donor viewing</div>
+          <div class="cc-cmd-text">Read main-platform/CLAUDE.md first and obey it. Then read
+main-platform/docs/execution/PHASE-1-REPO-DISCIPLINE.md and execute Prompt 1.3:
+the ONLY permitted Repo A change ever — tag pre-phase-1, branch donor-viewing,
+delete exactly server/routes.ts line 1103 (export { app } from './app.js';).
+Fix NOTHING else (B2/B11 dev-UX limits are accepted). Repo A main untouched.</div>
         </div>
-        <div class="cc-outcome">Expected output: API reachable · Passport deserializer uses real DB · /api/auth/me reachable · Gate A1 confirmed</div>
+        <div class="cc-outcome">Expected output: PR-protected construction repo · optional: bootable donor on its own branch · Phase 1 closed</div>
       </div>
 
       <div class="cc-directive">
         <div class="cc-directive-top">
           <div class="cc-d-num">D6.3</div>
           <div class="cc-d-body">
-            <div class="cc-d-title">B5-B8 — Login shape, bcrypt, sessions, route order</div>
-            <div class="cc-d-why">With the server running and auth endpoints reachable, four more blockers prevent a real user from logging in. B6 is a security issue — plaintext passwords. These must all be fixed before any user can register and log in successfully.</div>
+            <div class="cc-d-title">Phase 2 — first ports: static page → API feature → auth wiring (M1–M3)</div>
+            <div class="cc-d-why">Three escalating ports prove the recipe every later wave repeats. The static page validates import paths with zero risk. The dashboard feature validates modular routes + append-only schema, and adds the missing context-bleed guard test. Auth wiring proves ported pages use ONLY the MVP's working Supabase auth — zero Repo A auth code, ever.</div>
             <div class="cc-d-meta"><span class="cc-agent-tag">Technical Agent</span></div>
           </div>
-          <div class="cc-d-status"><span class="pill pill-pend">After D6.2</span></div>
+          <div class="cc-d-status"><span class="pill pill-pend">After M0</span></div>
         </div>
         <div class="cc-cmd">
-          <div class="cc-cmd-label">PASTE INTO CLAUDE CODE</div>
-          <div class="cc-cmd-text">Read Anamnesis-MedicalAIAssistant/CLAUDE.md and execute Phases 5-8 of auth recovery:
-Tag: git tag pre-phase-5 before starting.
-B5 — Login response: routes.ts:801 — return { user: userData } not { data: { user: userData } } to match use-auth.js:27 expectation.
-B6 — bcrypt: routes.ts:855 registration — wrap password in bcrypt.hash(password, 10) before storing. Add bcrypt import at top.
-B7 — Sessions: Remove duplicate express-session middleware from auth.ts:307 and app.ts:41. Keep only the one in index.ts:46.
-B8 — Route order: routes.ts:698 — move the auth catch-all route after all specific /api/auth/* handlers.
-Run full quality gate after all 4. Attempt register → login flow: POST /api/auth/register then POST /api/auth/login. Confirm Gate A2: login returns user object.</div>
+          <div class="cc-cmd-label">PASTE INTO CLAUDE CODE — one prompt per session, in order</div>
+          <div class="cc-cmd-text">Read main-platform/CLAUDE.md first and obey it. Then read
+main-platform/docs/execution/PHASE-2-FIRST-PORTS.md and execute
+Prompt 2.1 (static page port).
+[next session] ...execute Prompt 2.2 (dashboard feature + context-bleed guard test).
+[next session] ...execute Prompt 2.3 (MVP auth wiring).
+Each prompt is self-contained in the phase file with its no-touch lists.
+Quality gate after every task: tsc 0 · eslint 0 · build · suites 33/38/9/51.
+Update main-platform/STATUS.md at session end.</div>
         </div>
-        <div class="cc-outcome">Expected output: Register → Login cycle works · bcrypt hashing confirmed · single session middleware · Gate A2 confirmed</div>
+        <div class="cc-outcome">Expected output: recipe proven · M1+M2+M3 green · guard test protecting the context-bleed fix forever</div>
       </div>
 
       <div class="cc-directive">
         <div class="cc-directive-top">
           <div class="cc-d-num">D6.4</div>
           <div class="cc-d-body">
-            <div class="cc-d-title">B9-B10 — WebSocket, React hook, full browser login</div>
-            <div class="cc-d-why">Gates A3-A5 complete the auth recovery. B9 fixes the WebSocket so real-time features work. B10 fixes the React hook warning that may corrupt auth state. After these, the platform is stable enough to start porting main platform pages into the MVP.</div>
-            <div class="cc-d-meta"><span class="cc-agent-tag">Technical Agent</span></div>
+            <div class="cc-d-title">Phase 3 — feature waves 1→5 (M4) — needs your G6 + G3 decisions first</div>
+            <div class="cc-d-why">Once the recipe is proven, the remaining KEEP features port wave by wave in dependency order: medical-records → health-metrics → appointments/consultations → symptom-diary → telemedicine LAST (WebSocket is its own audited workstream). Your 30-minute triage of the 29 donor pages cuts the scope substantially — the checklist is waiting in PHASE-3.</div>
+            <div class="cc-d-meta"><span class="cc-agent-tag">Technical Agent</span><span class="cc-agent-tag" style="color:var(--amber);">Manual first: G6 triage (29 pages) + G3 email-gate decision</span></div>
           </div>
-          <div class="cc-d-status"><span class="pill pill-pend">After D6.3</span></div>
+          <div class="cc-d-status"><span class="pill pill-pend">After M3 + decisions</span></div>
         </div>
         <div class="cc-cmd">
-          <div class="cc-cmd-label">PASTE INTO CLAUDE CODE</div>
-          <div class="cc-cmd-text">Read Anamnesis-MedicalAIAssistant/CLAUDE.md and execute Phases 9-10 of auth recovery:
-Tag: git tag pre-phase-9 before starting.
-B9 — Duplicate HTTP server: In routes.ts:989, remove the second createServer() call. The HTTP server must only be created in index.ts:33. Attach WebSocket to the index.ts server instance.
-B10 — React hook: Open auth-page.jsx and find the invalid hook call (hook called outside a component or inside a conditional). Fix to comply with React rules of hooks.
-Then run full browser test: open http://localhost:5173, register a new user, log in, verify dashboard loads, verify protected routes work on page refresh.
-Run npm run type-check + npm run lint + npm run build. Confirm Gates A3, A4, A5. Document result in docs/ with date, blockers resolved, gate results.</div>
+          <div class="cc-cmd-label">PASTE INTO CLAUDE CODE — one wave per session</div>
+          <div class="cc-cmd-text">Read main-platform/CLAUDE.md first and obey it. Then read
+main-platform/docs/execution/PHASE-3-FEATURE-WAVES.md and execute
+Prompt 3.1 for wave [N] using my recorded G6 KEEP list.
+Separate sessions: Prompt 3.2 (HIPAA audit middleware — append, never reorder),
+Prompt 3.3 (WebSocket workstream — audit first, STOP for my approval),
+Prompt 3.4 (re-point donor AI calls to the MVP chat contract via llm-api.jsx).
+Never carry server/ai.ts / ai-local.ts. Never touch safety or billing zones.
+Quality gate + STATUS.md update every session.</div>
         </div>
-        <div class="cc-outcome">Expected output: Full browser auth cycle working · WebSocket attached correctly · Gates A3-A5 confirmed · recovery complete</div>
+        <div class="cc-outcome">Expected output: all KEEP features live on staging branches · M4 complete · zero donor auth/AI code in the platform</div>
       </div>
 
       <div class="cc-directive">
         <div class="cc-directive-top">
           <div class="cc-d-num">D6.5</div>
           <div class="cc-d-body">
-            <div class="cc-d-title">Integration stages 1-8 — port main platform into MVP</div>
-            <div class="cc-d-why">Once the main platform server is stable, the strategy is not to run two codebases forever — it's to port the main platform's unique features (patient portal, telemedicine, specialist connectivity) into the MVP foundation which has working auth, DB, and billing.</div>
-            <div class="cc-d-meta"><span class="cc-agent-tag">Technical Agent</span></div>
+            <div class="cc-d-title">Phase 4 — verification pass + production cutover (M5, M6)</div>
+            <div class="cc-d-why">The finale, in two strictly separated sessions: first prove the unified platform is regression-clean and safety-intact (you personally run the emergency-backstop check), then — with G1 hosting and G2 domain decided — cut production over per a written plan whose rollback section exists BEFORE anything is switched. Repo A is archived, never deleted.</div>
+            <div class="cc-d-meta"><span class="cc-agent-tag">Technical Agent</span><span class="cc-agent-tag" style="color:var(--amber);">Manual first: decide G1 hosting + G2 domain · be present for cutover</span></div>
           </div>
-          <div class="cc-d-status"><span class="pill pill-pend">After D6.4 · Post-Angel</span></div>
+          <div class="cc-d-status"><span class="pill pill-pend">After M4 · two separate sessions</span></div>
         </div>
         <div class="cc-cmd">
-          <div class="cc-cmd-label">PASTE INTO CLAUDE CODE — execute one stage at a time</div>
-          <div class="cc-cmd-text">Read agents/TECHNICAL.md then read Anamnesis-MedicalAIAssistant/CLAUDE.md and execute integration Stage [N]:
-Stage 1: VS Code dev environment — isolated dev DB, staging Replit, never touch production MVP
-Stage 2: Adopt MVP auth as single auth layer — replace main platform auth with MVP's working Supabase + Passport setup
-Stage 3: Expand MVP DB schema — add health_records, appointments, lab_results, prescriptions tables via Drizzle migration
-Stage 4: Port patient dashboard — health overview, metrics, recent activity
-Stage 5: Port health records + lab analysis module
-Stage 6: Port mood tracker (enhanced from MVP 2.0 basic version) + health articles
-Stage 7: Port telemedicine + specialist connectivity modules
-Stage 8: Full platform testing on staging → production deployment
-Execute one stage per session. Tag git before each stage. Run full quality gate after each stage.</div>
+          <div class="cc-cmd-label">PASTE INTO CLAUDE CODE — verification session, then cutover session</div>
+          <div class="cc-cmd-text">Session 1: Read main-platform/CLAUDE.md first and obey it. Then read
+main-platform/docs/execution/PHASE-4-CONVERGENCE-CUTOVER.md and execute
+Prompt 4.1 (verification: 4 suites + manual chat smoke concise→expand→continue→
+language lock→emergency backstop + Stripe TEST-mode billing smoke → VERIFICATION-LOG).
+Session 2 (only after G1+G2 decided): ...execute Prompt 4.2a (write CUTOVER-PLAN.md
+with rollback procedure FIRST). Cutover execution (4.2b) happens only with me present,
+approving every step.</div>
         </div>
-        <div class="cc-outcome">Expected output: Unified platform — one codebase, one auth, one DB, all modules live · seed round ready</div>
+        <div class="cc-outcome">Expected output: M5 verification log all-green · M6 unified platform in production · Repo A + old MVP archived (never deleted)</div>
       </div>
 
     </div>
