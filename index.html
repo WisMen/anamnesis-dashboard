@@ -684,7 +684,7 @@ code { font-family: var(--mono); background: var(--bg3); padding: 1px 5px; borde
         <div class="pbh-dot dot-live"></div>
         <div>
           <div class="pbh-name">Project 4 — Main Platform · anamnesis-platform (BUILD-AROUND)</div>
-          <div class="pbh-sub">Unified platform · MVP = foundation, Repo A = feature donor · VS Code + Claude Code · WisMen/anamnesis-platform (private) · plans in main-platform/</div>
+          <div class="pbh-sub">Unified platform · MVP = foundation, Repo A = feature donor · VS Code + Claude Code · WisMen/anamnesis-platform (private) · plans in anamnesis-platform/</div>
         </div>
       </div>
       <div class="pbh-right">
@@ -702,7 +702,7 @@ code { font-family: var(--mono); background: var(--bg3); padding: 1px 5px; borde
         <div style="font-size:18px;flex-shrink:0;">🏗️</div>
         <div>
           <div class="pdb-title" style="color:var(--green);">LIVE — BUILD-AROUND CONSTRUCTION (decided 2026-07-08)</div>
-          <div class="pdb-desc">The old "fix 10 auth blockers" recovery is <strong>cancelled</strong> — Repo A's auth is discarded, blockers B1–B12 die with it. Instead: the live MVP was cloned (full history) into the private repo <code>WisMen/anamnesis-platform</code> (= <code>main-platform/app/</code>) and platform features port INTO it, one small tested step at a time. The live product repo is frozen and never touched. Doctrine, phases &amp; risks: <code>main-platform/CLAUDE.md</code> + <code>MASTER-PLAN.md</code>.</div>
+          <div class="pdb-desc">The old "fix 10 auth blockers" recovery is <strong>cancelled</strong> — Repo A's auth is discarded, blockers B1–B12 die with it. Instead: the live MVP was cloned (full history) into the private repo <code>WisMen/anamnesis-platform</code> (= <code>anamnesis-platform/app/</code>) and platform features port INTO it, one small tested step at a time. The live product repo is frozen and never touched. Doctrine, phases &amp; risks: <code>anamnesis-platform/CLAUDE.md</code> + <code>MASTER-PLAN.md</code>.</div>
         </div>
       </div>
 
@@ -721,7 +721,7 @@ code { font-family: var(--mono); background: var(--bg3); padding: 1px 5px; borde
       <div class="proj-section-hd">Phase 0 — Environment (IN PROGRESS)</div>
       <div class="card task-row"><div class="t-check t-done">✓</div><div class="t-body"><div class="t-name struck">Infrastructure: construction repo + tooling</div><div class="t-detail">MVP cloned → private WisMen/anamnesis-platform · VS Code 1.126 + Claude Code ext · npm install 678 pkgs · anamnesis.code-workspace (donor + live repo read-only)</div></div><span class="t-tag" style="background:var(--green-dim);color:var(--green);border:1px solid rgba(29,185,84,0.2);">Done</span></div>
       <div class="card task-row"><div class="t-check t-done">✓</div><div class="t-body"><div class="t-name struck">Replit leftovers removed from construction copy</div><div class="t-detail">.replit · replit.md · anamnesis-source.zip · attached_assets/ · eslint report files — per plan Section B leave-behind list</div></div><span class="t-tag" style="background:var(--green-dim);color:var(--green);border:1px solid rgba(29,185,84,0.2);">Done</span></div>
-      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">⚠️ MANUAL (Dr. Naddaf): dev database + secrets</div><div class="t-detail">Create NEW Neon dev DB · copy Replit Secrets → main-platform/app/.env · DATABASE_URL = dev DB, NEVER production · steps in PHASE-0 §Manual</div></div><span class="t-tag" style="background:var(--amber-dim-d);color:var(--amber);border:1px solid rgba(245,158,11,0.2);">Your turn</span></div>
+      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">⚠️ MANUAL (Dr. Naddaf): dev database + secrets</div><div class="t-detail">Create NEW Neon dev DB · copy Replit Secrets → anamnesis-platform/app/.env · DATABASE_URL = dev DB, NEVER production · steps in PHASE-0 §Manual</div></div><span class="t-tag" style="background:var(--amber-dim-d);color:var(--amber);border:1px solid rgba(245,158,11,0.2);">Your turn</span></div>
       <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">Boot verification = Milestone M0</div><div class="t-detail">npm run dev (Git Bash) · real chat vs dev DB · quality gate: tsc 0 · eslint 0 · build · suites 33/38/9/51 · Prompt 0.4 in PHASE-0</div></div></div>
 
       <div class="proj-section-hd">Phase 1 — Repo Discipline</div>
@@ -742,7 +742,7 @@ code { font-family: var(--mono); background: var(--bg3); padding: 1px 5px; borde
       <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">4.2 Production cutover + archive</div><div class="t-detail">Deploy anamnesis-platform per G1/G2 · rollback plan written BEFORE cutover · Repo A + old MVP archived — never deleted</div></div></div>
 
       <div class="proj-section-hd">Open Decisions — Dr. Naddaf (G1–G7)</div>
-      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">G6 donor triage + G3 email gate → before Phase 3 · G7 database → Phase 2 · G1 hosting + G2 domain → before cutover · G4 OAuth, G5 admin repo → flexible</div><div class="t-detail">Details in main-platform/docs/execution/RISK-REGISTER.md · decisions land in main-platform/docs/decisions/</div></div></div>
+      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">G6 donor triage + G3 email gate → before Phase 3 · G7 database → Phase 2 · G1 hosting + G2 domain → before cutover · G4 OAuth, G5 admin repo → flexible</div><div class="t-detail">Details in anamnesis-platform/docs/execution/RISK-REGISTER.md · decisions land in anamnesis-platform/docs/decisions/</div></div></div>
 
     </div>
   </div>
@@ -1854,7 +1854,7 @@ Note: Tests run against a mock MVP server, not production — use supertest + no
     <div class="cc-phase-body" id="cc-p6-body">
 
       <div style="background:var(--green-dim);border:1px solid rgba(29,185,84,0.25);border-radius:8px;padding:14px 16px;margin-bottom:12px;font-size:12px;color:var(--text2);line-height:1.6;">
-        <strong style="color:var(--green);">LIVE — BUILD-AROUND (2026-07-08):</strong> the old 10-blocker auth recovery is permanently cancelled — Repo A's auth is discarded, B1–B12 die with it. The live MVP was cloned (full history) into the private repo <code>WisMen/anamnesis-platform</code> = <code>main-platform/app/</code>; platform features port INTO it step by step. The live product repo is frozen. Every session starts by reading <code>main-platform/CLAUDE.md</code> (law) and <code>main-platform/STATUS.md</code> (where we are). Execute directives in order — each phase file is self-contained.
+        <strong style="color:var(--green);">LIVE — BUILD-AROUND (2026-07-08):</strong> the old 10-blocker auth recovery is permanently cancelled — Repo A's auth is discarded, B1–B12 die with it. The live MVP was cloned (full history) into the private repo <code>WisMen/anamnesis-platform</code> = <code>anamnesis-platform/app/</code>; platform features port INTO it step by step. The live product repo is frozen. Every session starts by reading <code>anamnesis-platform/CLAUDE.md</code> (law) and <code>anamnesis-platform/STATUS.md</code> (where we are). Execute directives in order — each phase file is self-contained.
       </div>
 
       <div class="cc-directive">
@@ -1869,15 +1869,15 @@ Note: Tests run against a mock MVP server, not production — use supertest + no
         </div>
         <div class="cc-cmd">
           <div class="cc-cmd-label">PASTE INTO CLAUDE CODE — from Dev/Anamnesis/ (after filling app/.env)</div>
-          <div class="cc-cmd-text">Read main-platform/CLAUDE.md first and obey it. Then read
-main-platform/docs/execution/PHASE-0-ENVIRONMENT.md and execute Prompt 0.4
-(boot verification) in main-platform/app/:
+          <div class="cc-cmd-text">Read anamnesis-platform/CLAUDE.md first and obey it. Then read
+anamnesis-platform/docs/execution/PHASE-0-ENVIRONMENT.md and execute Prompt 0.4
+(boot verification) in anamnesis-platform/app/:
 npm install already done. Via Git Bash: npm run dev. Verify DATABASE_URL is the
 dev DB (hostname must differ from production) BEFORE starting — if unsure, STOP.
 I will test chat manually. Then run the quality gate: npx tsc --noEmit,
 npx eslint . --max-warnings 0, npm run build (report dist size), and the 4
 regression suites — report counts vs expected 33/38/9/51.
-Zero file writes. Update main-platform/STATUS.md + MASTER-PLAN status tracker
+Zero file writes. Update anamnesis-platform/STATUS.md + MASTER-PLAN status tracker
 when M0 is green (that write needs my go-ahead).</div>
         </div>
         <div class="cc-outcome">Expected output: app boots · real chat vs dev DB · gate green 33/38/9/51 · M0 COMPLETE — porting unlocked</div>
@@ -1895,8 +1895,8 @@ when M0 is green (that write needs my go-ahead).</div>
         </div>
         <div class="cc-cmd">
           <div class="cc-cmd-label">PASTE INTO CLAUDE CODE — only if you opt in to donor viewing</div>
-          <div class="cc-cmd-text">Read main-platform/CLAUDE.md first and obey it. Then read
-main-platform/docs/execution/PHASE-1-REPO-DISCIPLINE.md and execute Prompt 1.3:
+          <div class="cc-cmd-text">Read anamnesis-platform/CLAUDE.md first and obey it. Then read
+anamnesis-platform/docs/execution/PHASE-1-REPO-DISCIPLINE.md and execute Prompt 1.3:
 the ONLY permitted Repo A change ever — tag pre-phase-1, branch donor-viewing,
 delete exactly server/routes.ts line 1103 (export { app } from './app.js';).
 Fix NOTHING else (B2/B11 dev-UX limits are accepted). Repo A main untouched.</div>
@@ -1916,14 +1916,14 @@ Fix NOTHING else (B2/B11 dev-UX limits are accepted). Repo A main untouched.</di
         </div>
         <div class="cc-cmd">
           <div class="cc-cmd-label">PASTE INTO CLAUDE CODE — one prompt per session, in order</div>
-          <div class="cc-cmd-text">Read main-platform/CLAUDE.md first and obey it. Then read
-main-platform/docs/execution/PHASE-2-FIRST-PORTS.md and execute
+          <div class="cc-cmd-text">Read anamnesis-platform/CLAUDE.md first and obey it. Then read
+anamnesis-platform/docs/execution/PHASE-2-FIRST-PORTS.md and execute
 Prompt 2.1 (static page port).
 [next session] ...execute Prompt 2.2 (dashboard feature + context-bleed guard test).
 [next session] ...execute Prompt 2.3 (MVP auth wiring).
 Each prompt is self-contained in the phase file with its no-touch lists.
 Quality gate after every task: tsc 0 · eslint 0 · build · suites 33/38/9/51.
-Update main-platform/STATUS.md at session end.</div>
+Update anamnesis-platform/STATUS.md at session end.</div>
         </div>
         <div class="cc-outcome">Expected output: recipe proven · M1+M2+M3 green · guard test protecting the context-bleed fix forever</div>
       </div>
@@ -1940,8 +1940,8 @@ Update main-platform/STATUS.md at session end.</div>
         </div>
         <div class="cc-cmd">
           <div class="cc-cmd-label">PASTE INTO CLAUDE CODE — one wave per session</div>
-          <div class="cc-cmd-text">Read main-platform/CLAUDE.md first and obey it. Then read
-main-platform/docs/execution/PHASE-3-FEATURE-WAVES.md and execute
+          <div class="cc-cmd-text">Read anamnesis-platform/CLAUDE.md first and obey it. Then read
+anamnesis-platform/docs/execution/PHASE-3-FEATURE-WAVES.md and execute
 Prompt 3.1 for wave [N] using my recorded G6 KEEP list.
 Separate sessions: Prompt 3.2 (HIPAA audit middleware — append, never reorder),
 Prompt 3.3 (WebSocket workstream — audit first, STOP for my approval),
@@ -1964,8 +1964,8 @@ Quality gate + STATUS.md update every session.</div>
         </div>
         <div class="cc-cmd">
           <div class="cc-cmd-label">PASTE INTO CLAUDE CODE — verification session, then cutover session</div>
-          <div class="cc-cmd-text">Session 1: Read main-platform/CLAUDE.md first and obey it. Then read
-main-platform/docs/execution/PHASE-4-CONVERGENCE-CUTOVER.md and execute
+          <div class="cc-cmd-text">Session 1: Read anamnesis-platform/CLAUDE.md first and obey it. Then read
+anamnesis-platform/docs/execution/PHASE-4-CONVERGENCE-CUTOVER.md and execute
 Prompt 4.1 (verification: 4 suites + manual chat smoke concise→expand→continue→
 language lock→emergency backstop + Stripe TEST-mode billing smoke → VERIFICATION-LOG).
 Session 2 (only after G1+G2 decided): ...execute Prompt 4.2a (write CUTOVER-PLAN.md
