@@ -517,9 +517,9 @@ code { font-family: var(--mono); background: var(--bg3); padding: 1px 5px; borde
           <span class="pill pill-done">Live</span>
         </div>
         <div class="psc-url">WisMen/anamnesis-platform (private) · BUILD-AROUND</div>
-        <div class="psc-next">Phase 0: dev DB + .env (Dr. Naddaf) → boot verification (M0)</div>
-        <div class="psc-pct">15% — Phase 0 of 5</div>
-        <div class="pbar"><div class="pfill" style="width:15%;background:var(--green);"></div></div>
+        <div class="psc-next">🏁 M0 PASSED 2026-07-09 — next: M1 first port (after holiday)</div>
+        <div class="psc-pct">25% — Phase 0 complete</div>
+        <div class="pbar"><div class="pfill" style="width:25%;background:var(--green);"></div></div>
       </div>
 
     </div>
@@ -690,7 +690,7 @@ code { font-family: var(--mono); background: var(--bg3); padding: 1px 5px; borde
       <div class="pbh-right">
         <div>
           <div class="pbh-pct" style="color:var(--green);">15%</div>
-          <div class="pbh-count">Phase 0 of 5 · M0 in progress</div>
+          <div class="pbh-count">Phase 0 complete · 🏁 M0 PASSED 2026-07-09</div>
         </div>
         <div class="proj-pbar-wrap"><div class="pbar"><div class="pfill" style="width:15%;background:var(--green);"></div></div></div>
         <div class="pbh-toggle" id="proj-main-toggle">▾</div>
@@ -709,20 +709,20 @@ code { font-family: var(--mono); background: var(--bg3); padding: 1px 5px; borde
       <div class="proj-section-hd">Current Status</div>
       <div class="proj-status-row">
         <span class="pill pill-done">Live</span>
-        <span style="font-size:12px;color:var(--text);">Construction repo live @ 114f67c5 (Replit leftovers cleaned) · autonomy tiers active: 🟢 auto / 🟡 one-yes-per-task / 🔴 Dr. Naddaf · resume any time with the CONTINUE-DEV prompt (agents/TECHNICAL.md) · next: dev DB + .env (Dr. Naddaf) → boot verification (M0)</span>
+        <span style="font-size:12px;color:var(--text);">🏁 M0 PASSED 2026-07-09 — boots locally · chat streams vs fresh dev DB · gate green · zero code changes · autonomy tiers active: 🟢 auto / 🟡 one-yes-per-task / 🔴 Dr. Naddaf · resume any time with the CONTINUE-DEV prompt (agents/TECHNICAL.md) · next: M1 first static port (after holiday)</span>
       </div>
 
       <div class="proj-section-hd">Milestones M0–M6 (MASTER-PLAN.md)</div>
-      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">M0 — Local env verified</div><div class="t-detail">app boots locally (Git Bash) · chat works vs dev DB · gate green 33/38/9/51 · GO/NO-GO for everything</div></div><span class="t-tag" style="background:var(--amber-dim-d);color:var(--amber);border:1px solid rgba(245,158,11,0.2);">In progress</span></div>
+      <div class="card task-row"><div class="t-check" style="background:var(--green);border-color:var(--green);"></div><div class="t-body"><div class="t-name">M0 — Local env verified ✅</div><div class="t-detail">PASSED 2026-07-09 · boots locally · chat streamed end-to-end vs fresh dev DB · gate green 33/38/9/51 · zero code changes</div></div><span class="t-tag" style="background:rgba(34,197,94,0.12);color:var(--green);border:1px solid rgba(34,197,94,0.2);">Done</span></div>
       <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">M1 — First static port merged · M2 — First API feature · M3 — Auth-wired ports proven</div><div class="t-detail">PHASE-2-FIRST-PORTS.md · help/legal page → dashboard + modular route + context-bleed guard test → Supabase useAuth wiring</div></div></div>
       <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">M4 — Feature waves complete</div><div class="t-detail">PHASE-3-FEATURE-WAVES.md · needs G6 triage (29 donor pages) + G3 email-gate decision first</div></div></div>
       <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">M5 — Regression + safety pass · M6 — Production cutover</div><div class="t-detail">PHASE-4-CONVERGENCE-CUTOVER.md · needs G1 hosting + G2 domain decisions · Repo A archived, never deleted</div></div></div>
 
-      <div class="proj-section-hd">Phase 0 — Environment (IN PROGRESS)</div>
+      <div class="proj-section-hd">Phase 0 — Environment (✅ COMPLETE 2026-07-09)</div>
       <div class="card task-row"><div class="t-check t-done">✓</div><div class="t-body"><div class="t-name struck">Infrastructure: construction repo + tooling</div><div class="t-detail">MVP cloned → private WisMen/anamnesis-platform · VS Code 1.126 + Claude Code ext · npm install 678 pkgs · anamnesis.code-workspace (donor + live repo read-only)</div></div><span class="t-tag" style="background:var(--green-dim);color:var(--green);border:1px solid rgba(29,185,84,0.2);">Done</span></div>
       <div class="card task-row"><div class="t-check t-done">✓</div><div class="t-body"><div class="t-name struck">Replit leftovers removed from construction copy</div><div class="t-detail">.replit · replit.md · anamnesis-source.zip · attached_assets/ · eslint report files — per plan Section B leave-behind list</div></div><span class="t-tag" style="background:var(--green-dim);color:var(--green);border:1px solid rgba(29,185,84,0.2);">Done</span></div>
-      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">⚠️ MANUAL (Dr. Naddaf): dev database + secrets</div><div class="t-detail">Create NEW Neon dev DB · copy Replit Secrets → anamnesis-platform/app/.env · DATABASE_URL = dev DB, NEVER production · steps in PHASE-0 §Manual</div></div><span class="t-tag" style="background:var(--amber-dim-d);color:var(--amber);border:1px solid rgba(245,158,11,0.2);">Your turn</span></div>
-      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">Boot verification = Milestone M0</div><div class="t-detail">npm run dev (Git Bash) · real chat vs dev DB · quality gate: tsc 0 · eslint 0 · build · suites 33/38/9/51 · Prompt 0.4 in PHASE-0</div></div></div>
+      <div class="card task-row"><div class="t-check t-done">✓</div><div class="t-body"><div class="t-name struck">⚠️ MANUAL (Dr. Naddaf): dev database + secrets</div><div class="t-detail">Fresh empty Neon dev DB created (≠ production) · .env filled · schema pushed via drizzle-kit (12 tables, approved)</div></div><span class="t-tag" style="background:var(--green-dim);color:var(--green);border:1px solid rgba(29,185,84,0.2);">Done</span></div>
+      <div class="card task-row"><div class="t-check t-done">✓</div><div class="t-body"><div class="t-name struck">Boot verification = Milestone M0</div><div class="t-detail">Boots via built dist (npm run dev dead locally — recipe in STATUS.md) · real chat streamed vs dev DB · gate green: tsc 0 · eslint 0 · build 409kb · suites 33/38/9/51 (vitest)</div></div><span class="t-tag" style="background:var(--green-dim);color:var(--green);border:1px solid rgba(29,185,84,0.2);">Done</span></div>
 
       <div class="proj-section-hd">Phase 1 — Repo Discipline</div>
       <div class="card task-row"><div class="t-check t-done">✓</div><div class="t-body"><div class="t-name struck">Live repo protected structurally</div><div class="t-detail">Construction-copy model: live anamnesis-mvp frozen · all work in anamnesis-platform · sync protocol in EXECUTION-STRATEGY.md</div></div><span class="t-tag" style="background:var(--green-dim);color:var(--green);border:1px solid rgba(29,185,84,0.2);">Done</span></div>
@@ -1863,9 +1863,9 @@ Note: Tests run against a mock MVP server, not production — use supertest + no
           <div class="cc-d-body">
             <div class="cc-d-title">Complete Phase 0 — dev DB + .env + boot verification (Milestone M0)</div>
             <div class="cc-d-why">Infrastructure is done (construction repo, VS Code, deps). What remains is the go/no-go gate for everything: the app must boot locally against a NEW dev database and pass the full quality gate. The manual part (secrets) is Dr. Naddaf's — Claude cannot and must not see Replit secret values.</div>
-            <div class="cc-d-meta"><span class="cc-agent-tag">Technical Agent</span><span class="cc-agent-tag" style="color:var(--amber);">Manual first: Neon dev DB + .env (PHASE-0 §Manual)</span></div>
+            <div class="cc-d-meta"><span class="cc-agent-tag">Technical Agent</span><span class="cc-agent-tag" style="color:var(--green);">✅ DONE 2026-07-09 — M0 PASSED (fresh dev DB, chat streamed, gate green)</span></div>
           </div>
-          <div class="cc-d-status"><span class="pill pill-pend">Active</span></div>
+          <div class="cc-d-status"><span class="pill pill-done">Done</span></div>
         </div>
         <div class="cc-cmd">
           <div class="cc-cmd-label">PASTE INTO CLAUDE CODE — from Dev/Anamnesis/ (after filling app/.env)</div>
@@ -1891,7 +1891,7 @@ when M0 is green (that write needs my go-ahead).</div>
             <div class="cc-d-why">The construction-copy model already protects the live product structurally. Two small items remain: PR-only merges on the construction repo (your 2-minute manual step), and — only if you want to SEE donor features running while porting — the single permitted Repo A change (one line, tagged, viewing only).</div>
             <div class="cc-d-meta"><span class="cc-agent-tag">Technical Agent</span><span class="cc-agent-tag" style="color:var(--amber);">Manual: GitHub → anamnesis-platform → Settings → Branches → require PR on main</span></div>
           </div>
-          <div class="cc-d-status"><span class="pill pill-pend">After D6.1</span></div>
+          <div class="cc-d-status"><span class="pill pill-pend">Active — next up</span></div>
         </div>
         <div class="cc-cmd">
           <div class="cc-cmd-label">PASTE INTO CLAUDE CODE — only if you opt in to donor viewing</div>
