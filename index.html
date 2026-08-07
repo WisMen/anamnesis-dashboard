@@ -336,6 +336,7 @@ code { font-family: var(--mono); background: var(--bg3); padding: 1px 5px; borde
   <div class="tab-bar">
     <button class="tab active" onclick="switchTab('commandcenter',this)">Command Center</button>
     <button class="tab" onclick="switchTab('overview',this)">Overview</button>
+    <button class="tab" onclick="switchTab('marketing',this)">Marketing</button>
     <button class="tab" onclick="switchTab('milestones',this)">Development Milestones</button>
     <button class="tab" onclick="switchTab('agents',this)">Agents</button>
     <button class="tab" onclick="switchTab('automation',this)">Automation</button>
@@ -397,7 +398,7 @@ code { font-family: var(--mono); background: var(--bg3); padding: 1px 5px; borde
       <div class="card sprint-row"><span class="s-num" style="color:var(--green);">✓</span><div class="s-info"><div class="t-name struck">GLOBAL TAXONOMY UNIFIED (Option A) — 2026-07-23</div><div class="s-agent">Uniform 3-letter prefixes: MKT · GRW · DEV · PLT · MED · GAT · RSK · FND · MEMO · FIN/CMP. Applied across command-center + dashboards + mirror + memory + platform planning docs (app/ code excluded, INV-M protected). Legend: MAIA-PRIME §GLOBAL TASK TAXONOMY</div></div><span class="pill pill-done">Done ✓</span></div>
       <div class="card sprint-row"><span class="s-num" style="color:var(--green);">✓</span><div class="s-info"><div class="t-name struck">MVP 2.0 FULL STACK DEV COMPLETE — PRs #3→#12 — 2026-07-17</div><div class="s-agent">Technical Agent · 6 workflow modes + 4 summaries + client-only share (Art. 9) + consent v1.1 + USER DASHBOARD v1 (DEV4.2 retired into it)</div></div><span class="pill pill-done">Done ✓</span></div>
       <div class="card sprint-row"><span class="s-num" style="color:var(--green);">✓</span><div class="s-info"><div class="t-name struck">MVP 2.0 VALIDATION PASS — FND-1…FND-20 verified — 2026-07-18 → 07-21</div><div class="s-agent">Dr. Naddaf + Technical Agent · 16 findings hot-fixed &amp; user-confirmed @ ab8726cf · FND-19 patient anamnesis on all reports · FND-20 plain-text exports · gate 217/217 (13 suites)</div></div><span class="pill pill-done">Done ✓</span></div>
-      <div class="card sprint-row"><span class="s-num" style="color:var(--amber);">▶</span><div class="s-info"><div class="s-task">Merge PRs #3→#12 in order + post-vacation dev list (test-plan §9)</div><div class="s-agent">Technical Agent · deferred by Dr. Naddaf until full re-test confirms error-free · post-vacation (return 07-24+)</div></div><span class="pill pill-pend">Post-vacation</span></div>
+      <div class="card sprint-row"><span class="s-num" style="color:var(--amber);">▶</span><div class="s-info"><div class="s-task">Merge PRs #3→#12 in order (after pre-merge fix backlog — test-plan §10)</div><div class="s-agent">Technical Agent · re-test §1–§6 PASS (2026-08-07); deferred until backlog fixed+verified: FND-RT-8 streaming (next) · C summaries titles/rename/remove · D interview-convergence+MEDICAL · FND-12 mailto</div></div><span class="pill pill-cyan">After fixes</span></div>
       <div class="card sprint-row"><span class="s-num" style="color:var(--green);">✓</span><div class="s-info"><div class="t-name struck">🔴→✅ PIXEL FIX shipped + live-verified — 22-day outage closed — 2026-07-22</div><div class="s-agent">Marketing/Tech · consent-script stub killed Meta Pixel for 100% of visitors since 06-30 · fix e08ecff+f92fd40 (incl. var-hoisting shadow caught in final check) → Replit republish → Playwright e2e both domains: Accept → fbevents.js → PageView 200 · dataset receiving again</div></div><span class="pill pill-done">Done ✓</span></div>
       <div class="card sprint-row"><span class="s-num" style="color:var(--green);">✓</span><div class="s-info"><div class="t-name struck">MKT2.4 SCALED €15/day + MKT2.3 tripwire — campaign re-check DONE — 2026-07-22</div><div class="s-agent">Marketing Agent · MKT2.4 07-22 CTR 8.28% (account best), freq 1.06 · MKT2.3 €10 + tripwire (fresh >€0.30/LPV or freq >2.5) — 07-23 not fired (€0.26, freq 1.11) · account ACTIVE after payment pause</div></div><span class="pill pill-done">Done ✓</span></div>
       <div class="card sprint-row"><span class="s-num" style="color:var(--green);">✓</span><div class="s-info"><div class="t-name struck">Engagement audiences + CZ engagers 1% lookalike created — 2026-07-22</div><div class="s-agent">Marketing Agent · recovers "lost" clickers (Meta-side, 365d retroactive): Engaged 52646949392738 · CTA-clickers 52646949441938 · MKT2.6 1% LAL engagers-seed 52646949526738 (= the CZ engagers lookalike) ACTIVE</div></div><span class="pill pill-done">Done ✓</span></div>
@@ -501,7 +502,7 @@ code { font-family: var(--mono); background: var(--bg3); padding: 1px 5px; borde
           <span class="pill pill-done">Live</span>
         </div>
         <div class="psc-url">WisMen/anamnesis-platform (private) · BUILD-AROUND</div>
-        <div class="psc-next">▶ MVP 2.0 RE-TEST in progress (§1–§3 ✅ · resume §4) · 2 hot-fixes @ 7ec87f9a · 218/218 · merge #3→#12 after full re-test</div>
+        <div class="psc-next">▶ MVP 2.0 RE-TEST §1–§6 LOCAL PASS (2026-08-07) · 4 fixes @ 3900f14f (RT-3/4/9 · FND-11) · NEXT = FND-RT-8 stop/continue streaming (Codex-spec'd) · merge #3→#12 after full re-test</div>
         <div class="psc-pct">55% — full stack dev complete + validation pass</div>
         <div class="pbar"><div class="pfill" style="width:55%;background:var(--green);"></div></div>
       </div>
@@ -521,10 +522,10 @@ code { font-family: var(--mono); background: var(--bg3); padding: 1px 5px; borde
       </div>
       <div class="pbh-right">
         <div>
-          <div class="pbh-pct" style="color:var(--green);">100%</div>
-          <div class="pbh-count">12 / 12 tasks done</div>
+          <div class="pbh-pct" style="color:var(--amber);">▶</div>
+          <div class="pbh-count">Phase 1 built (branch) — awaiting deploy</div>
         </div>
-        <div class="proj-pbar-wrap"><div class="pbar"><div class="pfill" style="width:100%;background:var(--green);"></div></div></div>
+        <div class="proj-pbar-wrap"><div class="pbar"><div class="pfill" style="width:70%;background:var(--amber);"></div></div></div>
         <div class="pbh-toggle" id="proj-ls-toggle">▾</div>
       </div>
     </div>
@@ -553,6 +554,15 @@ code { font-family: var(--mono); background: var(--bg3); padding: 1px 5px; borde
       <div class="card task-row"><div class="t-check t-done">✓</div><div class="t-body"><div class="t-name struck">MKT1.3 Quality gate — all 3 live repos — 2026-06-13</div><div class="t-detail">ESLint 0 errors · builds clean · mvp 131 tests passing · admin −1,418 lines bundle cleanup</div></div><span class="t-tag" style="background:var(--green-dim);color:var(--green);border:1px solid rgba(29,185,84,0.2);">Done</span></div>
       <div class="card task-row"><div class="t-check t-done">✓</div><div class="t-body"><div class="t-name struck">Privacy policy — MKT1.4 · GDPR Article 6(1)(f) legitimate interest advertising clause — 2026-06-13</div><div class="t-detail">Compliance Agent · Meta Custom Audience (hashed) + Meta Pixel retargeting + Google Analytics · Art 21 opt-out · 24-month retention · pushed to anamnesis.health</div></div><span class="t-tag" style="background:var(--green-dim);color:var(--green);border:1px solid rgba(29,185,84,0.2);">Done</span></div>
       <div class="card task-row"><div class="t-check t-done">✓</div><div class="t-body"><div class="t-name struck">MKT1.2 Manual flow verification — all 5 flows passed — 2026-06-13</div><div class="t-detail">subscribe ✅ investor ✅ unsubscribe ✅ video ✅ mobile ✅ — no fixes needed</div></div><span class="t-tag" style="background:var(--green-dim);color:var(--green);border:1px solid rgba(29,185,84,0.2);">Done</span></div>
+
+      <div class="proj-section-hd">🔴 Redesign · Waitlist Conversion — REOPENED 2026-08-04 (plan-only, live repo)</div>
+      <div class="proj-status-row"><span class="pill pill-block">Plan · needs go</span><span style="font-size:12px;color:var(--text);">Form works (DB + admin email verified) but ~3,161 paid LPV → ~0 signups = conversion/offer problem. Plan: marketing-ops/LAUNCHING-SOON-REDESIGN-2026-08-04.md · reorganised tasks in the Marketing tab.</span></div>
+      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">LS-1 · Hero restructure — outcome headline + subhead + single CTA · move "Want to invest" to footer</div><div class="t-detail">message-match the doctor-prep ad</div></div><span class="t-tag" style="background:var(--red-dim);color:var(--red);border:1px solid rgba(239,68,68,0.2);">RED</span></div>
+      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">LS-2 · Remove "HIPAA Compliant" overclaim → GDPR-first trust bar</div><div class="t-detail">COMPLIANCE gate · EU pre-launch, no live PHI</div></div><span class="t-tag" style="background:var(--red-dim);color:var(--red);border:1px solid rgba(239,68,68,0.2);">RED</span></div>
+      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">LS-3 · Fire Meta Lead pixel event on subscribe success (+ GA) → verify in Events Manager</div><div class="t-detail">same pixel 1269353078681016 · then switch paid to a Lead objective</div></div><span class="t-tag" style="background:var(--red-dim);color:var(--red);border:1px solid rgba(239,68,68,0.2);">RED</span></div>
+      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">LS-4 · Thank-you state with referral share link (queue position + reward)</div><div class="t-detail">referral loop — tooling decision (Viral Loops / KickoffLabs / GetWaitlist vs n8n)</div></div><span class="t-tag" style="background:var(--red-dim);color:var(--red);border:1px solid rgba(239,68,68,0.2);">RED</span></div>
+      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">LS-5 · Real signup counter + founder-credential social proof</div><div class="t-detail">never fake numbers</div></div><span class="t-tag" style="background:var(--red-dim);color:var(--red);border:1px solid rgba(239,68,68,0.2);">RED</span></div>
+      <div class="card task-row"><div class="t-check"></div><div class="t-body"><div class="t-name">LS-6 · Mobile-first QA + page-speed pass</div><div class="t-detail">83% of pre-launch traffic is mobile</div></div><span class="t-tag" style="background:var(--red-dim);color:var(--red);border:1px solid rgba(239,68,68,0.2);">RED</span></div>
 
     </div>
   </div>
@@ -674,7 +684,7 @@ code { font-family: var(--mono); background: var(--bg3); padding: 1px 5px; borde
       <div class="pbh-right">
         <div>
           <div class="pbh-pct" style="color:var(--green);">55%</div>
-          <div class="pbh-count">MVP 2.0 validated 2026-07-21 · merge post-vacation</div>
+          <div class="pbh-count">re-test §1–§6 pass 08-07 · FND-RT-8 next · then merge</div>
         </div>
         <div class="proj-pbar-wrap"><div class="pbar"><div class="pfill" style="width:55%;background:var(--green);"></div></div></div>
         <div class="pbh-toggle" id="proj-main-toggle">▾</div>
@@ -733,6 +743,46 @@ code { font-family: var(--mono); background: var(--bg3); padding: 1px 5px; borde
     </div>
   </div>
 
+</div>
+
+<!-- ===== MARKETING TAB ===== -->
+<div id="tab-marketing" class="tab-panel">
+  <div class="section">
+    <div class="cc-intro" style="border-color:var(--border2);background:linear-gradient(180deg,var(--accent-dim),var(--bg2));">
+      <div class="cc-intro-icon">📣</div>
+      <div style="flex:1;">
+        <div class="cc-intro-title">Marketing — Pre-Launch Focus <span style="font-family:var(--mono);font-size:10px;font-weight:400;color:var(--text3);">· as of 2026-08-04 · goal = waitlist signups on anamnesis.health</span></div>
+        <div style="font-size:12px;color:var(--text3);margin-top:8px;line-height:1.5;">
+          <strong>Diagnosis:</strong> the waitlist form works (DB + admin email verified) but ~3,161 paid page-views → ~0 signups. Not a budget/plumbing problem — a <strong>conversion + offer</strong> problem: generic "coming soon" page, no reason to join now, no referral loop, and paid is optimized for cheap LINK_CLICKS (low-intent) instead of the signup event.
+          <br><strong>Fix (near-zero cost):</strong> redesign the page around an outcome + a Founding-Circle offer, add a referral loop, fire a Lead pixel event, then optimize paid for signups. Full plan: <span style="font-family:var(--mono);">marketing-ops/LAUNCHING-SOON-REDESIGN-2026-08-04.md</span>.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-hd"><span class="sec-title">Priorities — Pre-Launch Waitlist</span><div class="sec-line"></div></div>
+    <div class="sprint-list">
+      <div class="card sprint-row" style="border-color:var(--red-dim);"><span class="s-num" style="color:var(--amber);">1</span><div class="s-info"><div class="s-task">Deploy launching-soon Phase 1 from Replit (branch feature/waitlist-redesign-phase1 @ c3ed826)</div><div class="s-agent">Marketing + Technical · 🔴 live repo · Phase 1 BUILT (headline+physician credential · Founding-Circle offer · GDPR-first trust bar · Invest→footer · Lead pixel VERIFIED firing) · gate green · awaits Dr. Naddaf Replit deploy · plan: marketing-ops/LAUNCHING-SOON-REDESIGN-2026-08-04.md §8</div></div><span class="pill pill-pend">Deploy 🔴</span></div>
+      <div class="card sprint-row"><span class="s-num" style="color:var(--green);">✓</span><div class="s-info"><div class="t-name struck">Define the Founding-Circle offer + referral reward — 2026-08-06</div><div class="s-agent">Dr. Naddaf: first 500 = priority + badge + 5,000 credits · everyone = 100 credits · live in Phase 1 copy · referral loop = Phase 2</div></div><span class="pill pill-done">Done ✓</span></div>
+      <div class="card sprint-row"><span class="s-num" style="color:var(--accent);">2</span><div class="s-info"><div class="s-task">Sign up HeyGen + render MAIA creatives (branded persona, no founder face)</div><div class="s-agent">Marketing · Dr. Naddaf approved · package ready: marketing-ops/MKT3-MAIA-creatives-2026-08-06.md (EN scripts + CS/RU re-review + HeyGen walkthrough) · publish after Meta billing settles</div></div><span class="pill pill-pend">Awaits you</span></div>
+      <div class="card sprint-row"><span class="s-num" style="color:var(--accent);">3</span><div class="s-info"><div class="s-task">Add a referral loop (share link + reward on the thank-you step)</div><div class="s-agent">Marketing + Technical · tooling: Viral Loops / KickoffLabs / GetWaitlist (~€49/mo) vs n8n build (~€0) · free compounding growth (Dropbox/Robinhood model)</div></div><span class="pill pill-cyan">After redesign</span></div>
+      <div class="card sprint-row"><span class="s-num" style="color:var(--accent);">4</span><div class="s-info"><div class="s-task">Switch paid to a Lead objective + measure cost-per-signup</div><div class="s-agent">Marketing · once the Lead event verifies · replaces LINK_CLICKS/LPV optimization · steer by cost-per-signup, not cost-per-view</div></div><span class="pill pill-cyan">After pixel</span></div>
+      <div class="card sprint-row"><span class="s-num" style="color:var(--amber);">5</span><div class="s-info"><div class="s-task">Organic founder authority — LinkedIn / X</div><div class="s-agent">Marketing + Dr. Naddaf · "a real practising GP building this" · cheapest + highest-trust pre-launch channel · text-first (no face required)</div></div><span class="pill pill-pend">Ongoing</span></div>
+      <div class="card sprint-row"><span class="s-num" style="color:var(--amber);">6</span><div class="s-info"><div class="s-task">5-email pre-launch nurture (reworked MKT4)</div><div class="s-agent">Marketing · welcome+position+question → problem story → build-in-public → social proof → launch · n8n</div></div><span class="pill pill-pend">Pending</span></div>
+      <div class="card sprint-row"><span class="s-num" style="color:var(--amber);">7</span><div class="s-info"><div class="s-task">MKT3 — AI presenter creatives (reworked)</div><div class="s-agent">Marketing + Medical · branded MAIA persona (NOT Dr. Naddaf's face, NOT a fake clinician) · AI-disclosed (EU AI Act + Meta/TikTok label) · HeyGen primary (realistic + CS/RU/EN, free tier), Arcads for DR hook testing · every script MEDICAL + COMPLIANCE-gated</div></div><span class="pill pill-pend">Research done</span></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-hd"><span class="sec-title">Live campaigns (Meta) — account settled 2026-08-04</span><div class="sec-line"></div></div>
+    <div class="sprint-list">
+      <div class="card sprint-row"><span class="s-num" style="color:var(--green);">▶</span><div class="s-info"><div class="s-task">MKT2.4 — CZ-Native Doctor-Prep · €15/day</div><div class="s-agent">Marketing · 30d: CTR 4.80%, CPL €0.13, 2,032 LPV · winner ad prep-CS A (CTR 5.37%, CPL €0.12) · strong engine — but on LPV objective (see priority 4)</div></div><span class="pill" style="background:var(--green-dim);color:var(--green);border:1px solid rgba(29,185,84,0.2);">Live</span></div>
+      <div class="card sprint-row"><span class="s-num" style="color:var(--green);">▶</span><div class="s-info"><div class="s-task">MKT2.3 — guide-RU (RU-in-CZ) · €10/day</div><div class="s-agent">Marketing · 30d: CTR 2.05%, CPL €0.24, 1,129 LPV · freq 2.53 (fatigue creeping; pause reset it) · tripwire not fired</div></div><span class="pill" style="background:var(--green-dim);color:var(--green);border:1px solid rgba(29,185,84,0.2);">Live</span></div>
+      <div class="card sprint-row"><span class="s-num" style="color:var(--text3);">•</span><div class="s-info"><div class="s-task">Retargeting pool + lookalike</div><div class="s-agent">Marketing · 3,161 LPV pool (LAL-workable) · best seed = signups once the Lead event exists · MKT2.5 warm retargeting on hold pending redesign</div></div><span class="pill pill-pend">Pending</span></div>
+      <div class="card sprint-row"><span class="s-num" style="color:var(--text3);">•</span><div class="s-info"><div class="s-task">⏸ Consider cutting paid to minimum until the page converts</div><div class="s-agent">Marketing · don't pour €25/day into a page that captures ~0% · Dr. Naddaf's call (write action)</div></div><span class="pill pill-pend">Decision</span></div>
+    </div>
+  </div>
 </div>
 
 <!-- ===== AGENTS TAB ===== -->
@@ -901,7 +951,7 @@ code { font-family: var(--mono); background: var(--bg3); padding: 1px 5px; borde
   <div class="cc-intro" style="border-color:var(--border2);background:linear-gradient(180deg,var(--accent-dim),var(--bg2));">
     <div class="cc-intro-icon">🧭</div>
     <div style="flex:1;">
-      <div class="cc-intro-title">Next Up — Current Focus <span style="font-family:var(--mono);font-size:10px;font-weight:400;color:var(--text3);">· as of 2026-08-02 · MVP 2.0 re-test in progress · full detail in checklist below</span></div>
+      <div class="cc-intro-title">Next Up — Current Focus <span style="font-family:var(--mono);font-size:10px;font-weight:400;color:var(--text3);">· as of 2026-08-07 · MVP 2.0 re-test §1–§6 pass · NEXT = FND-RT-8 streaming · full detail in checklist below</span></div>
       <div class="sprint-list" style="margin-top:12px;">
         <div class="card sprint-row" style="border-color:var(--accent-dim);"><span class="s-num" style="color:var(--accent);">1</span><div class="s-info"><div class="s-task">MVP 2.0 re-test — IN PROGRESS (§1–§3 ✅ · resume §4)</div><div class="s-agent">Technical · test-plan-2026-07-18.md · §1 Help + §3 Option A routing fixes committed (feature/user-dashboard @ 7ec87f9a · gate 218/218) · next: §4 four guided modes end-to-end · merge #3→#12 after full re-test</div></div><span class="pill pill-cyan">Resume §4</span></div>
         <div class="card sprint-row"><span class="s-num" style="color:var(--accent);">2</span><div class="s-info"><div class="s-task">Merge PRs #3→#12 in order</div><div class="s-agent">Technical · ONLY after re-test confirms error-free (Dr. Naddaf directive) · then FND-11 · FND-12 · FND-14 · §7 context bleed · DEV4.1 · FND5/FND6 · mode-isolation</div></div><span class="pill pill-cyan">After re-test</span></div>
